@@ -519,6 +519,13 @@
 <div class="app">
 <div class="panel-left">
 
+  <!-- Random button -->
+  <div id="random-btn-wrap" style="margin-bottom:4px;">
+    <button class="btn btn-ghost" onclick="randomizePrompt()" style="width:100%;font-size:13px;padding:9px;border-color:var(--gold-dim);color:var(--gold-light);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.05em;">
+      🎲 Gerar Combinação Aleatória
+    </button>
+  </div>
+
   <!-- ① GÊNERO — primeira escolha -->
   <div class="section">
     <div class="section-header"><span class="dot"></span> Gênero</div>
@@ -1138,6 +1145,86 @@ function buildPrompt() {
   }
 }
 
+
+function randomizePrompt() {
+  function pickRandom(group) {
+    var chips = document.querySelectorAll('[data-group="' + group + '"]');
+    if (!chips.length) return;
+    var pick = chips[Math.floor(Math.random() * chips.length)];
+    selectChip(pick);
+  }
+  function toggleRandomExtras() {
+    // Clear all extras first
+    state.extras.clear();
+    document.querySelectorAll('.toggle-chip').forEach(function(c){ c.classList.remove('on'); });
+    // Randomly activate 0-2 extras
+    var extras = document.querySelectorAll('.toggle-chip');
+    var count = Math.floor(Math.random() * 3); // 0, 1 or 2
+    var shuffled = Array.from(extras).sort(function(){ return Math.random() - 0.5; });
+    shuffled.slice(0, count).forEach(function(el){ toggleExtra(el); });
+  }
+
+  var isMasc = state.gender === 'masc';
+
+  // Randomize gender
+  var genderBtns = document.querySelectorAll('.gender-hero-btn');
+  var randomGender = Math.random() > 0.5 ? 'fem' : 'masc';
+  genderBtns.forEach(function(b) {
+    if ((randomGender === 'fem' && b.textContent.includes('Feminino')) ||
+        (randomGender === 'masc' && b.textContent.includes('Masculino'))) {
+      setGender(randomGender, b);
+    }
+  });
+
+  isMasc = randomGender === 'masc';
+
+  // Small delay to let gender switch render
+  setTimeout(function() {
+    // Common groups
+    pickRandom('camera' + (isMasc ? '-m' : ''));
+    pickRandom('tshirt' + (isMasc ? '-m' : ''));
+    // Note: skip ratio — keep as is
+
+    if (isMasc) {
+      pickRandom('skin-m');
+      pickRandom('hair-m');
+      pickRandom('outfit-m');
+      pickRandom('pose-m');
+      pickRandom('scene-m');
+      pickRandom('light-m');
+      // Randomly handle print
+      var printChips = document.querySelectorAll('[data-group="print-m"]');
+      if (printChips.length) {
+        var pick = printChips[Math.floor(Math.random() * printChips.length)];
+        setPrintM(pick.dataset.value, pick);
+      }
+      // Only add extras if frente selected
+      if (state.printM === 'frente') toggleRandomExtras();
+    } else {
+      pickRandom('skin');
+      pickRandom('hair');
+      pickRandom('outfit');
+      pickRandom('pose');
+      pickRandom('scene');
+      pickRandom('light');
+      pickRandom('print');
+    }
+
+    // Animate the button
+    var btn = document.querySelector('[onclick="randomizePrompt()"]');
+    if (btn) {
+      btn.textContent = '✓ Gerado!';
+      btn.style.borderColor = 'var(--gold)';
+      btn.style.color = 'var(--gold)';
+      setTimeout(function(){
+        btn.textContent = '🎲 Aleatório';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      }, 1200);
+    }
+  }, 50);
+}
+
 function renderPrompt() {
   var el = document.getElementById('prompt-output');
   el.classList.add('typing');
@@ -1249,6 +1336,8 @@ function switchTab(tab, btn) {
   if (lp) lp.style.display = tab === 'library' ? 'block' : 'none';
   var pl = document.querySelector('.panel-left');
   if (pl) pl.style.display = (tab === 'reviews' || tab === 'library') ? 'none' : 'flex';
+  var randWrap = document.getElementById('random-btn-wrap');
+  if (randWrap) randWrap.style.display = tab === 'gen' ? 'block' : 'none';
   if (tab === 'saved') renderSaved();
   if (tab === 'reviews') renderRevPrompt();
   if (tab === 'library') renderLibrary();
