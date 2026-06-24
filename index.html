@@ -401,12 +401,13 @@
   }
 
   /* Copy button success state */
-  .btn-copied {
-    background: #1a3a1a !important;
-    border-color: #3a7a3a !important;
-    color: #6ab06a !important;
-    animation: pulseGold 0.4s ease-out;
-  }
+  .btn-copied { background: #1a3a1a !important; border-color: #3a7a3a !important; color: #6ab06a !important; animation: pulseGold 0.4s ease-out; }
+
+  /* MODE TOGGLE */
+  .mode-toggle { display: flex; gap: 0; border: 1px solid var(--border-gold); border-radius: var(--radius-lg); overflow: hidden; }
+  .mode-toggle-btn { flex: 1; padding: 10px 0; text-align: center; font-size: 12px; font-weight: 700; cursor: pointer; background: var(--surface2); color: var(--text-muted); border: none; transition: all .18s; letter-spacing: 0.05em; text-transform: uppercase; }
+  .mode-toggle-btn.active { background: #1e1708; color: var(--gold-light); border-bottom: 2px solid var(--gold); }
+  .dupla-badge { display:inline-block;background:linear-gradient(135deg,#1e1708,#2a200a);border:1px solid var(--gold);color:var(--gold-light);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;margin-left:8px; }
 
 </style>
 
@@ -519,6 +520,14 @@
 <div class="app">
 <div class="panel-left">
 
+<!-- Mode toggle (NEW) -->
+  <div style="margin-bottom:0;">
+    <div class="mode-toggle">
+      <button class="mode-toggle-btn active" onclick="setMode('individual',this)">Individual</button>
+      <button class="mode-toggle-btn" onclick="setMode('dupla',this)">&#128101; Dupla</button>
+    </div>
+  </div>
+
   <!-- Random button -->
   <div id="random-btn-wrap" style="margin-bottom:4px;">
     <button class="btn btn-ghost" onclick="randomizePrompt()" style="width:100%;font-size:13px;padding:9px;border-color:var(--gold-dim);color:var(--gold-light);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.05em;">
@@ -527,7 +536,7 @@
   </div>
 
   <!-- ① GÊNERO — primeira escolha -->
-  <div class="section">
+  <div class="section" id="section-gender">
     <div class="section-header"><span class="dot"></span> Gênero</div>
     <div class="section-body" style="padding:0;">
       <div class="gender-hero">
@@ -856,6 +865,103 @@
     </div>
 
   </div><!-- /pane-masc -->
+  
+  <!-- ── DUPLA ── -->
+  <div class="pane" id="pane-dupla">
+
+    <div style="background:#0d0a02;border:1px solid var(--gold-dim);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--gold-dim);line-height:1.6;">
+      &#128101; <strong style="color:var(--gold-light);">Modo Dupla</strong> — Gera um prompt para foto com <strong>2 camisetas diferentes</strong> da loja. Anexe as 2 imagens de referência no ChatGPT/Gemini antes de colar o prompt.
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Câmera</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-camera" data-value="iphone" onclick="selectDChip(this)">iPhone 14 Pro</div>
+          <div class="chip" data-group="dupla-camera" data-value="android" onclick="selectDChip(this)">Android Mid-range</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Proporção</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip" data-group="dupla-ratio" data-value="4:5" onclick="selectDChip(this)">4:5 — Feed</div>
+          <div class="chip selected" data-group="dupla-ratio" data-value="1:1" onclick="selectDChip(this)">1:1 — Quadrado</div>
+          <div class="chip" data-group="dupla-ratio" data-value="9:16" onclick="selectDChip(this)">9:16 — Stories/TikTok</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Quem está na foto</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-genero" data-value="2mulheres" onclick="selectDChip(this)">2 Mulheres</div>
+          <div class="chip" data-group="dupla-genero" data-value="2homens" onclick="selectDChip(this)">2 Homens</div>
+          <div class="chip" data-group="dupla-genero" data-value="homemmulher" onclick="selectDChip(this)">Homem + Mulher</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Tipo de Camiseta</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip" data-group="dupla-tshirt" data-value="regular" onclick="selectDChip(this)">Ambas Regular Fit</div>
+          <div class="chip selected" data-group="dupla-tshirt" data-value="oversized" onclick="selectDChip(this)">Ambas Oversized Boxy</div>
+          <div class="chip" data-group="dupla-tshirt" data-value="misto" onclick="selectDChip(this)">Misto (1 de cada)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Composição / Interação</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-composicao" data-value="lado-a-lado" onclick="selectDChip(this)">Lado a lado</div>
+          <div class="chip" data-group="dupla-composicao" data-value="abracadas" onclick="selectDChip(this)">Abraçadas</div>
+          <div class="chip" data-group="dupla-composicao" data-value="caminhando" onclick="selectDChip(this)">Caminhando juntas</div>
+          <div class="chip" data-group="dupla-composicao" data-value="encostadas" onclick="selectDChip(this)">Encostadas na parede</div>
+          <div class="chip" data-group="dupla-composicao" data-value="um-na-frente" onclick="selectDChip(this)">Uma na frente da outra</div>
+          <div class="chip" data-group="dupla-composicao" data-value="sentadas" onclick="selectDChip(this)">Sentadas lado a lado</div>
+          <div class="chip" data-group="dupla-composicao" data-value="olhando-um-pro-outro" onclick="selectDChip(this)">Conversando / rindo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Cenário</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-scene" data-value="calcada-sp" onclick="selectDChip(this)">Calçada SP</div>
+          <div class="chip" data-group="dupla-scene" data-value="grafite" onclick="selectDChip(this)">Muro Grafitado</div>
+          <div class="chip" data-group="dupla-scene" data-value="parque" onclick="selectDChip(this)">Parque Urbano</div>
+          <div class="chip" data-group="dupla-scene" data-value="cafe-sp" onclick="selectDChip(this)">Café de Bairro SP</div>
+          <div class="chip" data-group="dupla-scene" data-value="escadaria" onclick="selectDChip(this)">Escadaria Urbana</div>
+          <div class="chip" data-group="dupla-scene" data-value="praia" onclick="selectDChip(this)">Praia / Orla</div>
+          <div class="chip" data-group="dupla-scene" data-value="shopping" onclick="selectDChip(this)">Shopping</div>
+          <div class="chip" data-group="dupla-scene" data-value="metro" onclick="selectDChip(this)">Metrô</div>
+          <div class="chip" data-group="dupla-scene" data-value="carro-fora" onclick="selectDChip(this)">Encostadas no Carro</div>
+          <div class="chip" data-group="dupla-scene" data-value="bar" onclick="selectDChip(this)">Bar / Boteco</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Iluminação</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-light" data-value="golden" onclick="selectDChip(this)">Golden Hour</div>
+          <div class="chip" data-group="dupla-light" data-value="cloudy" onclick="selectDChip(this)">Dia Nublado</div>
+          <div class="chip" data-group="dupla-light" data-value="neon-night" onclick="selectDChip(this)">Noite com Néon</div>
+          <div class="chip" data-group="dupla-light" data-value="flash" onclick="selectDChip(this)">Flash de Celular</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pane-dupla -->
 
 </div><!-- /panel-left -->
 
@@ -863,7 +969,7 @@
   <div class="gen-view" id="gen-view">
     <div class="prompt-box">
       <div class="prompt-box-header">
-        <span>Prompt Gerado</span>
+        <span id="prompt-box-label">Prompt Gerado</span>
         <div class="prompt-actions">
 
           <button class="btn btn-gold" onclick="copyPrompt()">Copiar</button>
@@ -1106,7 +1212,116 @@ const FACE_M = `Face and body realism: ordinary stylish Brazilian young adult ar
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
+const DUPLA_CAMERA = {
+  iphone: `Ultra-realistic candid lifestyle photography, shot on iPhone 14 Pro, 26mm lens, natural HDR, authentic documentary style, subtle film grain, Instagram street photography aesthetic.`,
+  android: `Ultra-realistic candid lifestyle photography, shot on a mid-range Android smartphone (Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, authentic low-fi everyday Brazilian phone photography.`
+};
+const DUPLA_RATIO = {
+  '4:5': `Image ratio: 4:5 vertical format, optimized for Instagram feed posts.`,
+  '1:1': `Image ratio: 1:1 square format, optimized for Instagram grid.`,
+  '9:16': `Image ratio: 9:16 vertical format, optimized for Instagram Stories and TikTok.`
+};
+const DUPLA_GENERO = {
+  '2mulheres': { desc: `Two young Brazilian women, both approximately 20–27 years old. Each has a distinctly different appearance — different skin tones, hair types, and body proportions so they look like real friends rather than clones of each other. Both naturally attractive but not model-perfect: slight facial asymmetry, realistic skin texture, individual imperfections. Their combined presence feels authentic and spontaneous, like two real friends who asked a passerby to take a photo.` },
+  '2homens': { desc: `Two young Brazilian men, both approximately 20–27 years old. Each has a distinctly different appearance — different skin tones, hair styles, and builds so they look like real friends. Both athletic and naturally fit without being exaggerated. Realistic skin texture, slight facial asymmetry, natural imperfections. Their combined presence feels authentic and spontaneous, like two real friends captured candidly.` },
+  'homemmulher': { desc: `A young Brazilian man and a young Brazilian woman, both approximately 20–27 years old. Each has a distinct appearance with different features, builds, and styles. Both naturally attractive but real-looking: slight facial asymmetry, realistic skin texture, individual imperfections. Their dynamic together feels authentic — could be friends, a couple, or siblings — candid and unstaged.` }
+};
+const DUPLA_COMPOSICAO = {
+  'lado-a-lado': `Composition: the two subjects stand side by side, slightly turned toward each other at a natural angle. Bodies loosely parallel, not perfectly aligned. Small gap between them or shoulders barely touching. The frame captures both full upper bodies equally. Neither dominates — the focus is shared between both t-shirts.`,
+  'abracadas': `Composition: the two subjects have their arms around each other's shoulders or waists in a natural, relaxed embrace — not a forced hug, loose and comfortable, the kind of pose that happens spontaneously between close friends. Both t-shirts remain fully visible despite the contact. The pose feels warm and authentic.`,
+  'caminhando': `Composition: both subjects are captured mid-stride, walking side by side. Bodies in natural walking motion, arms swinging slightly, slight height and pace variation between them. The shot feels extracted from a candid video — neither is aware of the camera. Both t-shirts are clearly readable despite the movement.`,
+  'encostadas': `Composition: both subjects lean casually against the same wall or surface — one slightly more relaxed than the other, each in their own natural pose. They are close but not in contact. Both t-shirts are front-facing and fully visible.`,
+  'um-na-frente': `Composition: one subject stands slightly in front of and to one side of the other, creating natural depth where both are in sharp focus but at different distances. The arrangement is organic, not posed. Both t-shirt designs are fully readable.`,
+  'sentadas': `Composition: both subjects are seated next to each other — on a step, low wall, bench, or curb. Natural seated postures, slightly leaning in different directions. Both t-shirts visible and facing the camera.`,
+  'olhando-um-pro-outro': `Composition: the two subjects face or turn toward each other mid-conversation or mid-laugh. Bodies angled inward. The camera captures the moment from the side or slight front angle, making both t-shirts readable. The interaction feels completely real.`
+};
+const DUPLA_TSHIRT = {
+  regular: `Both subjects are wearing regular-fit cotton t-shirts — each wearing a DIFFERENT design from the store. The first t-shirt design (Reference Image 1) is worn by the person on the left or in front. The second t-shirt design (Reference Image 2) is worn by the person on the right or in back. Both t-shirts are the absolute visual heroes of the image.`,
+  oversized: `Both subjects are wearing oversized boxy t-shirts — each wearing a DIFFERENT design from the store. The first t-shirt design (Reference Image 1) is worn by the person on the left or in front. The second t-shirt design (Reference Image 2) is worn by the person on the right or in back. Both have relaxed boxy silhouettes with dropped shoulders. Both are the absolute visual heroes of the image.`,
+  misto: `One subject wears a regular-fit t-shirt and the other wears an oversized boxy t-shirt — each with a DIFFERENT design from the store. The first t-shirt design (Reference Image 1) — the regular-fit — is worn by the person on the left or in front. The second t-shirt design (Reference Image 2) — the oversized boxy — is worn by the person on the right or in back.`
+};
+const DUPLA_SCENE = {
+  'calcada-sp': `Scene: late afternoon on a São Paulo sidewalk. Both subjects stand on a slightly worn urban footpath beside a concrete wall with faded paint or old posters. Overhead wires, distant apartment buildings, and subtle street clutter in background. Lived-in and authentic.`,
+  'grafite': `Scene: in front of a large São Paulo concrete wall covered in colorful layered graffiti and street art. Cracked sidewalk, overhead wires visible.`,
+  'parque': `Scene: urban park in São Paulo — Ibirapuera or similar. Near a paved path or low concrete wall surrounded by trees. Soft natural light through the canopy.`,
+  'cafe-sp': `Scene: outside a small São Paulo neighborhood café. Concrete wall with old posters nearby. Parked motorcycles, overhead wires, and urban texture in background.`,
+  'escadaria': `Scene: urban outdoor staircase in São Paulo. Both subjects positioned on worn concrete steps with iron railings.`,
+  'praia': `Scene: beach or waterfront in Brazil — wide calçadão, coconut trees, ocean visible in background. Bright coastal daylight.`,
+  'shopping': `Scene: inside a São Paulo shopping mall corridor. Softly blurred storefronts and mall lighting behind both subjects.`,
+  'metro': `Scene: São Paulo metro station corridor or platform. Tiled walls, commuters softly blurred behind both subjects.`,
+  'carro-fora': `Scene: São Paulo street. Both subjects leaning casually against a parked car or near it. Urban street and buildings softly blurred behind them.`,
+  'bar': `Scene: outside or inside a casual Brazilian bar or boteco. Plastic tables, tiled walls, softly blurred customers. Informal and authentic neighborhood atmosphere.`
+};
+const DUPLA_LIGHT = {
+  golden: `Lighting: natural golden hour sunlight, realistic light falloff, soft shadows, subtle highlights on both fabrics. No studio lighting. Warm and authentic.`,
+  cloudy: `Lighting: soft overcast daylight, diffused and even with no harsh shadows. Muted film-like tone.`,
+  'neon-night': `Lighting: São Paulo urban nighttime with mixed neon signage — warm reds, cool blues, deep purples. Practical light from shop windows and streetlamps.`,
+  flash: `Lighting: direct smartphone flash photography at night. Harsh frontal flash light, slightly overexposed on both subjects, dark background. Raw and unpolished — like a party photo.`
+};
+const DUPLA_PRESERVE = `CRITICAL — PRESERVE BOTH T-SHIRT DESIGNS EXACTLY:
+- T-shirt 1 (Reference Image 1): reproduce the graphic design with 100% fidelity — identical artwork, colors, typography, placement, proportions, and scale. Apply it to the first subject (left or front).
+- T-shirt 2 (Reference Image 2): reproduce the graphic design with 100% fidelity — identical artwork, colors, typography, placement, proportions, and scale. Apply it to the second subject (right or back).
+Both prints must exhibit realistic fabric deformation: perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking in high-tension areas, and natural loss of detail inside deep fabric creases — like real screen-printed graphics physically applied to cotton. Do NOT merge, mix, swap, or alter either design in any way.`;
+const DUPLA_REALISM = `Realism details: natural cotton wrinkles and draping on both shirts, individual differences in how each shirt fits each body, realistic skin texture and visible pores, slightly messy hair on both subjects, subtle facial asymmetry. Slight sensor noise, subtle film grain, natural depth of field. The image should look like a real photo taken by a friend, not a fashion campaign.`;
+const DUPLA_FRAMING = `Framing: both t-shirt designs must be simultaneously readable in the same frame. Neither shirt may be obscured, cropped, or hidden. The frame should feel candid and spontaneous — not a staged lookbook, but an organic moment between two real people wearing the store's t-shirts.`;
+
+const stateD = {
+  camera: 'iphone', ratio: '1:1', genero: '2mulheres',
+  tshirt: 'oversized', composicao: 'lado-a-lado',
+  scene: 'calcada-sp', light: 'golden'
+};
+const DUPLA_GROUP_MAP = {
+  'dupla-camera': 'camera', 'dupla-ratio': 'ratio', 'dupla-genero': 'genero',
+  'dupla-tshirt': 'tshirt', 'dupla-composicao': 'composicao',
+  'dupla-scene': 'scene', 'dupla-light': 'light'
+};
+function buildDuplaPrompt() {
+  const d = stateD;
+  return [
+    `[DUPLA — 2 CAMISETAS DIFERENTES] Antes de enviar: anexe as 2 imagens de referência. Imagem 1 = camiseta da pessoa à esquerda/frente. Imagem 2 = camiseta da pessoa à direita/atrás.`,
+    ``,
+    DUPLA_CAMERA[d.camera],
+    DUPLA_RATIO[d.ratio],
+    `SUBJECTS: ${DUPLA_GENERO[d.genero].desc}`,
+    DUPLA_TSHIRT[d.tshirt],
+    DUPLA_PRESERVE,
+    DUPLA_COMPOSICAO[d.composicao],
+    DUPLA_FRAMING,
+    DUPLA_SCENE[d.scene],
+    `Background softly blurred with realistic depth of field.`,
+    DUPLA_LIGHT[d.light],
+    DUPLA_REALISM,
+    `Important: both people must look like distinct, real individuals — not clones of each other. Each has their own posture, expression, and personality visible through body language.`
+  ].filter(Boolean).join('\n\n');
+}
+function selectDChip(el) {
+  const group = el.dataset.group;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const key = DUPLA_GROUP_MAP[group];
+  if (key) stateD[key] = el.dataset.value;
+  renderPrompt();
+}
+function setMode(m, btn) {
+  state.mode = m;
+  document.querySelectorAll('.mode-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const isDupla = m === 'dupla';
+  document.getElementById('section-gender').style.display = isDupla ? 'none' : 'block';
+  if (isDupla) {
+    document.getElementById('pane-fem').classList.remove('show');
+    document.getElementById('pane-masc').classList.remove('show');
+    document.getElementById('pane-dupla').classList.add('show');
+  } else {
+    document.getElementById('pane-dupla').classList.remove('show');
+    if (state.gender === 'fem') document.getElementById('pane-fem').classList.add('show');
+    else document.getElementById('pane-masc').classList.add('show');
+  }
+  renderPrompt();
+}
+
 const state = {
+  mode: 'individual',
   gender: 'fem',
   // fem
   camera: 'iphone', ratio: '4:5', tshirt: 'regular', print: 'frente',
@@ -1123,6 +1338,7 @@ const state = {
 // BUILD PROMPT
 // ═══════════════════════════════════════════════════════
 function buildPrompt() {
+  if (state.mode === 'dupla') return buildDuplaPrompt();
   if (state.gender === 'fem') {
     const printBlock = PRINT_F[state.print];
     const poseBlock = state.print === 'costas'
@@ -1187,6 +1403,18 @@ function buildPrompt() {
 
 
 function randomizePrompt() {
+  if (state.mode === 'dupla') {
+    function pickD(g) {
+      var chips = document.querySelectorAll('[data-group="' + g + '"]');
+      if (!chips.length) return;
+      selectDChip(chips[Math.floor(Math.random() * chips.length)]);
+    }
+    pickD('dupla-camera'); pickD('dupla-genero'); pickD('dupla-tshirt');
+    pickD('dupla-composicao'); pickD('dupla-scene'); pickD('dupla-light');
+    var btn = document.querySelector('[onclick="randomizePrompt()"]');
+    if (btn) { btn.textContent = '✓ Gerado!'; setTimeout(function(){ btn.textContent = '🎲 Gerar Combinação Aleatória'; }, 1200); }
+    return;
+  }
   function pickRandom(group) {
     var chips = document.querySelectorAll('[data-group="' + group + '"]');
     if (!chips.length) return;
@@ -1269,6 +1497,8 @@ function renderPrompt() {
   var el = document.getElementById('prompt-output');
   el.classList.add('typing');
   el.style.opacity = '0';
+  var label = document.getElementById('prompt-box-label');
+  if (label) label.textContent = state.mode === 'dupla' ? 'Prompt Gerado — Dupla 👥' : 'Prompt Gerado';
   setTimeout(function(){
     el.textContent = buildPrompt();
     el.style.opacity = '1';
