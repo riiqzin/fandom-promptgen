@@ -525,6 +525,7 @@
     <div class="mode-toggle">
       <button class="mode-toggle-btn active" onclick="setMode('individual',this)">Individual</button>
       <button class="mode-toggle-btn" onclick="setMode('dupla',this)">&#128101; Dupla</button>
+<button class="mode-toggle-btn" onclick="setMode('moletom',this)">🧥 Moletom</button>
     </div>
   </div>
 
@@ -962,6 +963,197 @@
     </div>
 
   </div><!-- /pane-dupla -->
+  <!-- ── MOLETOM ── -->
+<div class="pane" id="pane-moletom">
+
+  <div style="background:#0d0a02;border:1px solid var(--gold-dim);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--gold-dim);line-height:1.6;">
+    🧥 <strong style="color:var(--gold-light);">Modo Moletom</strong> — Anexe a imagem do moletom no ChatGPT/Gemini antes de colar o prompt. A estampa está nas costas.
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Câmera</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-camera" data-value="iphone" onclick="selectHChip(this)">iPhone 14 Pro</div>
+      <div class="chip" data-group="hd-camera" data-value="android" onclick="selectHChip(this)">Android Mid-range</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Proporção</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-ratio" data-value="4:5" onclick="selectHChip(this)">4:5 — Feed</div>
+      <div class="chip" data-group="hd-ratio" data-value="1:1" onclick="selectHChip(this)">1:1 — Quadrado</div>
+      <div class="chip" data-group="hd-ratio" data-value="9:16" onclick="selectHChip(this)">9:16 — Stories/TikTok</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Enquadramento</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-frame" data-value="dorso" onclick="selectHChip(this)">Dorso — foco na estampa</div>
+      <div class="chip" data-group="hd-frame" data-value="completo" onclick="selectHChip(this)">Look Completo</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Tamanho do Moletom</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-size" data-value="pm" onclick="selectHChip(this)">P/M — Fit mais justo</div>
+      <div class="chip" data-group="hd-size" data-value="gg" onclick="selectHChip(this)">G/GG — Oversized largo</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Capuz</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-hood" data-value="sem" onclick="selectHChip(this)">Sem capuz (abaixado)</div>
+      <div class="chip" data-group="hd-hood" data-value="com" onclick="selectHChip(this)">Com capuz levantado</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Gênero</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-gender" data-value="masc" onclick="setHGender('masc',this)">♂ Masculino</div>
+      <div class="chip" data-group="hd-gender" data-value="fem" onclick="setHGender('fem',this)">♀ Feminino</div>
+    </div></div>
+  </div>
+
+  <!-- MASCULINO MODEL -->
+  <div class="pane show" id="hd-pane-masc">
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Modelo</div>
+      <div class="section-body">
+        <div class="sub-label">Tom de pele</div>
+        <div class="chips">
+          <div class="chip selected" data-group="hd-skin-m" data-value="moreno" onclick="selectHChip(this)">Moreno Brasileiro</div>
+          <div class="chip" data-group="hd-skin-m" data-value="negro" onclick="selectHChip(this)">Negro</div>
+          <div class="chip" data-group="hd-skin-m" data-value="pardo" onclick="selectHChip(this)">Pardo Claro</div>
+          <div class="chip" data-group="hd-skin-m" data-value="asiatico" onclick="selectHChip(this)">Asiático</div>
+        </div>
+        <div class="sub-label" style="margin-top:8px;">Cabelo</div>
+        <div class="chips">
+          <div class="chip selected" data-group="hd-hair-m" data-value="curto" onclick="selectHChip(this)">Curto Natural</div>
+          <div class="chip" data-group="hd-hair-m" data-value="buzz" onclick="selectHChip(this)">Buzz Cut</div>
+          <div class="chip" data-group="hd-hair-m" data-value="cacheado" onclick="selectHChip(this)">Cacheado</div>
+          <div class="chip" data-group="hd-hair-m" data-value="crespo" onclick="selectHChip(this)">Crespo</div>
+          <div class="chip" data-group="hd-hair-m" data-value="longo" onclick="selectHChip(this)">Longo / Ondulado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Outfit</div>
+      <div class="section-body"><div class="chips">
+        <div class="chip selected" data-group="hd-outfit-m" data-value="streetwear-jogger" onclick="selectHChip(this)">Streetwear — Jogger</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-jeans" onclick="selectHChip(this)">Streetwear — Jeans Baggy</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-cargo" onclick="selectHChip(this)">Streetwear — Cargo Wide</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-jorts" onclick="selectHChip(this)">Y2K — Jorts Dark</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-flare" onclick="selectHChip(this)">Y2K — Calça Flare</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-extrawide" onclick="selectHChip(this)">Y2K — Baggy Extrawide</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="minimal-slim" onclick="selectHChip(this)">Minimal — Calça Slim</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="minimal-loafer" onclick="selectHChip(this)">Minimal — Wide + Loafer</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="grunge-coturno" onclick="selectHChip(this)">Grunge — Jeans + Coturno</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-shorts" onclick="selectHChip(this)">Athleisure — Shorts Nylon</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-slide" onclick="selectHChip(this)">Athleisure — Jogger + Slide</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-chunky" onclick="selectHChip(this)">Hypebeast — Jorts + Chunky</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-nb" onclick="selectHChip(this)">Hypebeast — Jorts + NB</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="casual-jeans-dunk" onclick="selectHChip(this)">Casual — Jeans + Dunk</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="casual-sarja" onclick="selectHChip(this)">Casual — Shorts Sarja</div>
+      </div></div>
+    </div>
+  </div><!-- /hd-pane-masc -->
+
+  <!-- FEMININO MODEL -->
+  <div class="pane" id="hd-pane-fem">
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Modelo</div>
+      <div class="section-body">
+        <div class="sub-label">Tom de pele</div>
+        <div class="chips">
+          <div class="chip selected" data-group="hd-skin-f" data-value="morena" onclick="selectHChip(this)">Morena Brasileira</div>
+          <div class="chip" data-group="hd-skin-f" data-value="negra" onclick="selectHChip(this)">Negra</div>
+          <div class="chip" data-group="hd-skin-f" data-value="parda" onclick="selectHChip(this)">Parda Clara</div>
+          <div class="chip" data-group="hd-skin-f" data-value="loira" onclick="selectHChip(this)">Loira</div>
+          <div class="chip" data-group="hd-skin-f" data-value="asiatica" onclick="selectHChip(this)">Asiática</div>
+        </div>
+        <div class="sub-label" style="margin-top:8px;">Cabelo</div>
+        <div class="chips">
+          <div class="chip selected" data-group="hd-hair-f" data-value="liso-longo" onclick="selectHChip(this)">Liso Longo</div>
+          <div class="chip" data-group="hd-hair-f" data-value="cacheado" onclick="selectHChip(this)">Cacheado</div>
+          <div class="chip" data-group="hd-hair-f" data-value="crespo" onclick="selectHChip(this)">Crespo</div>
+          <div class="chip" data-group="hd-hair-f" data-value="preso" onclick="selectHChip(this)">Preso (coque/rabo)</div>
+          <div class="chip" data-group="hd-hair-f" data-value="franja" onclick="selectHChip(this)">Com Franja</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Outfit</div>
+      <div class="section-body"><div class="chips">
+        <div class="chip selected" data-group="hd-outfit-f" data-value="streetwear-jogger-f" onclick="selectHChip(this)">Streetwear — Jogger</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-cargo-f" onclick="selectHChip(this)">Streetwear — Cargo Feminina</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-legging" onclick="selectHChip(this)">Streetwear — Legging</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-jeans-wide" onclick="selectHChip(this)">Y2K — Jeans Wide</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-tracksuit-f" onclick="selectHChip(this)">Y2K — Tracksuit</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-cargo-f" onclick="selectHChip(this)">Y2K — Cargo Oversized</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-biker" onclick="selectHChip(this)">Baddie — Biker Shorts</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-monocromatico" onclick="selectHChip(this)">Baddie — Monocromático</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-denim-f" onclick="selectHChip(this)">Baddie — Shorts Jeans</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="grunge-coturno-f" onclick="selectHChip(this)">Grunge — Saia + Coturno</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="grunge-dark-f" onclick="selectHChip(this)">Grunge Dark — Meia Calça</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="minimal-social" onclick="selectHChip(this)">Minimal — Calça Social</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="athleisure-f" onclick="selectHChip(this)">Athleisure — Legging + Tênis</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="casual-jeans-f" onclick="selectHChip(this)">Casual — Jeans + Sneaker</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="casual-saia-plissada" onclick="selectHChip(this)">Casual — Saia Plissada</div>
+      </div></div>
+    </div>
+  </div><!-- /hd-pane-fem -->
+
+  <!-- POSES — shared -->
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Pose</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-pose" data-value="costas-neutro" onclick="selectHChip(this)">Costas — parado</div>
+      <div class="chip" data-group="hd-pose" data-value="capuz-maos" onclick="selectHChip(this)">Ajeitando o capuz</div>
+      <div class="chip" data-group="hd-pose" data-value="bolso-canguru" onclick="selectHChip(this)">Mãos no bolso canguru</div>
+      <div class="chip" data-group="hd-pose" data-value="andando-costas" onclick="selectHChip(this)">Caminhando de costas</div>
+      <div class="chip" data-group="hd-pose" data-value="encostado-costas" onclick="selectHChip(this)">Encostado de costas</div>
+      <div class="chip" data-group="hd-pose" data-value="ombro" onclick="selectHChip(this)">Olhando por cima do ombro</div>
+      <div class="chip" data-group="hd-pose" data-value="sentado-costas" onclick="selectHChip(this)">Sentado de costas</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Cenário</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-scene" data-value="calcada-sp" onclick="selectHChip(this)">Calçada SP</div>
+      <div class="chip" data-group="hd-scene" data-value="grafite" onclick="selectHChip(this)">Muro Grafitado</div>
+      <div class="chip" data-group="hd-scene" data-value="parque" onclick="selectHChip(this)">Parque Urbano</div>
+      <div class="chip" data-group="hd-scene" data-value="escadaria" onclick="selectHChip(this)">Escadaria Urbana</div>
+      <div class="chip" data-group="hd-scene" data-value="metro" onclick="selectHChip(this)">Metrô</div>
+      <div class="chip" data-group="hd-scene" data-value="shopping" onclick="selectHChip(this)">Shopping</div>
+      <div class="chip" data-group="hd-scene" data-value="carro-fora" onclick="selectHChip(this)">Encostado no Carro</div>
+      <div class="chip" data-group="hd-scene" data-value="ponte" onclick="selectHChip(this)">Ponte / Viaduto SP</div>
+      <div class="chip" data-group="hd-scene" data-value="estacionamento" onclick="selectHChip(this)">Estacionamento</div>
+      <div class="chip" data-group="hd-scene" data-value="bar" onclick="selectHChip(this)">Bar / Boteco</div>
+      <div class="chip" data-group="hd-scene" data-value="quadra" onclick="selectHChip(this)">Quadra / Praça</div>
+      <div class="chip" data-group="hd-scene" data-value="poste-sp" onclick="selectHChip(this)">Poste / Esquina SP</div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="dot"></span> Iluminação</div>
+    <div class="section-body"><div class="chips">
+      <div class="chip selected" data-group="hd-light" data-value="tarde-sp" onclick="selectHChip(this)">Tarde SP</div>
+      <div class="chip" data-group="hd-light" data-value="cloudy" onclick="selectHChip(this)">Dia Nublado</div>
+      <div class="chip" data-group="hd-light" data-value="neon-night" onclick="selectHChip(this)">Noite com Néon</div>
+      <div class="chip" data-group="hd-light" data-value="noite-urbana" onclick="selectHChip(this)">Noite Urbana</div>
+      <div class="chip" data-group="hd-light" data-value="manha" onclick="selectHChip(this)">Manhã Clara</div>
+    </div></div>
+  </div>
+
+</div><!-- /pane-moletom -->
 
 </div><!-- /panel-left -->
 
@@ -1302,18 +1494,38 @@ function selectDChip(el) {
   if (key) stateD[key] = el.dataset.value;
   renderPrompt();
 }
+const stateH = {
+  camera: 'iphone', ratio: '4:5', frame: 'dorso', hood: 'sem', size: 'pm',
+  gender: 'masc',
+  'skin-m': 'moreno', 'hair-m': 'curto', 'outfit-m': 'streetwear-jogger',
+  'skin-f': 'morena', 'hair-f': 'liso-longo', 'outfit-f': 'streetwear-jogger-f',
+  pose: 'costas-neutro', scene: 'calcada-sp', light: 'tarde-sp'
+};
+const HD_GROUP_MAP = {
+  'hd-camera': 'camera', 'hd-ratio': 'ratio', 'hd-frame': 'frame',
+  'hd-hood': 'hood', 'hd-size': 'size',
+  'hd-skin-m': 'skin-m', 'hd-hair-m': 'hair-m', 'hd-outfit-m': 'outfit-m',
+  'hd-skin-f': 'skin-f', 'hd-hair-f': 'hair-f', 'hd-outfit-f': 'outfit-f',
+  'hd-pose': 'pose', 'hd-scene': 'scene', 'hd-light': 'light'
+};
 function setMode(m, btn) {
   state.mode = m;
   document.querySelectorAll('.mode-toggle-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const isDupla = m === 'dupla';
-  document.getElementById('section-gender').style.display = isDupla ? 'none' : 'block';
+  const isMoletom = m === 'moletom';
+  document.getElementById('section-gender').style.display = (isDupla || isMoletom) ? 'none' : 'block';
+  document.getElementById('pane-fem').classList.remove('show');
+  document.getElementById('pane-masc').classList.remove('show');
+  document.getElementById('pane-dupla').classList.remove('show');
+  document.getElementById('pane-moletom').classList.remove('show');
   if (isDupla) {
-    document.getElementById('pane-fem').classList.remove('show');
-    document.getElementById('pane-masc').classList.remove('show');
     document.getElementById('pane-dupla').classList.add('show');
+  } else if (isMoletom) {
+    document.getElementById('pane-moletom').classList.add('show');
+    const s = document.getElementById('hd-outfit-section');
+    if (s) s.style.display = stateH.frame === 'completo' ? 'block' : 'none';
   } else {
-    document.getElementById('pane-dupla').classList.remove('show');
     if (state.gender === 'fem') document.getElementById('pane-fem').classList.add('show');
     else document.getElementById('pane-masc').classList.add('show');
   }
@@ -1339,6 +1551,7 @@ const state = {
 // ═══════════════════════════════════════════════════════
 function buildPrompt() {
   if (state.mode === 'dupla') return buildDuplaPrompt();
+  if (state.mode === 'moletom') return buildHoletomPrompt();
   if (state.gender === 'fem') {
     const printBlock = PRINT_F[state.print];
     const poseBlock = state.print === 'costas'
@@ -1498,7 +1711,7 @@ function renderPrompt() {
   el.classList.add('typing');
   el.style.opacity = '0';
   var label = document.getElementById('prompt-box-label');
-  if (label) label.textContent = state.mode === 'dupla' ? 'Prompt Gerado — Dupla 👥' : 'Prompt Gerado';
+  if (label) label.textContent = state.mode === 'dupla' ? 'Prompt Gerado — Dupla 👥' : state.mode === 'moletom' ? 'Prompt Gerado — Moletom 🧥' : 'Prompt Gerado';
   setTimeout(function(){
     el.textContent = buildPrompt();
     el.style.opacity = '1';
@@ -2035,6 +2248,187 @@ function libShowAdd(id){var e=document.getElementById('lav-'+id);if(e)e.style.di
 function libHideAdd(id){var e=document.getElementById('lav-'+id);if(e)e.style.display='none';}
 function libSaveVar(id){var n=document.getElementById('lvn-'+id);var p=document.getElementById('lvp-'+id);if(!n||!p)return;var nm=n.value.trim();var pr=p.value.trim();if(!nm||!pr){toast('Preencha nome e prompt!');return;}var d=getFullLibData();var c=d.find(function(x){return x.id===id;});if(!c)return;c.variants.push({name:nm,prompt:pr.replace(/\n/g,'\n'),standalone:true});saveLibData(d);n.value='';p.value='';libHideAdd(id);renderLibrary();toast('Variação salva!');}
 
+// ═══════════════════════════════════════════════════════
+// DATA — MOLETOM
+// ═══════════════════════════════════════════════════════
+const HD_CAMERA = {
+  iphone: `Ultra-realistic candid streetwear photography, shot on iPhone 14 Pro, 26mm lens, natural HDR, authentic documentary style, subtle film grain. Completely unposed, like a frame extracted from a casual video recorded by a friend.`,
+  android: `Ultra-realistic candid streetwear photography, shot on a mid-range Android smartphone (Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, authentic low-fi everyday Brazilian phone photography. Unposed and spontaneous.`
+};
+const HD_RATIO = {
+  '4:5': `Image ratio: 4:5 vertical format, optimized for Instagram feed posts.`,
+  '1:1': `Image ratio: 1:1 square format, optimized for Instagram grid.`,
+  '9:16': `Image ratio: 9:16 vertical format, optimized for Instagram Stories and TikTok.`
+};
+const HD_FRAME = {
+  dorso: `Composition: medium back shot — camera positioned at upper-back level, capturing the hoodie from the collar down to the waist or slightly below. The back of the hoodie occupies approximately 65–75% of the frame. No legs or feet visible. Focus is entirely on the back panel and graphic print. The subject's head may be partially visible at the very top of the frame or naturally cropped.`,
+  completo: `Composition: full-body candid shot from a standing eye-level perspective captured by a friend from a few feet away. The entire outfit is visible from head to shoes. The back of the hoodie is the undisputed visual hero of the upper body. The frame feels spontaneous and unplanned — not a catalog shot.`
+};
+const HD_HOOD = {
+  sem: `The hood is down, resting naturally on the upper back and shoulders. The hood fabric drapes loosely and creates realistic volume at the neckline — slightly folded, not stiff. The drawstrings hang freely. The back collar is clearly visible and the neckline of the hoodie is unobstructed.`,
+  com: `The hood is up, fully covering the head and framing the back of the skull. It sits naturally — slightly asymmetric, pulling a little to one side the way a real hood does. The hood opening is visible around the head. Fabric shows natural tension and pulling around the edges. Drawstrings hang loosely in front. The back panel of the hoodie is still fully visible below the hood.`
+};
+const HD_SIZE = {
+  pm: `The hoodie fits with a slightly structured silhouette — not skin-tight, but the shoulders sit closer to the natural shoulder seam and the body doesn't hang too wide. The garment has a relaxed fit without excessive fabric pooling at the sides. It looks intentional and proportional on the body — a clean, wearable streetwear fit.`,
+  gg: `The hoodie is heavily oversized — wide boxy silhouette with visibly dropped shoulder seams falling well below the natural shoulder. The body hangs loose and wide, creating excess fabric at the sides and sleeves. The hem sits low and the overall proportions feel intentionally exaggerated in the contemporary oversized streetwear style.`
+};
+// ── SKIN — MASCULINO
+const HD_SKIN_M = {
+  moreno: `naturally tanned Brazilian skin tone, warm olive-brown complexion with subtle sun-kissed undertones`,
+  negro: `deep brown skin tone, rich melanin complexion with natural warm undertones`,
+  pardo: `light brown skin tone, soft golden-brown complexion with warm mixed undertones`,
+  asiatico: `light East Asian skin tone, smooth fair complexion with warm neutral undertones`
+};
+// ── HAIR — MASCULINO
+const HD_HAIR_M = {
+  curto: `short natural hair, neatly faded on the sides with slightly more length on top, effortlessly groomed`,
+  buzz: `clean buzz cut, uniformly short all around with natural texture visible on top`,
+  cacheado: `short curly hair with defined ringlets on top and a clean fade on the sides`,
+  crespo: `natural coily afro-textured hair, low-cut with tight visible coils and a clean line-up`,
+  longo: `longer wavy or slightly tousled hair falling to the jaw or collar, pushed loosely to one side`
+};
+// ── OUTFIT — MASCULINO
+const HD_OUTFIT_M = {
+  'streetwear-jogger': `paired below with matching dark gray or charcoal fleece jogger pants with ribbed ankle cuffs, chunky white or black sneakers similar to Nike Air Force 1, white crew socks slightly visible above the shoe. Silver wallet chain hanging from the waistband. Layered thin silver chains. The complete hoodie-jogger set creates a clean, coordinated streetwear aesthetic rooted in contemporary São Paulo fashion.`,
+  'streetwear-jeans': `paired below with baggy dark wash denim jeans with a wide loose leg, stacking naturally at the ankle over chunky black or white sneakers. A black nylon crossbody sling bag worn diagonally across the back. Simple silver chain necklace visible at the neck. The silhouette contrasts the softness of the hoodie with the structure of raw denim.`,
+  'streetwear-cargo': `paired below with wide-leg dark olive or washed black cargo pants with visible side utility pockets, chunky black sneakers with a thick sole. A black tactical sling bag worn diagonally. Layered silver chains. The combination of hoodie and cargo pants creates a layered, functional streetwear look rooted in São Paulo urban culture.`,
+  'y2k-jorts': `paired below with oversized dark wash acid-washed denim shorts (jorts) reaching below the knee, black low-top sneakers similar to Adidas Samba, white crew socks worn high. A silver wallet chain hanging from the belt loop with small keychains attached. Layered silver necklaces. The Y2K-influenced pairing contrasts the heavy hoodie volume with relaxed denim shorts.`,
+  'y2k-flare': `paired below with dark wash flare-cut denim jeans with a slight boot-cut opening at the ankle, dark brown leather loafers. A wide statement belt with a large oval buckle. A decorative keychain with small charms hanging from the belt loop. Silver watch on the wrist. The Y2K denim silhouette amplified by the oversized hoodie above creates an intentional retro-contemporary contrast.`,
+  'y2k-extrawide': `paired below with ultra-baggy extrawide denim pants in a gray tie-dye or bleach-wash finish, heavily pooling at the ankles over black low-top Converse sneakers. Brown western-style embossed leather belt. Silver wallet chain hanging loosely from a belt loop. Slim metallic-frame tinted sunglasses. The exaggerated wide-leg proportions below match the oversized volume of the hoodie above — maximum silhouette impact.`,
+  'minimal-slim': `paired below with slim straight-leg black denim jeans with a clean taper at the ankle, black low-top leather sneakers. No bag, no cap. A single thin silver chain necklace and one silver ring. The all-dark minimal approach lets the hoodie's back print be the only statement in the image.`,
+  'minimal-loafer': `paired below with wide-leg black trousers with a clean drape and subtle break at the ankle, worn with black leather loafers and no visible socks. A single thin gold chain necklace and one or two gold rings. No bag, no cap. Clean and quietly elevated — the hoodie plays a relaxed role in an otherwise minimal look.`,
+  'grunge-coturno': `paired below with slim straight-leg black denim jeans with a slight taper, tall black leather combat boots with silver buckle details and thick soles. A black leather belt. A small black leather crossbody bag. Black beanie pulled low on the head. The dark grunge aesthetic amplifies the heaviness of the hoodie fabric.`,
+  'athleisure-shorts': `paired below with loose-fit nylon athletic shorts in dark navy or forest green reaching mid-thigh, chunky white dad sneakers with thick soles, white ankle socks. A black zip-up crossbody fanny pack worn at the waist. A rubber sports watch. The hoodie-over-shorts combination feels like a cold São Paulo morning — practical, confident, streetwear-adjacent.`,
+  'athleisure-slide': `paired below with baggy gray fleece sweatpants with a thick waistband, worn with black slides over white crew socks folded down once. No bag. Layered gold chains of varying thickness and a chunky gold bracelet. The deliberate low-effort combination of hoodie and slide is effortlessly confident — comfort and style without compromise.`,
+  'hypebeast-chunky': `paired below with oversized dark wash denim shorts reaching below the knee, oversized chunky white dad sneakers with thick mixed-branding soles, white crew socks worn high. A black New Era snapback cap turned backwards. A black nylon sling crossbody bag. Layered silver chains with a cross pendant. Silver watch with a chunky chain bracelet.`,
+  'hypebeast-nb': `paired below with light wash denim shorts reaching just below the knee with a clean faded finish, white New Balance 550 sneakers, white crew socks slightly visible. A thin silver chain necklace. Simple silver watch. Two or three thin silver rings. A white bucket hat worn slightly tilted. Clean and understated hypebeast energy — the hoodie carries all the weight.`,
+  'casual-jeans-dunk': `paired below with slim straight-leg medium blue denim jeans with a clean wash and subtle fading at the thighs, white Nike Dunk Low sneakers with clean laces, a slim brown leather belt. Layered silver chains of varying lengths. No bag. Simple and wearable — the kind of everyday Brazilian streetwear that feels put-together without effort.`,
+  'casual-sarja': `paired below with mid-length beige or khaki twill shorts reaching just below the knee, white or off-white Adidas Campus sneakers, white crew socks folded once at the ankle. A plain black baseball cap worn forward. A thin silver chain. No bag. Relaxed and quietly stylish — a natural cold-day look in São Paulo.`
+};
+// ── SKIN — FEMININO
+const HD_SKIN_F = {
+  morena: `naturally tanned Brazilian skin tone, warm olive complexion with subtle sun-kissed undertones`,
+  negra: `deep brown skin tone, rich melanin complexion with natural warm undertones`,
+  parda: `light brown skin tone, soft golden-brown complexion with warm mixed undertones`,
+  loira: `fair skin tone with light peachy-warm undertones, naturally light complexion`,
+  asiatica: `light East Asian skin tone, smooth fair complexion with warm neutral undertones`
+};
+// ── HAIR — FEMININO
+const HD_HAIR_F = {
+  'liso-longo': `long straight hair falling past the shoulders, slightly disheveled from the wind with a few flyaway strands`,
+  cacheado: `natural wavy-curly hair with loose spirals, voluminous and slightly frizzy`,
+  crespo: `natural coily afro-textured hair, full volume with tight defined coils`,
+  preso: `hair pulled up in a casual bun or loose updo with wispy strands falling naturally around the face`,
+  franja: `straight bangs slightly swept to one side, rest of the hair falling loose past the shoulders`
+};
+// ── OUTFIT — FEMININO
+const HD_OUTFIT_F = {
+  'streetwear-jogger-f': `paired below with dark gray or charcoal ribbed fleece jogger pants with a slim taper at the ankle, clean white chunky sneakers, white ankle socks. Layered thin gold chains. Small gold hoop earrings. The complete hoodie-jogger set creates a clean coordinated streetwear aesthetic — relaxed, warm, and intentional.`,
+  'streetwear-cargo-f': `paired below with slim-fit feminine cargo pants in washed black with subtle side pockets and a tapered leg, chunky white dad sneakers. A black nylon crossbody bag. Layered silver chains. Multiple thin silver rings. The contrast between the oversized hoodie above and the structured slim cargo below creates a dynamic and contemporary silhouette.`,
+  'streetwear-legging': `paired below with high-waisted black athletic leggings, chunky white sneakers, invisible socks. A black zip-up fanny pack worn at the waist. Layered thin gold chains and small gold stud earrings. Effortlessly functional and body-confident — the hoodie creates a relaxed athleisure silhouette when layered over fitted leggings.`,
+  'y2k-jeans-wide': `paired below with wide-leg medium blue denim jeans with a high waist and clean drape, chunky white platform sneakers with a thick sole, white crew socks visible above the shoe. A tiny structured mini bag worn crossbody. Small gold hoop earrings. Layered thin gold chains. The wide-leg jeans balance the volume of the oversized hoodie for a full Y2K-inspired silhouette.`,
+  'y2k-tracksuit-f': `paired below with low-rise velvet track pants in deep burgundy or electric blue with a side stripe, white chunky retro sneakers. A tiny logo mini bag worn crossbody. A thin diamanté belt at the hips. Layered gold chains with a nameplate pendant. Small hoop earrings. The velvet tracksuit bottom with the heavy hoodie channels early 2000s R&B fashion filtered through São Paulo street style.`,
+  'y2k-cargo-f': `paired below with low-rise baggy cargo pants in washed khaki with multiple visible pockets and silver chain details on the belt loops, chunky black and white sneakers. Layered chunky bracelets stacked on both wrists. A black choker necklace layered with longer chains. Small hoop earrings. The maximum Y2K energy of the cargo pants creates a chaotic and entirely intentional look when paired with the heavy hoodie.`,
+  'baddie-biker': `paired below with high-waisted black biker shorts reaching mid-thigh, white chunky retro sneakers. A small black structured crossbody bag. Gold hoop earrings. Layered thin gold chains. Several gold rings. The hoodie worn over tight biker shorts creates an effortless baddie-athleisure silhouette — body-confident and laid-back at the same time.`,
+  'baddie-monocromatico': `paired below with a black high-waisted bodycon midi skirt with a subtle side slit, black strappy heeled sandals. A small black structured top-handle bag. Black nail polish. Layered thin gold chains. Large gold hoop earrings. Two thin gold rings. The all-black look with the heavy hoodie as the centerpiece creates a sleek monochromatic baddie aesthetic.`,
+  'baddie-denim-f': `paired below with high-waisted dark wash denim shorts that hug the hips and sit just above mid-thigh, chunky black platform sneakers, white crew socks folded over the top. A small black crossbody bag with silver hardware. Layered silver chains. Silver hoop earrings. Multiple silver rings. Baddie energy with a streetwear base — the hoodie's volume contrasts the fitted denim shorts.`,
+  'grunge-coturno-f': `paired below with a black midi skirt with a subtle side slit reaching mid-calf, tall black lace-up combat boots. Layered silver chain necklaces of varying lengths. Large silver hoop earrings. Two thin silver rings. The dark feminine grunge aesthetic — heavy boots, structured skirt, and oversized hoodie — creates an intentional and edgy silhouette.`,
+  'grunge-dark-f': `paired below with a micro black pleated skirt with visible seams and raw hem, chunky black lace-up platform boots reaching mid-calf, fishnet stockings underneath. A worn black leather crossbody bag. A black choker necklace layered with thin silver chains. Black nail polish. Multiple silver rings. The darkest and most aggressive of the feminine looks — where rock meets streetwear through the lens of the heavy hoodie.`,
+  'minimal-social': `paired below with wide-leg tailored trousers in beige or off-white with a clean press crease and structured drape, black pointed-toe ballet flats or simple black loafers. A small black leather clutch. A single thin gold chain necklace. Large gold hoop earrings. The clean minimal aesthetic lets the hoodie function as a relaxed statement piece against intentionally elevated bottom wear.`,
+  'athleisure-f': `paired below with high-waisted black athletic leggings with a slim taper, modern white training sneakers. White ankle socks. A sleek black fanny pack worn at the waist. A silver sports watch. Hair in a high ponytail or sleek bun. Clean fitness-inspired styling — the hoodie as an outer layer over a performance-ready outfit.`,
+  'casual-jeans-f': `paired below with light blue high-waisted straight-leg jeans and clean white low-top sneakers. Small gold hoop earrings. A simple gold necklace. A small shoulder bag. Effortlessly stylish everyday Brazilian streetwear — the hoodie worn naturally as the main piece in a simple, wearable casual look.`,
+  'casual-saia-plissada': `paired below with a short black pleated skirt with a subtle swirl, clean white low-top canvas sneakers, white ankle socks with a delicate trim. A tiny structured crossbody bag in black. Small pearl or gold stud earrings. A thin delicate bracelet. The soft feminine bottom half creates a playful contrast with the heavy structure of the oversized hoodie above.`
+};
+const HD_POSE = {
+  'costas-neutro': `Pose: the subject is standing with their back fully toward the camera. Both arms hang naturally at the sides, posture relaxed and unstudied. Weight shifted slightly to one leg, creating a natural asymmetry in the silhouette. Head straight, not turned. The back panel of the hoodie is flat, fully visible, and centered in the frame. The moment feels completely candid — as if the photo was taken without them noticing.`,
+  'capuz-maos': `Pose: the subject is standing with their back to the camera, both hands raised to the hood area — one or both hands gripping the hood opening or the drawstrings, as if adjusting or pulling the hood up. Arms bent at the elbows, creating a natural mid-movement body position. The back panel of the hoodie remains clearly visible below the raised arms. The gesture is completely natural and unposed — caught mid-action.`,
+  'bolso-canguru': `Pose: the subject is standing with their back to the camera, both hands tucked into the front kangaroo pocket of the hoodie. The arms create a natural forward pull across the chest, causing slight fabric tension across the upper back and shoulders. The back panel and graphic print are fully visible. Relaxed and effortless posture — the kind of stance adopted unconsciously while waiting for something.`,
+  'andando-costas': `Pose: the subject is captured mid-stride, walking away from the camera. Body in natural walking motion — one foot ahead of the other, arms in a gentle natural swing, posture relaxed. The back panel of the hoodie moves naturally with the body, showing slight fabric shift. Head facing forward and away from the camera. The shot feels extracted from a candid video — completely unplanned and authentic.`,
+  'encostado-costas': `Pose: the subject is leaning with their back against a wall or surface, fully facing away from the camera. Arms hanging loosely at the sides or tucked into the kangaroo pocket. Legs slightly apart or one ankle crossed casually over the other. The back of the hoodie is flat and fully visible against the body. The pose feels natural and unhurried — someone resting between moments without any performance.`,
+  ombro: `Pose: the subject is standing with their back mostly toward the camera, head turned and looking back over one shoulder toward the camera. The turn is entirely in the neck and head — the body and back remain facing away from the camera. The back panel of the hoodie is fully visible. A partial side view of the face, jaw, or at most a cheekbone becomes visible from this angle. The expression is relaxed and unposed — not a deliberate pose, more like they heard their name called. The back print remains the undisputed hero of the image.`,
+  'sentado-costas': `Pose: the subject is seated on a ledge, step, low wall, or curb with their back facing the camera. Elbows resting on the knees or arms hanging loosely. Head angled slightly downward or to the side. The back of the hoodie drapes naturally over the seated posture, showing realistic fabric behavior when seated. No face visible. Relaxed and entirely candid.`
+};
+const HD_SCENE = {
+  'calcada-sp': `Scene: late afternoon on a São Paulo sidewalk. Slightly worn urban footpath beside a concrete wall with faded paint or old posters. Overhead wires, distant apartment buildings, and subtle street clutter in background. The atmosphere feels naturally urban and lived-in — nothing clean or staged.`,
+  grafite: `Scene: São Paulo, Brazil. The subject is standing in front of a large concrete wall densely covered in colorful layered graffiti, wheat-paste posters, and stickers. The surrounding pavement is cracked and slightly dirty. Overhead wires and distant facades visible. Raw, authentic, and entirely unmanufactured.`,
+  parque: `Scene: urban park in São Paulo — Ibirapuera or similar neighborhood green area. Near a paved path or low concrete wall surrounded by bare or sparse trees. Soft natural winter light filters through the branches. Background shows blurred joggers, cyclists, or park visitors. Relaxed and everyday.`,
+  escadaria: `Scene: outdoor urban staircase in São Paulo. Worn concrete steps with iron railings. Background contains street-level urban clutter, partially visible storefronts or building walls. The setting feels gritty and unpolished — a real corner of the city.`,
+  metro: `Scene: São Paulo metro station. Standing near the platform edge or a tiled corridor wall. Background shows the soft blur of commuters, fluorescent lighting, and the functional architecture of the metro environment.`,
+  shopping: `Scene: inside a São Paulo shopping mall corridor or near an escalator. Softly blurred storefronts and mall lighting in the background. The environment feels casual — like a spontaneous photo between errands.`,
+  'carro-fora': `Scene: São Paulo street. The subject is leaning casually against the closed door of a parked car, back or shoulder resting on the car body. Street and distant buildings softly blurred in the background.`,
+  ponte: `Scene: under or near a São Paulo overpass or viaduto. Concrete pillars, overhead wires, urban landscape visible. Gritty, iconic, and uniquely SP infrastructure as backdrop.`,
+  estacionamento: `Scene: open-air parking lot or parking garage in São Paulo. Concrete pillars, faded line markings, dim overhead lighting. Raw and industrial — the kind of backdrop that feels entirely accidental.`,
+  bar: `Scene: outside or inside a casual Brazilian bar or boteco. Plastic tables, tiled counter, concrete wall with beer brand stickers and handwritten menus. Softly blurred customers and bottles in background. Authentic neighborhood atmosphere.`,
+  quadra: `Scene: outdoor court or public square in São Paulo. Near concrete benches, low walls, or court fencing. Urban greenery and distant buildings in the background. The environment feels like a natural gathering spot in the neighborhood.`,
+  'poste-sp': `Scene: a typical São Paulo street corner near a concrete utility pole or old iron lamppost. Overhead wires, faded paint on nearby walls, and distant apartment buildings surround the subject. The pavement is irregular. The environment feels like an unremarkable corner of the city — exactly the kind of place a local would naturally stop.`
+};
+const HD_LIGHT = {
+  'tarde-sp': `Lighting: natural late afternoon São Paulo sunlight — warm and slightly golden, casting realistic directional shadows. No studio lighting. Slight overexposure on horizontal surfaces typical of smartphone cameras. Everything feels naturally lit — no beauty light, no fill.`,
+  cloudy: `Lighting: overcast winter daylight, soft and diffused with no harsh shadows. Flat, slightly cool and desaturated tones — the kind of heavy gray São Paulo winter afternoon that feels still and muted.`,
+  'neon-night': `Lighting: urban São Paulo nighttime with mixed artificial light sources — warm streetlamps, colored neon from nearby signs, ambient glow from shop windows. Colored light reflections on the hoodie fabric and skin. Background with soft city bokeh.`,
+  'noite-urbana': `Lighting: natural urban nighttime without neon — soft ambient light from distant streetlamps, lit shop windows, and building facades. The illumination is subtle and uneven, casting gentle warm pools of light against deep shadow. The overall exposure feels slightly underlit and authentic.`,
+  manha: `Lighting: clear winter morning light — bright and slightly cool, with crisp directional shadows. The air feels cold and fresh. No filter, no warmth added. The kind of light that makes concrete look sharp and clean.`
+};
+const HD_PRESERVE = `Preserve the hoodie's back print design perfectly and exactly as shown in the reference image. Maintain identical artwork, colors, typography, print placement, proportions, scale, and all details without any modifications whatsoever. The print must exhibit realistic deformation caused by fabric draping — perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking in high-tension areas, and natural loss of detail inside deep fabric creases, as if the graphic is physically printed onto real heavyweight fleece fabric.`;
+const HD_REALISM = `Realism details: natural heavyweight fleece texture visible on the hoodie surface, realistic fabric weight and drape, visible ribbing at cuffs and hem, kangaroo pocket visible in front, authentic stitching at seams. Slight motion blur, sensor noise, subtle JPEG compression, natural depth of field. The image should look like a real candid photo taken by a friend on their phone — not a fashion campaign, not a lookbook, not an AI render.`;
+const HD_FACE_M = `Model realism: ordinary stylish Brazilian young adult man around 22 years old, naturally attractive but not model-perfect. Athletic and naturally fit build — toned back and shoulders visible through the hoodie's fabric weight. Slight facial asymmetry, visible pores, realistic skin texture, relaxed unstudied expression. No exaggerated grooming, no porcelain skin, no uncanny valley appearance. He should look like someone you could genuinely encounter on a street in São Paulo.`;
+const HD_FACE_F = `Model realism: ordinary stylish Brazilian young adult woman around 22 years old, naturally attractive but not model-perfect. Slight facial asymmetry, visible pores, realistic skin texture, slightly messy hair, authentic relaxed expression. No beauty filter, no doll-like face, no exaggerated symmetry. She resembles an ordinary stylish Brazilian woman captured candidly — not an Instagram influencer or AI-generated model.`;
+
+function setHGender(g, btn) {
+  stateH.gender = g;
+  document.querySelectorAll('[data-group="hd-gender"]').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('hd-pane-masc').classList.toggle('show', g === 'masc');
+  document.getElementById('hd-pane-fem').classList.toggle('show', g === 'fem');
+  renderPrompt();
+}
+
+function selectHChip(el) {
+  const group = el.dataset.group;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const key = HD_GROUP_MAP[group];
+  if (key) stateH[key] = el.dataset.value;
+  renderPrompt();
+}
+
+function buildHoletomPrompt() {
+  const h = stateH;
+  const isMasc = h.gender === 'masc';
+  const isCompleto = h.frame === 'completo';
+
+  const skinText = isMasc ? HD_SKIN_M[h['skin-m']] : HD_SKIN_F[h['skin-f']];
+  const hairText = isMasc ? HD_HAIR_M[h['hair-m']] : HD_HAIR_F[h['hair-f']];
+  const outfitText = isMasc ? HD_OUTFIT_M[h['outfit-m']] : HD_OUTFIT_F[h['outfit-f']];
+  const faceText = isMasc ? HD_FACE_M : HD_FACE_F;
+
+  const genderDesc = isMasc
+    ? `young Brazilian man, approximately 20–27 years old, athletic and naturally fit build`
+    : `young Brazilian woman, approximately 20–27 years old, naturally fit and feminine build`;
+
+  const parts = [
+    HD_CAMERA[h.camera],
+    HD_RATIO[h.ratio],
+    `Subject: ${genderDesc}, ${skinText}, ${hairText}.`,
+    `The subject is wearing the attached hoodie as the main hero piece. Use the attached image as the exact visual reference — preserve its design, color, texture, and all details faithfully.`,
+    `Hoodie size and fit: ${HD_SIZE[h.size]}`,
+    `Hood: ${HD_HOOD[h.hood]}`,
+    HD_PRESERVE,
+    HD_POSE[h.pose],
+    `The back panel of the hoodie and its graphic print are the absolute visual hero of this image.`,
+    outfitText ? `The hoodie is ${outfitText}` : ``,
+    !isCompleto ? `No legs or feet visible in the frame — the framing cuts at waist level or slightly below.` : ``,
+    HD_SCENE[h.scene],
+    `Background softly blurred with realistic depth of field.`,
+    HD_FRAME[h.frame],
+    HD_LIGHT[h.light],
+    HD_REALISM,
+    faceText
+  ].filter(s => s && s.trim().length > 0);
+
+  return parts.join('\n\n');
+}
+
 </script>
 
 <div id="reviews-panel" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:5;overflow:hidden;">
@@ -2128,162 +2522,448 @@ function libSaveVar(id){var n=document.getElementById('lvn-'+id);var p=document.
 
 <!-- SHIRT SELECTOR MODAL -->
 <div id="shirt-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);z-index:300;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:var(--surface);border:1px solid var(--border-gold);border-radius:16px;width:100%;max-width:860px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;">
-    
+  <div style="background:var(--surface);border:1px solid var(--border-gold);border-radius:16px;width:100%;max-width:960px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;">
+
     <!-- Header -->
-    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border-radius:16px 16px 0 0;flex-shrink:0;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:13px;font-weight:700;color:var(--gold-light);">&#128204; Selecionar Camiseta</span>
-        <span id="shirt-count" style="font-size:11px;background:#1e1708;border:1px solid var(--gold-dim);color:var(--gold-dim);padding:2px 8px;border-radius:10px;"></span>
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:16px 16px 0 0;flex-shrink:0;">
+      <!-- Breadcrumb -->
+      <div id="shirt-breadcrumb" style="display:flex;align-items:center;gap:6px;flex:1;min-width:0;">
+        <span id="shirt-title" style="font-size:13px;font-weight:700;color:var(--gold-light);">📌 Camisetas</span>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;">
+      <span id="shirt-count" style="font-size:11px;background:#1e1708;border:1px solid var(--gold-dim);color:var(--gold-dim);padding:2px 8px;border-radius:10px;flex-shrink:0;"></span>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <button id="btn-new-folder" onclick="shirtPromptNewFolder()" class="btn btn-ghost" style="font-size:12px;padding:5px 12px;">📁 Nova Pasta</button>
         <label style="cursor:pointer;">
           <input type="file" id="shirt-upload" accept="image/*" multiple style="display:none;" onchange="handleShirtUpload(this)">
-          <span class="btn btn-gold" style="font-size:12px;padding:6px 16px;">+ Adicionar</span>
+          <span class="btn btn-gold" style="font-size:12px;padding:6px 14px;">+ Adicionar</span>
         </label>
-        <button onclick="closeShirtModal()" style="background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">&#10005;</button>
+        <button onclick="closeShirtModal()" style="background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">✕</button>
       </div>
     </div>
 
-    <!-- Grid -->
-    <div id="shirt-grid" style="flex:1;overflow-y:auto;padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;align-content:start;">
-      <div id="shirt-empty" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px;">
-        Nenhuma camiseta ainda.<br>Clique em "+ Adicionar" para fazer upload.
-      </div>
-    </div>
+    <!-- Body: sidebar + content -->
+    <div style="display:flex;flex:1;min-height:0;overflow:hidden;">
 
-    <!-- Footer -->
-    <div style="padding:12px 20px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--text-muted);flex-shrink:0;">
-      Clique em qualquer camiseta para copiar a imagem e colar no ChatGPT
+      <!-- Sidebar: folder list -->
+      <div id="shirt-sidebar" style="width:180px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;padding:12px 8px;display:flex;flex-direction:column;gap:4px;background:#0d0d0d;">
+        <!-- populated by renderFolderSidebar() -->
+      </div>
+
+      <!-- Main content -->
+      <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+
+        <!-- Drop zone hint (visible when dragging) -->
+        <div id="shirt-dropzone-hint" style="display:none;padding:8px 16px;background:#1a1008;border-bottom:1px solid var(--gold-dim);font-size:11px;color:var(--gold-dim);text-align:center;">
+          🗂 Arraste uma camiseta para uma pasta no painel esquerdo
+        </div>
+
+        <!-- Grid -->
+        <div id="shirt-grid" style="flex:1;overflow-y:auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;align-content:start;">
+          <div id="shirt-empty" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px;">
+            Carregando...
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="padding:10px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted);flex-shrink:0;">
+          Clique para copiar · Arraste para mover para uma pasta
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <script>
 
-// ── SHIRT SELECTOR ───────────────────────────────────
+// ── SHIRT SELECTOR COM PASTAS ─────────────────────────
 var SUPA_URL = 'https://gmdcolbxveabwzpzxcpk.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZGNvbGJ4dmVhYnd6cHp4Y3BrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NDI0OTIsImV4cCI6MjA5NjQxODQ5Mn0.p9lyfjOIMHzTVS3X9RmUdxaMgU3Xw4-mywTWDLpPuY0';
 var SUPA_BUCKET = 'shirt-images';
+var SUPA_TABLE_FOLDERS = 'shirt_folders'; // table: id, name, created_at
+var SUPA_TABLE_ASSIGNMENTS = 'shirt_assignments'; // table: id, filename, folder_id
 
-function supaHeaders() {
-  return { 'Authorization': 'Bearer ' + SUPA_KEY, 'apikey': SUPA_KEY };
+function supaHeaders(json) {
+  var h = { 'Authorization': 'Bearer ' + SUPA_KEY, 'apikey': SUPA_KEY, 'Prefer': 'return=representation' };
+  if (json) h['Content-Type'] = 'application/json';
+  return h;
 }
 
-// Load shirts from Supabase
-function loadShirtsFromSupabase(callback) {
+// ── STATE ──────────────────────────────────────────────
+var _currentShirts = [];   // all shirts from storage
+var _folders = [];          // [{id, name}]
+var _assignments = {};      // {filename: folder_id}
+var _currentFolderId = null; // null = "Todas"
+var _draggingFilename = null;
+
+// ── LOAD ALL DATA ──────────────────────────────────────
+function loadAllShirtData(cb) {
+  var shirts = [], folders = [], assignments = {};
+  var done = 0;
+  function check() { if (++done === 3) cb(shirts, folders, assignments); }
+
+  // 1. Shirts from storage
   fetch(SUPA_URL + '/storage/v1/object/list/' + SUPA_BUCKET, {
     method: 'POST',
-    headers: Object.assign({'Content-Type': 'application/json'}, supaHeaders()),
-    body: JSON.stringify({ prefix: '', limit: 200, offset: 0, sortBy: { column: 'created_at', order: 'desc' } })
-  })
-  .then(function(r) {
-    if (!r.ok) { return r.text().then(function(t){ console.error('List error:', t); throw new Error(t); }); }
-    return r.json();
-  })
-  .then(function(files) {
-    console.log('Supabase files:', files);
-    if (!Array.isArray(files)) { console.error('Not array:', files); callback([]); return; }
-    var shirts = files
-      .filter(function(f) { return f.name && f.name !== '.emptyFolderPlaceholder'; })
-      .map(function(f) {
-        var cleanName = f.name.replace(/^[0-9]+_/, '').replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-        return {
-          name: cleanName,
-          filename: f.name,
-          url: SUPA_URL + '/storage/v1/object/public/' + SUPA_BUCKET + '/' + encodeURIComponent(f.name)
-        };
-      });
-    callback(shirts);
-  })
-  .catch(function(e) { console.error('Load shirts error:', e); callback([]); });
+    headers: Object.assign({'Content-Type':'application/json'}, supaHeaders()),
+    body: JSON.stringify({ prefix:'', limit:500, offset:0, sortBy:{column:'created_at',order:'desc'} })
+  }).then(function(r){ return r.json(); }).then(function(files) {
+    if (Array.isArray(files)) {
+      shirts = files.filter(function(f){ return f.name && f.name !== '.emptyFolderPlaceholder'; })
+        .map(function(f) {
+          var clean = f.name.replace(/^[0-9]+_/,'').replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+          return { name: clean, filename: f.name, url: SUPA_URL+'/storage/v1/object/public/'+SUPA_BUCKET+'/'+encodeURIComponent(f.name) };
+        });
+    }
+    check();
+  }).catch(function(){ check(); });
+
+  // 2. Folders
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_FOLDERS + '?select=id,name&order=name.asc', {
+    headers: supaHeaders()
+  }).then(function(r){ return r.json(); }).then(function(rows) {
+    if (Array.isArray(rows)) folders = rows;
+    check();
+  }).catch(function(){ check(); });
+
+  // 3. Assignments
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_ASSIGNMENTS + '?select=filename,folder_id', {
+    headers: supaHeaders()
+  }).then(function(r){ return r.json(); }).then(function(rows) {
+    if (Array.isArray(rows)) rows.forEach(function(r){ assignments[r.filename] = r.folder_id; });
+    check();
+  }).catch(function(){ check(); });
 }
 
-// Legacy localStorage fallback
-function getShirts() {
-  try { return JSON.parse(localStorage.getItem('ffh_shirts') || '[]'); } catch(e) { return []; }
-}
-function saveShirts(arr) {
-  try { localStorage.setItem('ffh_shirts', JSON.stringify(arr)); } catch(e) { }
-}
-
-var _currentShirts = [];
+// ── OPEN / CLOSE ───────────────────────────────────────
 function openShirtModal() {
   document.getElementById('shirt-modal').style.display = 'flex';
-  document.getElementById('shirt-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);font-size:13px;">Carregando camisetas...</div>';
-  loadShirtsFromSupabase(function(supaShirts) {
-    _currentShirts = supaShirts.slice();
-    renderShirtGrid(_currentShirts);
+  _currentFolderId = null;
+  document.getElementById('shirt-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);font-size:13px;">Carregando...</div>';
+  loadAllShirtData(function(shirts, folders, assignments) {
+    _currentShirts = shirts;
+    _folders = folders;
+    _assignments = assignments;
+    renderFolderSidebar();
+    renderShirtGrid();
   });
 }
 function closeShirtModal() {
   document.getElementById('shirt-modal').style.display = 'none';
+  _draggingFilename = null;
 }
 
-function renderShirtGrid(shirts) {
-  if (!shirts) shirts = [];
-  var grid = document.getElementById('shirt-grid');
-  var count = document.getElementById('shirt-count');
-  count.textContent = shirts.length + ' camisetas';
-  // Clear all children except keep a reference to empty div
-  var emptyHTML = '<div id="shirt-empty" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px;">Nenhuma camiseta ainda.<br>Clique em &quot;+ Adicionar&quot; para fazer upload.</div>';
-  grid.innerHTML = emptyHTML;
-  var empty = document.getElementById('shirt-empty');
-  if (!shirts.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+// ── SIDEBAR ────────────────────────────────────────────
+function renderFolderSidebar() {
+  var sb = document.getElementById('shirt-sidebar');
+  var html = '';
 
-  shirts.forEach(function(shirt, i) {
+  // "Todas" item
+  var allActive = _currentFolderId === null;
+  html += '<div onclick="setShirtFolder(null)" style="padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;'
+    + (allActive ? 'background:#1e1708;color:var(--gold-light);border:1px solid var(--gold-dim);' : 'color:var(--text-dim);border:1px solid transparent;')
+    + '" '
+    + 'ondragover="event.preventDefault();this.style.borderColor=\'var(--gold)\'" '
+    + 'ondragleave="this.style.borderColor=\'transparent\'" '
+    + 'ondrop="dropToFolder(event,null);this.style.borderColor=\'transparent\'">'
+    + '📌 Todas (' + _currentShirts.length + ')'
+    + '</div>';
+
+  // "Sem pasta" item
+  var unsorted = _currentShirts.filter(function(s){ return !_assignments[s.filename]; });
+  var unsortedActive = _currentFolderId === 'unsorted';
+  html += '<div onclick="setShirtFolder(\'unsorted\')" style="padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;'
+    + (unsortedActive ? 'background:#1e1708;color:var(--gold-light);border:1px solid var(--gold-dim);' : 'color:var(--text-muted);border:1px solid transparent;')
+    + '" '
+    + 'ondragover="event.preventDefault();this.style.borderColor=\'var(--gold)\'" '
+    + 'ondragleave="this.style.borderColor=\'transparent\'" '
+    + 'ondrop="dropToFolder(event,\'unsorted\');this.style.borderColor=\'transparent\'">'
+    + '📂 Sem pasta (' + unsorted.length + ')'
+    + '</div>';
+
+  // Divider
+  if (_folders.length) html += '<div style="height:1px;background:var(--border);margin:6px 4px;"></div>';
+
+  // Each folder
+  _folders.forEach(function(f) {
+    var count = _currentShirts.filter(function(s){ return _assignments[s.filename] === f.id; }).length;
+    var active = _currentFolderId === f.id;
+    html += '<div style="display:flex;align-items:center;gap:4px;border-radius:8px;border:1px solid transparent;'
+      + (active ? 'background:#1e1708;border-color:var(--gold-dim);' : '')
+      + '" '
+      + 'ondragover="event.preventDefault();this.style.borderColor=\'var(--gold)\';this.style.background=\'#1e1708\'" '
+      + 'ondragleave="this.style.borderColor=\'' + (active?'var(--gold-dim)':'transparent') + '\';this.style.background=\'' + (active?'#1e1708':'') + '\'" '
+      + 'ondrop="dropToFolder(event,\'' + f.id + '\');this.style.borderColor=\'' + (active?'var(--gold-dim)':'transparent') + '\';this.style.background=\'' + (active?'#1e1708':'') + '\'">'
+      + '<div onclick="setShirtFolder(\'' + f.id + '\')" style="flex:1;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:500;color:' + (active?'var(--gold-light)':'var(--text-dim)') + ';">'
+      + '🗂 ' + f.name + ' (' + count + ')'
+      + '</div>'
+      + '<div style="display:flex;gap:2px;padding-right:4px;">'
+      + '<button onclick="renameFolder(\'' + f.id + '\',\'' + f.name.replace(/'/g,"\\'") + '\')" title="Renomear" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;padding:2px 4px;" onmouseenter="this.style.color=\'var(--gold-light)\'" onmouseleave="this.style.color=\'var(--text-muted)\'">✏️</button>'
+      + '<button onclick="deleteFolder(\'' + f.id + '\',\'' + f.name.replace(/'/g,"\\'") + '\')" title="Excluir pasta" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;padding:2px 4px;" onmouseenter="this.style.color=\'#cc5555\'" onmouseleave="this.style.color=\'var(--text-muted)\'">🗑</button>'
+      + '</div></div>';
+  });
+
+  sb.innerHTML = html;
+}
+
+function setShirtFolder(folderId) {
+  _currentFolderId = folderId;
+  renderFolderSidebar();
+  renderShirtGrid();
+}
+
+// ── GRID ───────────────────────────────────────────────
+function renderShirtGrid() {
+  var grid = document.getElementById('shirt-grid');
+  var countEl = document.getElementById('shirt-count');
+  var titleEl = document.getElementById('shirt-title');
+
+  // Filter shirts for current view
+  var visibleShirts;
+  if (_currentFolderId === null) {
+    visibleShirts = _currentShirts;
+    titleEl.textContent = '📌 Todas as Camisetas';
+  } else if (_currentFolderId === 'unsorted') {
+    visibleShirts = _currentShirts.filter(function(s){ return !_assignments[s.filename]; });
+    titleEl.textContent = '📂 Sem pasta';
+  } else {
+    var folder = _folders.find(function(f){ return f.id === _currentFolderId; });
+    visibleShirts = _currentShirts.filter(function(s){ return _assignments[s.filename] === _currentFolderId; });
+    titleEl.textContent = '🗂 ' + (folder ? folder.name : '');
+  }
+
+  countEl.textContent = visibleShirts.length + ' camiseta' + (visibleShirts.length !== 1 ? 's' : '');
+
+  if (!visibleShirts.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px;">Nenhuma camiseta aqui ainda.</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+
+  visibleShirts.forEach(function(shirt, i) {
     var card = document.createElement('div');
-    card.style.cssText = 'background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .18s,transform .15s,box-shadow .15s;display:flex;flex-direction:column;';
+    card.style.cssText = 'background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:grab;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s;user-select:none;';
+    card.setAttribute('draggable', 'true');
+    card.setAttribute('data-filename', shirt.filename);
+
+    // Drag events
+    card.addEventListener('dragstart', function(e) {
+      _draggingFilename = shirt.filename;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', shirt.filename);
+      document.getElementById('shirt-dropzone-hint').style.display = 'block';
+      setTimeout(function(){ card.style.opacity = '0.5'; }, 0);
+    });
+    card.addEventListener('dragend', function() {
+      card.style.opacity = '1';
+      _draggingFilename = null;
+      document.getElementById('shirt-dropzone-hint').style.display = 'none';
+    });
+
     card.onmouseenter = function(){ this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.4)'; };
     card.onmouseleave = function(){ this.style.borderColor='var(--border)';this.style.transform='';this.style.boxShadow=''; };
 
     // Image
     var img = document.createElement('img');
-    img.src = shirt.url || shirt.data || '';
-    img.style.cssText = 'width:100%;aspect-ratio:1;object-fit:contain;background:#0d0d0d;padding:8px;';
-    img.setAttribute('data-idx', i);
-    img.onclick = function() { copyShirtImage(parseInt(this.getAttribute('data-idx'))); };
+    img.src = shirt.url;
+    img.style.cssText = 'width:100%;aspect-ratio:1;object-fit:contain;background:#0d0d0d;padding:8px;pointer-events:none;';
+
+    // Click to copy (only if not dragging)
+    card.addEventListener('click', function(e) {
+      copyShirtImage(shirt);
+    });
 
     // Name bar
     var nameBar = document.createElement('div');
-    nameBar.style.cssText = 'padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:1px solid var(--border);';
+    nameBar.style.cssText = 'padding:7px 10px;display:flex;align-items:center;gap:5px;border-top:1px solid var(--border);';
 
     var nameEl = document.createElement('span');
     nameEl.textContent = shirt.name;
-    nameEl.style.cssText = 'font-size:11px;color:var(--text);font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;';
-    nameEl.setAttribute('data-idx', i);
-    nameEl.onclick = function() { copyShirtImage(parseInt(this.getAttribute('data-idx'))); };
+    nameEl.style.cssText = 'font-size:11px;color:var(--text);font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;';
+
+    // Move to folder button
+    var moveBtn = document.createElement('button');
+    moveBtn.innerHTML = '📁';
+    moveBtn.title = 'Mover para pasta';
+    moveBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:12px;padding:1px 3px;flex-shrink:0;opacity:0.6;';
+    moveBtn.onmouseenter = function(){ this.style.opacity='1'; };
+    moveBtn.onmouseleave = function(){ this.style.opacity='0.6'; };
+    moveBtn.onclick = function(e) { e.stopPropagation(); showMoveMenu(shirt.filename, moveBtn); };
 
     var delBtn = document.createElement('button');
     delBtn.textContent = '✕';
-    delBtn.style.cssText = 'background:none;border:none;color:var(--text-muted);font-size:11px;cursor:pointer;padding:2px 4px;flex-shrink:0;line-height:1;';
-    delBtn.setAttribute('data-idx', i);
-    delBtn.onclick = function(e) { e.stopPropagation(); deleteShirt(parseInt(this.getAttribute('data-idx'))); };
+    delBtn.style.cssText = 'background:none;border:none;color:var(--text-muted);font-size:10px;cursor:pointer;padding:1px 3px;flex-shrink:0;';
     delBtn.onmouseenter = function(){ this.style.color='#cc5555'; };
     delBtn.onmouseleave = function(){ this.style.color='var(--text-muted)'; };
+    delBtn.onclick = function(e) { e.stopPropagation(); deleteShirt(shirt); };
 
     nameBar.appendChild(nameEl);
+    nameBar.appendChild(moveBtn);
     nameBar.appendChild(delBtn);
     card.appendChild(img);
     card.appendChild(nameBar);
+
     card.style.opacity = '0';
-    card.style.transform = 'translateY(12px)';
-    card.style.transition = 'opacity .2s ease, transform .2s ease';
+    card.style.transform = 'translateY(10px)';
     grid.appendChild(card);
-    (function(c, delay) {
-      setTimeout(function(){
-        c.style.opacity = '1';
-        c.style.transform = 'translateY(0)';
-      }, delay);
-    })(card, i * 50 + 50);
+    (function(c, d){ setTimeout(function(){ c.style.opacity='1'; c.style.transform='translateY(0)'; }, d); })(card, i*40+30);
   });
 }
 
+// ── DRAG DROP TO FOLDER ────────────────────────────────
+function dropToFolder(e, folderId) {
+  e.preventDefault();
+  var filename = e.dataTransfer.getData('text/plain') || _draggingFilename;
+  if (!filename) return;
+  assignShirtToFolder(filename, folderId === 'unsorted' ? null : folderId);
+}
+
+function assignShirtToFolder(filename, folderId) {
+  // Optimistic update
+  if (folderId) _assignments[filename] = folderId;
+  else delete _assignments[filename];
+  renderFolderSidebar();
+  renderShirtGrid();
+
+  // Persist to Supabase
+  // First delete existing assignment
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_ASSIGNMENTS + '?filename=eq.' + encodeURIComponent(filename), {
+    method: 'DELETE', headers: supaHeaders()
+  }).then(function() {
+    if (!folderId) { toast('Camiseta removida da pasta.'); return; }
+    return fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_ASSIGNMENTS, {
+      method: 'POST',
+      headers: supaHeaders(true),
+      body: JSON.stringify({ filename: filename, folder_id: folderId })
+    }).then(function(r){ if(!r.ok) throw new Error(); toast('✓ Movida!'); });
+  }).catch(function(){ toast('Erro ao mover.'); });
+}
+
+// ── MOVE MENU (dropdown) ───────────────────────────────
+function showMoveMenu(filename, anchorEl) {
+  // Remove existing menu
+  var existing = document.getElementById('shirt-move-menu');
+  if (existing) existing.remove();
+
+  var menu = document.createElement('div');
+  menu.id = 'shirt-move-menu';
+  menu.style.cssText = 'position:fixed;background:var(--surface3);border:1px solid var(--border-gold);border-radius:10px;padding:6px;z-index:9999;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.6);';
+
+  var title = document.createElement('div');
+  title.textContent = 'Mover para:';
+  title.style.cssText = 'font-size:10px;color:var(--text-muted);padding:4px 8px 6px;text-transform:uppercase;letter-spacing:0.08em;';
+  menu.appendChild(title);
+
+  // Remove from folder option
+  var removeOpt = document.createElement('div');
+  removeOpt.textContent = '📌 Sem pasta';
+  removeOpt.style.cssText = 'padding:7px 10px;border-radius:7px;cursor:pointer;font-size:12px;color:var(--text-dim);';
+  removeOpt.onmouseenter = function(){ this.style.background='var(--surface2)'; };
+  removeOpt.onmouseleave = function(){ this.style.background=''; };
+  removeOpt.onclick = function(){ assignShirtToFolder(filename, null); menu.remove(); };
+  menu.appendChild(removeOpt);
+
+  _folders.forEach(function(f) {
+    var opt = document.createElement('div');
+    opt.textContent = '🗂 ' + f.name;
+    opt.style.cssText = 'padding:7px 10px;border-radius:7px;cursor:pointer;font-size:12px;color:var(--text-dim);';
+    opt.onmouseenter = function(){ this.style.background='var(--surface2)'; };
+    opt.onmouseleave = function(){ this.style.background=''; };
+    opt.onclick = function(){ assignShirtToFolder(filename, f.id); menu.remove(); };
+    menu.appendChild(opt);
+  });
+
+  if (!_folders.length) {
+    var empty = document.createElement('div');
+    empty.textContent = 'Nenhuma pasta criada';
+    empty.style.cssText = 'padding:7px 10px;font-size:11px;color:var(--text-muted);';
+    menu.appendChild(empty);
+  }
+
+  document.body.appendChild(menu);
+
+  // Position near anchor
+  var rect = anchorEl.getBoundingClientRect();
+  var menuW = 180;
+  var left = rect.left - menuW + rect.width;
+  if (left < 8) left = 8;
+  menu.style.left = left + 'px';
+  menu.style.top = (rect.bottom + 6) + 'px';
+
+  // Close on outside click
+  setTimeout(function() {
+    document.addEventListener('click', function handler(e) {
+      if (!menu.contains(e.target)) { menu.remove(); document.removeEventListener('click', handler); }
+    });
+  }, 100);
+}
+
+// ── FOLDER CRUD ────────────────────────────────────────
+function shirtPromptNewFolder() {
+  var name = prompt('Nome da pasta:');
+  if (!name || !name.trim()) return;
+  name = name.trim();
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_FOLDERS, {
+    method: 'POST',
+    headers: supaHeaders(true),
+    body: JSON.stringify({ name: name })
+  }).then(function(r) {
+    if (!r.ok) throw new Error();
+    return r.json();
+  }).then(function(rows) {
+    var row = Array.isArray(rows) ? rows[0] : rows;
+    if (row && row.id) {
+      _folders.push({ id: row.id, name: name });
+      _folders.sort(function(a,b){ return a.name.localeCompare(b.name); });
+      _currentFolderId = row.id;
+      renderFolderSidebar();
+      renderShirtGrid();
+      toast('✓ Pasta "' + name + '" criada!');
+    }
+  }).catch(function(){ toast('Erro ao criar pasta.'); });
+}
+
+function renameFolder(id, currentName) {
+  var name = prompt('Novo nome:', currentName);
+  if (!name || !name.trim() || name.trim() === currentName) return;
+  name = name.trim();
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_FOLDERS + '?id=eq.' + id, {
+    method: 'PATCH',
+    headers: supaHeaders(true),
+    body: JSON.stringify({ name: name })
+  }).then(function(r) {
+    if (!r.ok) throw new Error();
+    var f = _folders.find(function(x){ return x.id === id; });
+    if (f) { f.name = name; _folders.sort(function(a,b){ return a.name.localeCompare(b.name); }); }
+    renderFolderSidebar();
+    renderShirtGrid();
+    toast('✓ Renomeada!');
+  }).catch(function(){ toast('Erro ao renomear.'); });
+}
+
+function deleteFolder(id, name) {
+  if (!confirm('Excluir pasta "' + name + '"? As camisetas não serão removidas, só sairão da pasta.')) return;
+  // Remove assignments first
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_ASSIGNMENTS + '?folder_id=eq.' + id, {
+    method: 'DELETE', headers: supaHeaders()
+  }).then(function() {
+    return fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_FOLDERS + '?id=eq.' + id, {
+      method: 'DELETE', headers: supaHeaders()
+    });
+  }).then(function() {
+    _folders = _folders.filter(function(f){ return f.id !== id; });
+    Object.keys(_assignments).forEach(function(fn){ if (_assignments[fn] === id) delete _assignments[fn]; });
+    if (_currentFolderId === id) _currentFolderId = null;
+    renderFolderSidebar();
+    renderShirtGrid();
+    toast('Pasta excluída.');
+  }).catch(function(){ toast('Erro ao excluir pasta.'); });
+}
+
+// ── UPLOAD ────────────────────────────────────────────
 function handleShirtUpload(input) {
   var files = Array.from(input.files);
   if (!files.length) return;
-  var total = files.length;
-  var done = 0;
+  var total = files.length, done = 0;
   toast('Enviando ' + total + ' imagem' + (total>1?'ns':'') + '...');
   files.forEach(function(file) {
     var filename = Date.now() + '_' + file.name.replace(/\s/g,'_');
@@ -2291,93 +2971,83 @@ function handleShirtUpload(input) {
       method: 'POST',
       headers: Object.assign({'Content-Type': file.type, 'x-upsert': 'true'}, supaHeaders()),
       body: file
-    })
-    .then(function(r) {
+    }).then(function(r) {
       if (!r.ok) return r.text().then(function(t){ throw new Error(t); });
       return r.json();
-    })
-    .then(function(res) {
-      console.log('Upload OK:', res);
+    }).then(function() {
       done++;
       if (done === total) {
-        setTimeout(function(){ openShirtModal(); }, 500);
+        // If currently in a folder, auto-assign new uploads to it
+        var pendingFolder = (_currentFolderId && _currentFolderId !== 'unsorted') ? _currentFolderId : null;
+        setTimeout(function(){ reloadShirts(pendingFolder); }, 400);
         toast('✓ ' + total + ' camiseta' + (total>1?'s':'') + ' enviada' + (total>1?'s':'') + '!');
       }
-    })
-    .catch(function(e) {
-      console.error('Upload error:', e);
+    }).catch(function(e) {
       done++;
       toast('Erro ao enviar: ' + e.message);
-      if (done === total) setTimeout(function(){ openShirtModal(); }, 500);
+      if (done === total) setTimeout(function(){ reloadShirts(null); }, 400);
     });
   });
   input.value = '';
 }
 
-function copyShirtImage(idx) {
-  var shirt = _currentShirts[idx];
-  if (!shirt) return;
-
-  function showCopied() {
-    toast('✓ Imagem copiada! Cole no ChatGPT com Ctrl+V');
-    var grid = document.getElementById('shirt-grid');
-    var cards = Array.from(grid.children).filter(function(c){ return c.id !== 'shirt-empty'; });
-    var card = cards[idx];
-    if (card) {
-      card.style.borderColor = 'var(--gold)';
-      card.style.boxShadow = '0 0 0 3px var(--gold)';
-      setTimeout(function(){ card.style.borderColor='var(--border)';card.style.boxShadow=''; }, 2000);
+function reloadShirts(autoFolderId) {
+  loadAllShirtData(function(shirts, folders, assignments) {
+    _currentShirts = shirts;
+    _folders = folders;
+    _assignments = assignments;
+    // Auto-assign newly uploaded shirts to current folder
+    if (autoFolderId) {
+      var unassigned = shirts.filter(function(s){ return !assignments[s.filename]; });
+      // only assign ones without an existing assignment
+      unassigned.forEach(function(s) {
+        assignShirtToFolder(s.filename, autoFolderId);
+      });
     }
-  }
-
-  // Fetch image as blob directly from Supabase URL (no canvas needed — avoids tainted canvas error)
-  var url = shirt.url || shirt.data;
-  fetch(url)
-    .then(function(r) {
-      if (!r.ok) throw new Error('Fetch failed');
-      return r.blob();
-    })
-    .then(function(blob) {
-      if (navigator.clipboard && navigator.clipboard.write) {
-        // Force PNG type for clipboard compatibility
-        var pngBlob = new Blob([blob], { type: 'image/png' });
-        var item = new ClipboardItem({ 'image/png': pngBlob });
-        return navigator.clipboard.write([item]).then(function() {
-          showCopied();
-        });
-      } else {
-        throw new Error('Clipboard API not available');
-      }
-    })
-    .catch(function(err) {
-      console.error('Copy error:', err);
-      // Fallback: download the file
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = shirt.name + '.png';
-      a.target = '_blank';
-      a.click();
-      toast('Baixando imagem — arraste pro ChatGPT');
-    });
-  img.src = shirt.url || shirt.data || '';
+    renderFolderSidebar();
+    renderShirtGrid();
+  });
 }
 
-function deleteShirt(idx) {
-  if (!confirm('Remover esta camiseta?')) return;
-  var shirts = _currentShirts;
-  (function(shirts) {
-    var shirt = shirts[idx];
-    if (!shirt || !shirt.filename) { toast('Erro ao remover.'); return; }
-    fetch(SUPA_URL + '/storage/v1/object/' + SUPA_BUCKET + '/' + shirt.filename, {
-      method: 'DELETE',
-      headers: supaHeaders()
-    })
-    .then(function() {
-      openShirtModal();
-      toast('Removida!');
-    })
-    .catch(function() { toast('Erro ao remover.'); });
+// ── COPY IMAGE ────────────────────────────────────────
+function copyShirtImage(shirt) {
+  if (!shirt) return;
+  var url = shirt.url;
+  fetch(url).then(function(r) {
+    if (!r.ok) throw new Error('Fetch failed');
+    return r.blob();
+  }).then(function(blob) {
+    if (navigator.clipboard && navigator.clipboard.write) {
+      var pngBlob = new Blob([blob], { type: 'image/png' });
+      var item = new ClipboardItem({ 'image/png': pngBlob });
+      return navigator.clipboard.write([item]).then(function() {
+        toast('✓ Imagem copiada! Cole no ChatGPT com Ctrl+V');
+      });
+    } else { throw new Error('Clipboard API not available'); }
+  }).catch(function(err) {
+    var a = document.createElement('a');
+    a.href = url; a.download = shirt.name + '.png'; a.target = '_blank'; a.click();
+    toast('Baixando imagem — arraste pro ChatGPT');
   });
+}
+
+// ── DELETE SHIRT ──────────────────────────────────────
+function deleteShirt(shirt) {
+  if (!confirm('Remover "' + shirt.name + '"?')) return;
+  // Remove assignment first, then file
+  fetch(SUPA_URL + '/rest/v1/' + SUPA_TABLE_ASSIGNMENTS + '?filename=eq.' + encodeURIComponent(shirt.filename), {
+    method: 'DELETE', headers: supaHeaders()
+  }).then(function() {
+    return fetch(SUPA_URL + '/storage/v1/object/' + SUPA_BUCKET + '/' + shirt.filename, {
+      method: 'DELETE', headers: supaHeaders()
+    });
+  }).then(function() {
+    _currentShirts = _currentShirts.filter(function(s){ return s.filename !== shirt.filename; });
+    delete _assignments[shirt.filename];
+    renderFolderSidebar();
+    renderShirtGrid();
+    toast('Removida!');
+  }).catch(function(){ toast('Erro ao remover.'); });
 }
 
 // Close modal on backdrop click
