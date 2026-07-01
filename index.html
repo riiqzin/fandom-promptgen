@@ -1190,6 +1190,10 @@ document.getElementById('ffh-intro-logo').src = logoBase64;
 // ═══════════════════════════════════════════════════════
 // DATA — FEMININO
 // ═══════════════════════════════════════════════════════
+// FIXED REALISM BLOCKS — always injected into every generated prompt
+const FIXED_CAMERA_QUALITY = `Camera quality: low-resolution budget Android smartphone camera, soft and slightly blurry overall focus, heavy noise/grain in shadow areas, washed-out and inaccurate colors, visible compression artifacts and pixelation, poor dynamic range with blown highlights and crushed shadows, slight motion blur from handheld shooting, uneven white balance with a slight greenish or yellowish color cast, low detail and softness typical of an entry-level phone camera sensor, no computational photography enhancement, looks like a photo straight out of an old budget smartphone with no editing.`;
+const FIXED_TSHIRT_GRAPHIC = `T-shirt graphic: print following the fabric's folds and wrinkles realistically, visibly bending and compressing over the chest curve, shoulder fold, and where the hand pinches the hem, with fabric wrinkle shadows cast over the print, looks printed onto worn cotton fabric, not flat or pasted on top. Slightly worn, washed-looking black fabric with visible texture and minor wrinkles.`;
+
 const CAMERA_F = {
   iphone: `Ultra-realistic candid lifestyle photography, shot on iPhone 14 Pro, 26mm lens, natural HDR, authentic documentary style, subtle film grain, Instagram street photography aesthetic.`,
   android: `Ultra-realistic candid lifestyle photography, shot on a mid-range Android smartphone (similar to a Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, no computational HDR, slight digital noise, authentic low-fi quality typical of everyday Brazilian phone photography. The image should feel genuinely casual — not cinematic, not polished, just real.`
@@ -1473,10 +1477,12 @@ function buildDuplaPrompt() {
     `[DUPLA — 2 CAMISETAS DIFERENTES] Antes de enviar: anexe as 2 imagens de referência. Imagem 1 = camiseta da pessoa à esquerda/frente. Imagem 2 = camiseta da pessoa à direita/atrás.`,
     ``,
     DUPLA_CAMERA[d.camera],
+    FIXED_CAMERA_QUALITY,
     DUPLA_RATIO[d.ratio],
     `SUBJECTS: ${DUPLA_GENERO[d.genero].desc}`,
     DUPLA_TSHIRT[d.tshirt],
     DUPLA_PRESERVE,
+    FIXED_TSHIRT_GRAPHIC,
     DUPLA_COMPOSICAO[d.composicao],
     DUPLA_FRAMING,
     DUPLA_SCENE[d.scene],
@@ -1559,9 +1565,11 @@ function buildPrompt() {
       : `Pose: ${POSE_F[state.pose]}`;
     return [
       CAMERA_F[state.camera],
+      FIXED_CAMERA_QUALITY,
       RATIO_F[state.ratio],
       TSHIRT_F[state.tshirt],
       PRESERVE_F,
+      FIXED_TSHIRT_GRAPHIC,
       printBlock,
       `Wearing the t-shirt ${OUTFIT_F[state.outfit]}`,
       SCENE_F[state.scene],
@@ -1583,8 +1591,10 @@ function buildPrompt() {
     if (isCostas) {
       return [
         CAMERA_M[state.cameraM],
+        FIXED_CAMERA_QUALITY,
         RATIO_M[state.ratioM],
         TSHIRT_M[state.tshirtM],
+        FIXED_TSHIRT_GRAPHIC,
         `The t-shirt's graphic design is on the BACK. The model is standing with his back fully turned toward the camera. The back print is the absolute hero of this image — it must be preserved perfectly from the reference: identical artwork, colors, typography, placement, proportions, and scale. No face is visible. The camera captures only the back of the model. Do not show or imply any front-facing view.`,
         `Styled with the t-shirt ${OUTFIT_M[state.outfitM]}`,
         SCENE_M[state.sceneM],
@@ -1599,8 +1609,10 @@ function buildPrompt() {
     }
     return [
       CAMERA_M[state.cameraM],
+      FIXED_CAMERA_QUALITY,
       RATIO_M[state.ratioM],
       TSHIRT_M[state.tshirtM],
+      FIXED_TSHIRT_GRAPHIC,
       `Styled with the t-shirt ${OUTFIT_M[state.outfitM]}`,
       SCENE_M[state.sceneM],
       `Background softly blurred with realistic depth of field.`,
@@ -1885,7 +1897,7 @@ var RV_TYPE={segurando:'Customer holding the t-shirt up with one hand, displayin
 var RV_PERSON={ningum:'',homem:'The customer is a young Brazilian man, approximately 20-30 years old. Ordinary-looking. Average build. Realistic skin texture.',mulher:'The customer is a young Brazilian woman, approximately 20-30 years old. Ordinary-looking. Average build. No professional makeup.'};
 var RV_PRESERVE='The t-shirt graphic print must be preserved perfectly and exactly as shown in the reference image. Identical artwork, colors, typography, placement, proportions, and scale. The print must exhibit realistic deformation caused by fabric draping, including perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking, and natural loss of detail inside fabric creases.';
 var RV_REALISM='Realism details: slight motion blur, fabric creases from packaging, natural cotton texture, authentic draping, unpredictable wrinkles, no studio lighting. Must look like a photo taken in 10 seconds to send via WhatsApp.';
-function buildRevPrompt(){var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,RV_TYPE[RV.type],RV_PERSON[RV.person],RV_SCENE[RV.scene],'Lighting: natural daylight from a window. Uneven and slightly warm. No ring light, no flash, no studio light.',RV_REALISM];return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');}
+function buildRevPrompt(){var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],FIXED_CAMERA_QUALITY,RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type],RV_PERSON[RV.person],RV_SCENE[RV.scene],'Lighting: natural daylight from a window. Uneven and slightly warm. No ring light, no flash, no studio light.',RV_REALISM];return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');}
 function renderRevPrompt(){var el=document.getElementById('rev-output');if(el)el.textContent=buildRevPrompt();}
 function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-scene':'scene','rv-cam':'cam'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
 function copyRevPrompt(){
@@ -2408,9 +2420,11 @@ function buildHoletomPrompt() {
 
   const parts = [
     HD_CAMERA[h.camera],
+    FIXED_CAMERA_QUALITY,
     HD_RATIO[h.ratio],
     `Subject: ${genderDesc}, ${skinText}, ${hairText}.`,
     `The subject is wearing the attached hoodie as the main hero piece. Use the attached image as the exact visual reference — preserve its design, color, texture, and all details faithfully.`,
+    `Hoodie graphic: print following the fabric's folds and wrinkles realistically, visibly bending and compressing over the back curve, shoulder fold, and hood seams, with fabric wrinkle shadows cast over the print, looks printed onto worn cotton fleece fabric, not flat or pasted on top. Slightly worn, washed-looking black fabric with visible texture and minor wrinkles.`,
     `Hoodie size and fit: ${HD_SIZE[h.size]}`,
     `Hood: ${HD_HOOD[h.hood]}`,
     HD_PRESERVE,
