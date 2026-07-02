@@ -513,6 +513,7 @@
     <button class="tab-btn" onclick="switchTab('reviews',this)">Avaliações</button>
     <button class="tab-btn" onclick="switchTab('library',this)">Biblioteca</button>
     <div style="width:1px;height:20px;background:var(--border);margin:0 6px;"></div>
+    <div id="quick-last-shirt" title="Última camiseta selecionada — clique para copiar" style="display:none;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;border:1.5px solid var(--gold);cursor:pointer;overflow:hidden;flex-shrink:0;background:var(--surface2);transition:transform .15s,box-shadow .15s;"></div>
     <button class="btn btn-ghost" onclick="openShirtModal()" style="font-size:12px;padding:6px 14px;border-color:var(--gold-dim);color:var(--gold-light);">&#128204; Selecionar Camiseta</button>
   </div>
 </header>
@@ -2653,6 +2654,16 @@ function loadAllShirtData(cb) {
 // ── OPEN / CLOSE ───────────────────────────────────────
 var LAST_SHIRT_KEY = 'ffh_last_shirt_filename';
 
+function getLastShirt() {
+  try {
+    var raw = localStorage.getItem(LAST_SHIRT_KEY);
+    if (!raw) return null;
+    // Backward compat: older versions stored just the filename string
+    if (raw.charAt(0) !== '{') return null;
+    return JSON.parse(raw);
+  } catch(e) { return null; }
+}
+
 function openShirtModal() {
   document.getElementById('shirt-modal').style.display = 'flex';
   _currentFolderId = null;
@@ -2670,8 +2681,7 @@ function openShirtModal() {
 // ── ÚLTIMA CAMISETA USADA (DESTAQUE) ───────────────────
 function renderLastUsedShirt() {
   var box = document.getElementById('shirt-last-used');
-  var filename = localStorage.getItem(LAST_SHIRT_KEY);
-  var shirt = filename ? _currentShirts.find(function(s){ return s.filename === filename; }) : null;
+  var shirt = getLastShirt();
 
   if (!shirt) { box.style.display = 'none'; box.innerHTML = ''; return; }
 
@@ -3070,11 +3080,33 @@ function reloadShirts(autoFolderId) {
   });
 }
 
+// ── MINI ATALHO NO HEADER (fora do modal) ──────────────
+function renderQuickLastShirt() {
+  var el = document.getElementById('quick-last-shirt');
+  if (!el) return;
+  var shirt = getLastShirt();
+  if (!shirt) { el.style.display = 'none'; el.innerHTML = ''; return; }
+
+  el.style.display = 'flex';
+  el.title = 'Última camiseta: ' + shirt.name + ' — clique para copiar';
+  el.innerHTML = '';
+  el.onclick = function(){ copyShirtImage(shirt); };
+  el.onmouseenter = function(){ this.style.transform='scale(1.08)'; this.style.boxShadow='0 4px 14px rgba(201,168,76,0.35)'; };
+  el.onmouseleave = function(){ this.style.transform=''; this.style.boxShadow=''; };
+
+  var img = document.createElement('img');
+  img.src = shirt.url;
+  img.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#0d0d0d;pointer-events:none;';
+  el.appendChild(img);
+}
+renderQuickLastShirt();
+
 // ── COPY IMAGE ────────────────────────────────────────
 function copyShirtImage(shirt) {
   if (!shirt) return;
-  try { localStorage.setItem(LAST_SHIRT_KEY, shirt.filename); } catch(e) {}
+  try { localStorage.setItem(LAST_SHIRT_KEY, JSON.stringify({ filename: shirt.filename, url: shirt.url, name: shirt.name })); } catch(e) {}
   renderLastUsedShirt();
+  renderQuickLastShirt();
   var url = shirt.url;
   fetch(url).then(function(r) {
     if (!r.ok) throw new Error('Fetch failed');
@@ -3107,10 +3139,12 @@ function deleteShirt(shirt) {
   }).then(function() {
     _currentShirts = _currentShirts.filter(function(s){ return s.filename !== shirt.filename; });
     delete _assignments[shirt.filename];
-    if (localStorage.getItem(LAST_SHIRT_KEY) === shirt.filename) { try { localStorage.removeItem(LAST_SHIRT_KEY); } catch(e) {} }
+    var last = getLastShirt();
+    if (last && last.filename === shirt.filename) { try { localStorage.removeItem(LAST_SHIRT_KEY); } catch(e) {} }
     renderFolderSidebar();
     renderShirtGrid();
     renderLastUsedShirt();
+    renderQuickLastShirt();
     toast('Removida!');
   }).catch(function(){ toast('Erro ao remover.'); });
 }
