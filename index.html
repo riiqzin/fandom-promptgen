@@ -557,6 +557,8 @@
         <div class="chips">
           <div class="chip selected" data-group="camera" data-value="iphone" onclick="selectChip(this)">iPhone 14 Pro</div>
           <div class="chip" data-group="camera" data-value="android" onclick="selectChip(this)">Android Mid-range</div>
+          <div class="chip" data-group="camera" data-value="android-basic" onclick="selectChip(this)">Android Básico</div>
+          <div class="chip" data-group="camera" data-value="iphone-old" onclick="selectChip(this)">iPhone Antigo</div>
         </div>
       </div>
     </div>
@@ -569,6 +571,18 @@
           <div class="chip" data-group="ratio" data-value="1:1" onclick="selectChip(this)">1:1 — Quadrado</div>
           <div class="chip" data-group="ratio" data-value="9:16" onclick="selectChip(this)">9:16 — Stories/TikTok</div>
         </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Enquadramento</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip" data-group="frame" data-value="completo" onclick="selectChip(this)">Corpo inteiro</div>
+          <div class="chip" data-group="frame" data-value="joelho" onclick="selectChip(this)">Do joelho pra cima</div>
+          <div class="chip selected" data-group="frame" data-value="cintura" onclick="selectChip(this)">Da cintura pra cima</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.5;margin-top:2px;">O prompt adapta o outfit ao corte: calçados e detalhes fora do quadro deixam de ser citados automaticamente.</div>
       </div>
     </div>
 
@@ -613,30 +627,50 @@
       <div class="section-header"><span class="dot"></span> Outfit</div>
       <div class="section-body">
         <div class="chips">
-          <div class="chip selected" data-group="outfit" data-value="y2k" onclick="selectChip(this)">Y2K Baddie</div>
-          <div class="chip" data-group="outfit" data-value="baddie-grunge" onclick="selectChip(this)">Baddie Grunge</div>
-          <div class="chip" data-group="outfit" data-value="minimal" onclick="selectChip(this)">Minimal Clean</div>
-          <div class="chip" data-group="outfit" data-value="grunge90s" onclick="selectChip(this)">Grunge 90s</div>
-          <div class="chip" data-group="outfit" data-value="hypebeast-f" onclick="selectChip(this)">Streetwear Hypebeast</div>
-          <div class="chip" data-group="outfit" data-value="casual-f" onclick="selectChip(this)">Casual Básico</div>
-          <div class="chip" data-group="outfit" data-value="y2k-denim-full" onclick="selectChip(this)">Y2K Denim Full</div>
-          <div class="chip" data-group="outfit" data-value="y2k-sport-glam" onclick="selectChip(this)">Y2K Sport Glam</div>
-          <div class="chip" data-group="outfit" data-value="baddie-grunge-dark" onclick="selectChip(this)">Baddie Grunge Dark</div>
-          <div class="chip" data-group="outfit" data-value="baddie-loungewear" onclick="selectChip(this)">Baddie Loungewear</div>
-          <div class="chip" data-group="outfit" data-value="jeans-wide-plataforma" onclick="selectChip(this)">Jeans Wide + Plataforma</div>
-          <div class="chip" data-group="outfit" data-value="saia-midi-coturno" onclick="selectChip(this)">Saia Midi + Coturno</div>
-          <div class="chip" data-group="outfit" data-value="legging-sneaker" onclick="selectChip(this)">Legging + Sneaker</div>
-          <div class="chip" data-group="outfit" data-value="shorts-jeans-mule" onclick="selectChip(this)">Shorts Jeans + Mule</div>
-          <div class="chip" data-group="outfit" data-value="calca-social-wide" onclick="selectChip(this)">Calça Social Wide</div>
-          <div class="chip" data-group="outfit" data-value="saia-plissada-tenis" onclick="selectChip(this)">Saia Plissada + Tênis</div>
-          <div class="chip" data-group="outfit" data-value="cargo-feminina" onclick="selectChip(this)">Cargo Feminina</div>
-          <div class="chip" data-group="outfit" data-value="shorts-ciclista-sandalia" onclick="selectChip(this)">Shorts Ciclista + Sandália</div>
-          <div class="chip" data-group="outfit" data-value="baddie-monocromatico" onclick="selectChip(this)">Baddie Monocromático</div>
-          <div class="chip" data-group="outfit" data-value="baddie-denim" onclick="selectChip(this)">Baddie Denim</div>
-          <div class="chip" data-group="outfit" data-value="baddie-athleisure" onclick="selectChip(this)">Baddie Athleisure</div>
-          <div class="chip" data-group="outfit" data-value="y2k-mini-saia" onclick="selectChip(this)">Y2K Mini Saia</div>
-          <div class="chip" data-group="outfit" data-value="y2k-tracksuit" onclick="selectChip(this)">Y2K Tracksuit</div>
-          <div class="chip" data-group="outfit" data-value="y2k-cargo" onclick="selectChip(this)">Y2K Cargo</div>
+          <div class="chip selected" data-group="outfit" data-value="y2k" onclick="selectChip(this)">Y2K Baddie — Jeans Largo + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="baddie-grunge" onclick="selectChip(this)">Baddie Grunge — Saia Preta + Bota</div>
+          <div class="chip" data-group="outfit" data-value="minimal" onclick="selectChip(this)">Clean — Calça Clara Larga</div>
+          <div class="chip" data-group="outfit" data-value="grunge90s" onclick="selectChip(this)">Grunge 90s — Cargo + Camisa Xadrez</div>
+          <div class="chip" data-group="outfit" data-value="hypebeast-f" onclick="selectChip(this)">Streetwear — Jogger + Colete</div>
+          <div class="chip" data-group="outfit" data-value="casual-f" onclick="selectChip(this)">Casual — Jeans Reto + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="y2k-denim-full" onclick="selectChip(this)">Y2K — Saia Jeans + Bolsa Mini</div>
+          <div class="chip" data-group="outfit" data-value="y2k-sport-glam" onclick="selectChip(this)">Y2K — Jeans Flare + Bolsa Branca</div>
+          <div class="chip" data-group="outfit" data-value="baddie-grunge-dark" onclick="selectChip(this)">Baddie Dark — Mini Saia + Bota</div>
+          <div class="chip" data-group="outfit" data-value="baddie-loungewear" onclick="selectChip(this)">Baddie — Shorts Justo + Jaqueta</div>
+          <div class="chip" data-group="outfit" data-value="jeans-wide-plataforma" onclick="selectChip(this)">Jeans Largo + Bolsa Mini</div>
+          <div class="chip" data-group="outfit" data-value="saia-midi-coturno" onclick="selectChip(this)">Saia Midi Preta + Bota</div>
+          <div class="chip" data-group="outfit" data-value="legging-sneaker" onclick="selectChip(this)">Legging Preta + Bolsa Esportiva</div>
+          <div class="chip" data-group="outfit" data-value="shorts-jeans-mule" onclick="selectChip(this)">Shorts Jeans + Bolsa Pequena</div>
+          <div class="chip" data-group="outfit" data-value="calca-social-wide" onclick="selectChip(this)">Calça Social Larga + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="saia-plissada-tenis" onclick="selectChip(this)">Saia Plissada + Bolsa Mini</div>
+          <div class="chip" data-group="outfit" data-value="cargo-feminina" onclick="selectChip(this)">Cargo Feminina + Bolsa Transversal</div>
+          <div class="chip" data-group="outfit" data-value="shorts-ciclista-sandalia" onclick="selectChip(this)">Shorts Ciclista + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="baddie-monocromatico" onclick="selectChip(this)">Baddie Todo Preto + Saia Midi</div>
+          <div class="chip" data-group="outfit" data-value="baddie-denim" onclick="selectChip(this)">Baddie — Shorts Jeans Escuro</div>
+          <div class="chip" data-group="outfit" data-value="baddie-athleisure" onclick="selectChip(this)">Baddie — Shorts Ciclista</div>
+          <div class="chip" data-group="outfit" data-value="y2k-mini-saia" onclick="selectChip(this)">Y2K — Mini Saia Jeans</div>
+          <div class="chip" data-group="outfit" data-value="y2k-tracksuit" onclick="selectChip(this)">Y2K — Calça de Veludo</div>
+          <div class="chip" data-group="outfit" data-value="y2k-cargo" onclick="selectChip(this)">Y2K — Cargo Larga + Correntes</div>
+          <div class="chip" data-group="outfit" data-value="indie-sleaze" onclick="selectChip(this)">Indie — Jeans Escuro + Acessórios</div>
+          <div class="chip" data-group="outfit" data-value="blokette" onclick="selectChip(this)">Esportivo Y2K — Saia + Meião</div>
+          <div class="chip" data-group="outfit" data-value="street-skirt" onclick="selectChip(this)">Street — Saia Longa + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="baggy-denim" onclick="selectChip(this)">Jeans Super Largo + Cinto</div>
+          <div class="chip" data-group="outfit" data-value="soft-grunge" onclick="selectChip(this)">Grunge Leve — Saia + Meia</div>
+          <div class="chip" data-group="outfit" data-value="casual-samba" onclick="selectChip(this)">Casual Retrô — Jeans + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="baddie-cargo-preta" onclick="selectChip(this)">Baddie — Cargo Preta Larga</div>
+          <div class="chip" data-group="outfit" data-value="baddie-jeans-cinto" onclick="selectChip(this)">Baddie — Jeans Largo + Cinto</div>
+          <div class="chip" data-group="outfit" data-value="baddie-saia-cargo" onclick="selectChip(this)">Baddie — Mini Saia Cargo</div>
+          <div class="chip" data-group="outfit" data-value="baddie-couro" onclick="selectChip(this)">Baddie — Calça Couro Larga</div>
+          <div class="chip" data-group="outfit" data-value="y2k-capri" onclick="selectChip(this)">Y2K — Calça Capri + Bolsa Mini</div>
+          <div class="chip" data-group="outfit" data-value="y2k-parachute" onclick="selectChip(this)">Y2K — Calça Parachute Larga</div>
+          <div class="chip" data-group="outfit" data-value="y2k-saia-cargo" onclick="selectChip(this)">Y2K — Saia Cargo + Cinto</div>
+          <div class="chip" data-group="outfit" data-value="y2k-jeans-cinza" onclick="selectChip(this)">Y2K — Jeans Cinza Largo</div>
+          <div class="chip" data-group="outfit" data-value="street-cargo-creme" onclick="selectChip(this)">Street — Cargo Creme + Bolsa</div>
+          <div class="chip" data-group="outfit" data-value="street-jorts-f" onclick="selectChip(this)">Street — Bermuda Jeans Larga</div>
+          <div class="chip" data-group="outfit" data-value="street-trackpants-f" onclick="selectChip(this)">Street — Calça Esportiva Larga</div>
+          <div class="chip" data-group="outfit" data-value="street-denim-preto-f" onclick="selectChip(this)">Street — Jeans Preto Largo</div>
+          <div class="chip" data-group="outfit" data-value="grunge-cargo-cinza-f" onclick="selectChip(this)">Grunge — Cargo Cinza + Correntes</div>
+          <div class="chip" data-group="outfit" data-value="baddie-saia-longa" onclick="selectChip(this)">Baddie — Saia Longa + Fenda</div>
         </div>
       </div>
     </div>
@@ -660,6 +694,12 @@
           <div class="chip" data-group="pose" data-value="celular-sentada" onclick="selectChip(this)">Celular sentada</div>
           <div class="chip" data-group="pose" data-value="drink" onclick="selectChip(this)">Segurando drink</div>
           <div class="chip" data-group="pose" data-value="jogando-cabelo" onclick="selectChip(this)">Jogando o cabelo</div>
+          <div class="chip" data-group="pose" data-value="oculos" onclick="selectChip(this)">Ajustando óculos</div>
+          <div class="chip" data-group="pose" data-value="fone" onclick="selectChip(this)">Colocando fone</div>
+          <div class="chip" data-group="pose" data-value="sacola" onclick="selectChip(this)">Segurando sacola</div>
+          <div class="chip" data-group="pose" data-value="mao-bolso-f" onclick="selectChip(this)">Mão no bolso</div>
+          <div class="chip" data-group="pose" data-value="virando" onclick="selectChip(this)">Virando para câmera</div>
+          <div class="chip" data-group="pose" data-value="escada-sentada" onclick="selectChip(this)">Sentada no degrau</div>
         </div>
       </div>
     </div>
@@ -688,6 +728,12 @@
           <div class="chip" data-group="scene" data-value="rooftop" onclick="selectChip(this)">Rooftop / Terraço</div>
           <div class="chip" data-group="scene" data-value="banheiro" onclick="selectChip(this)">Banheiro de Balada</div>
           <div class="chip" data-group="scene" data-value="corredor" onclick="selectChip(this)">Escada / Corredor</div>
+          <div class="chip" data-group="scene" data-value="loja-conveniencia" onclick="selectChip(this)">Loja de Conveniência</div>
+          <div class="chip" data-group="scene" data-value="elevador" onclick="selectChip(this)">Elevador</div>
+          <div class="chip" data-group="scene" data-value="lavanderia-self" onclick="selectChip(this)">Lavanderia</div>
+          <div class="chip" data-group="scene" data-value="posto" onclick="selectChip(this)">Posto de Gasolina</div>
+          <div class="chip" data-group="scene" data-value="rua-chuva" onclick="selectChip(this)">Rua Pós-Chuva</div>
+          <div class="chip" data-group="scene" data-value="hotel-corredor" onclick="selectChip(this)">Corredor de Hotel</div>
         </div>
       </div>
     </div>
@@ -701,6 +747,9 @@
           <div class="chip" data-group="light" data-value="neon-night" onclick="selectChip(this)">Noite com Néon</div>
           <div class="chip" data-group="light" data-value="noite-urbana" onclick="selectChip(this)">Noite Urbana</div>
           <div class="chip" data-group="light" data-value="flash-celular" onclick="selectChip(this)">Flash de Celular</div>
+          <div class="chip" data-group="light" data-value="janela" onclick="selectChip(this)">Luz de Janela</div>
+          <div class="chip" data-group="light" data-value="fluorescente" onclick="selectChip(this)">Fluorescente Crua</div>
+          <div class="chip" data-group="light" data-value="pos-chuva" onclick="selectChip(this)">Pós-Chuva / Reflexos</div>
         </div>
       </div>
     </div>
@@ -716,6 +765,8 @@
         <div class="chips">
           <div class="chip" data-group="camera-m" data-value="iphone" onclick="selectChip(this)">iPhone 14 Pro</div>
           <div class="chip selected" data-group="camera-m" data-value="android" onclick="selectChip(this)">Android Mid-range</div>
+          <div class="chip" data-group="camera-m" data-value="android-basic" onclick="selectChip(this)">Android Básico</div>
+          <div class="chip" data-group="camera-m" data-value="iphone-old" onclick="selectChip(this)">iPhone Antigo</div>
         </div>
       </div>
     </div>
@@ -728,6 +779,18 @@
           <div class="chip selected" data-group="ratio-m" data-value="1:1" onclick="selectChip(this)">1:1 — Quadrado</div>
           <div class="chip" data-group="ratio-m" data-value="9:16" onclick="selectChip(this)">9:16 — Stories/TikTok</div>
         </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Enquadramento</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="frame-m" data-value="completo" onclick="selectChip(this)">Corpo inteiro</div>
+          <div class="chip" data-group="frame-m" data-value="joelho" onclick="selectChip(this)">Do joelho pra cima</div>
+          <div class="chip" data-group="frame-m" data-value="cintura" onclick="selectChip(this)">Da cintura pra cima</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.5;margin-top:2px;">Nos cortes fechados, o gerador remove calçados e detalhes que fariam a IA abrir o enquadramento.</div>
       </div>
     </div>
 
@@ -764,6 +827,8 @@
           <div class="chip" data-group="hair-m" data-value="cacheado-m" onclick="selectChip(this)">Cacheado</div>
           <div class="chip" data-group="hair-m" data-value="crespo-m" onclick="selectChip(this)">Crespo</div>
           <div class="chip" data-group="hair-m" data-value="longo-m" onclick="selectChip(this)">Longo / Ondulado</div>
+          <div class="chip" data-group="hair-m" data-value="mullet" onclick="selectChip(this)">Mullet Moderno</div>
+          <div class="chip" data-group="hair-m" data-value="dreads-curtas" onclick="selectChip(this)">Dreads Curtas</div>
         </div>
         <div id="extras-block">
           <div class="sub-label">Extras (combinável)</div>
@@ -787,22 +852,42 @@
       <div class="section-header"><span class="dot"></span> Outfit</div>
       <div class="section-body">
         <div class="chips">
-          <div class="chip selected" data-group="outfit-m" data-value="jorts-dark-tote" onclick="selectChip(this)">Jorts Dark + Tote</div>
-          <div class="chip" data-group="outfit-m" data-value="jorts-preto-snap" onclick="selectChip(this)">Jorts Preto + Snapback</div>
-          <div class="chip" data-group="outfit-m" data-value="shorts-moletom" onclick="selectChip(this)">Shorts Moletom + AF1</div>
-          <div class="chip" data-group="outfit-m" data-value="calca-flare" onclick="selectChip(this)">Calça Flare + Cinto</div>
-          <div class="chip" data-group="outfit-m" data-value="baggy-extrawide" onclick="selectChip(this)">Baggy Extrawide SP</div>
-          <div class="chip" data-group="outfit-m" data-value="jorts-claro-bucket" onclick="selectChip(this)">Jorts Claro + Bucket</div>
-          <div class="chip" data-group="outfit-m" data-value="cargo-wide-moletom" onclick="selectChip(this)">Cargo Wide + Moletom</div>
-          <div class="chip" data-group="outfit-m" data-value="moletom-baggy-slide" onclick="selectChip(this)">Moletom Baggy + Slide</div>
-          <div class="chip" data-group="outfit-m" data-value="preta-slim-coturno" onclick="selectChip(this)">Preta Slim + Coturno</div>
-          <div class="chip" data-group="outfit-m" data-value="bermuda-nylon-chunky" onclick="selectChip(this)">Bermuda Nylon + Chunky</div>
-          <div class="chip" data-group="outfit-m" data-value="jorts-claro-nb" onclick="selectChip(this)">Jorts Claro + New Balance</div>
-          <div class="chip" data-group="outfit-m" data-value="cargo-slim-preto" onclick="selectChip(this)">Cargo Slim Preto</div>
-          <div class="chip" data-group="outfit-m" data-value="bermuda-tactel-preta" onclick="selectChip(this)">Bermuda Tactel + Air Max</div>
-          <div class="chip" data-group="outfit-m" data-value="jeans-slim-azul" onclick="selectChip(this)">Jeans Slim + Dunk</div>
-          <div class="chip" data-group="outfit-m" data-value="shorts-sarja-bege" onclick="selectChip(this)">Shorts Sarja + Campus</div>
-          <div class="chip" data-group="outfit-m" data-value="wide-preta-loafer" onclick="selectChip(this)">Wide Preta + Loafer</div>
+          <div class="chip selected" data-group="outfit-m" data-value="jorts-dark-tote" onclick="selectChip(this)">Bermuda Jeans Larga Escura + Bolsa</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-preto-snap" onclick="selectChip(this)">Bermuda Jeans Preta + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="shorts-moletom" onclick="selectChip(this)">Shorts Moletom + Tênis Branco</div>
+          <div class="chip" data-group="outfit-m" data-value="calca-flare" onclick="selectChip(this)">Calça Flare Preta + Cinto</div>
+          <div class="chip" data-group="outfit-m" data-value="baggy-extrawide" onclick="selectChip(this)">Jeans Super Largo + Corrente</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-claro-bucket" onclick="selectChip(this)">Bermuda Jeans Clara + Chapéu</div>
+          <div class="chip" data-group="outfit-m" data-value="cargo-wide-moletom" onclick="selectChip(this)">Cargo Larga + Bolsa Transversal</div>
+          <div class="chip" data-group="outfit-m" data-value="moletom-baggy-slide" onclick="selectChip(this)">Calça Moletom Larga + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="preta-slim-coturno" onclick="selectChip(this)">Calça Preta Reta + Bota</div>
+          <div class="chip" data-group="outfit-m" data-value="bermuda-nylon-chunky" onclick="selectChip(this)">Bermuda Nylon + Tênis Robusto</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-claro-nb" onclick="selectChip(this)">Bermuda Jeans Clara + Tênis Retrô</div>
+          <div class="chip" data-group="outfit-m" data-value="cargo-slim-preto" onclick="selectChip(this)">Cargo Preta + Corrente</div>
+          <div class="chip" data-group="outfit-m" data-value="bermuda-tactel-preta" onclick="selectChip(this)">Bermuda Tactel + Tênis Esportivo</div>
+          <div class="chip" data-group="outfit-m" data-value="jeans-slim-azul" onclick="selectChip(this)">Jeans Azul + Tênis Street</div>
+          <div class="chip" data-group="outfit-m" data-value="shorts-sarja-bege" onclick="selectChip(this)">Shorts Sarja Bege + Tênis Retrô</div>
+          <div class="chip" data-group="outfit-m" data-value="wide-preta-loafer" onclick="selectChip(this)">Calça Preta Larga + Sapato Casual</div>
+          <div class="chip" data-group="outfit-m" data-value="workwear-carpenter" onclick="selectChip(this)">Calça Carpenter + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="football-core" onclick="selectChip(this)">Futebol Street — Shorts + Meião</div>
+          <div class="chip" data-group="outfit-m" data-value="skater-baggy" onclick="selectChip(this)">Skatista — Jeans Muito Largo</div>
+          <div class="chip" data-group="outfit-m" data-value="techwear-light" onclick="selectChip(this)">Techwear — Cargo Preta + Bolsa</div>
+          <div class="chip" data-group="outfit-m" data-value="denim-on-denim" onclick="selectChip(this)">Denim Street</div>
+          <div class="chip" data-group="outfit-m" data-value="minimal-track" onclick="selectChip(this)">Minimal Track Pants</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-cinza-bolsa" onclick="selectChip(this)">Bermuda Jeans Cinza Larga + Bolsa</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-azul-cinto" onclick="selectChip(this)">Bermuda Jeans Azul Larga + Cinto</div>
+          <div class="chip" data-group="outfit-m" data-value="shorts-moletom-preto" onclick="selectChip(this)">Shorts Moletom Preto + Meia Alta</div>
+          <div class="chip" data-group="outfit-m" data-value="shorts-moletom-cinza" onclick="selectChip(this)">Shorts Moletom Cinza + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="baggy-cinza-corrente" onclick="selectChip(this)">Jeans Cinza Super Largo + Corrente</div>
+          <div class="chip" data-group="outfit-m" data-value="baggy-azul-cinto" onclick="selectChip(this)">Jeans Azul Super Largo + Cinto</div>
+          <div class="chip" data-group="outfit-m" data-value="cargo-preta-wide" onclick="selectChip(this)">Cargo Preta Larga + Bolsa Transversal</div>
+          <div class="chip" data-group="outfit-m" data-value="cargo-bege-wide" onclick="selectChip(this)">Cargo Bege Larga + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="parachute-preta" onclick="selectChip(this)">Calça Parachute Preta + Bolsa</div>
+          <div class="chip" data-group="outfit-m" data-value="trackpants-retro" onclick="selectChip(this)">Calça Esportiva Retrô + Boné</div>
+          <div class="chip" data-group="outfit-m" data-value="skater-preto" onclick="selectChip(this)">Skatista — Jeans Preto Muito Largo</div>
+          <div class="chip" data-group="outfit-m" data-value="street-sarja-wide" onclick="selectChip(this)">Calça Sarja Larga + Cinto</div>
+          <div class="chip" data-group="outfit-m" data-value="bermuda-cargo-wide" onclick="selectChip(this)">Bermuda Cargo Larga + Bolsa</div>
+          <div class="chip" data-group="outfit-m" data-value="jorts-preta-corrente" onclick="selectChip(this)">Bermuda Jeans Preta + Corrente</div>
         </div>
       </div>
     </div>
@@ -819,6 +904,10 @@
           <div class="chip" data-group="pose-m" data-value="celular" onclick="selectChip(this)">Mexendo no celular</div>
           <div class="chip" data-group="pose-m" data-value="sentado" onclick="selectChip(this)">Sentado</div>
           <div class="chip" data-group="pose-m" data-value="bolso-cabeca-baixa" onclick="selectChip(this)">Mãos no bolso</div>
+          <div class="chip" data-group="pose-m" data-value="fone-m" onclick="selectChip(this)">Ajustando fone</div>
+          <div class="chip" data-group="pose-m" data-value="oculos-m" onclick="selectChip(this)">Ajustando óculos</div>
+          <div class="chip" data-group="pose-m" data-value="bebida-m" onclick="selectChip(this)">Segurando bebida</div>
+          <div class="chip" data-group="pose-m" data-value="olhando-lado" onclick="selectChip(this)">Olhando para o lado</div>
         </div>
         <div id="poses-costas" class="chips" style="display:none">
           <div class="chip selected" data-group="pose-m" data-value="costas-mao-cintura" onclick="selectChip(this)">Mão na cintura</div>
@@ -826,6 +915,9 @@
           <div class="chip" data-group="pose-m" data-value="costas-mao-nuca" onclick="selectChip(this)">Mão na nuca</div>
           <div class="chip" data-group="pose-m" data-value="costas-andando" onclick="selectChip(this)">Andando pra longe</div>
           <div class="chip" data-group="pose-m" data-value="costas-encostado" onclick="selectChip(this)">Encostado de costas</div>
+          <div class="chip" data-group="pose-m" data-value="costas-celular" onclick="selectChip(this)">Celular na mão</div>
+          <div class="chip" data-group="pose-m" data-value="costas-sacola" onclick="selectChip(this)">Sacola na mão</div>
+          <div class="chip" data-group="pose-m" data-value="costas-ombro" onclick="selectChip(this)">Olhar por cima do ombro</div>
         </div>
       </div>
     </div>
@@ -850,6 +942,11 @@
           <div class="chip" data-group="scene-m" data-value="restaurante" onclick="selectChip(this)">Restaurante / Mesa</div>
           <div class="chip" data-group="scene-m" data-value="ponte" onclick="selectChip(this)">Ponte / Viaduto SP</div>
           <div class="chip" data-group="scene-m" data-value="feira" onclick="selectChip(this)">Feira / Mercado</div>
+          <div class="chip" data-group="scene-m" data-value="loja-conveniencia" onclick="selectChip(this)">Loja de Conveniência</div>
+          <div class="chip" data-group="scene-m" data-value="elevador" onclick="selectChip(this)">Elevador</div>
+          <div class="chip" data-group="scene-m" data-value="posto" onclick="selectChip(this)">Posto de Gasolina</div>
+          <div class="chip" data-group="scene-m" data-value="rua-chuva" onclick="selectChip(this)">Rua Pós-Chuva</div>
+          <div class="chip" data-group="scene-m" data-value="loja-disco" onclick="selectChip(this)">Loja de Discos</div>
         </div>
       </div>
     </div>
@@ -862,6 +959,9 @@
           <div class="chip" data-group="light-m" data-value="cloudy" onclick="selectChip(this)">Dia Nublado</div>
           <div class="chip" data-group="light-m" data-value="neon-night" onclick="selectChip(this)">Noite com Néon</div>
           <div class="chip" data-group="light-m" data-value="manha" onclick="selectChip(this)">Manhã Clara</div>
+          <div class="chip" data-group="light-m" data-value="flash-celular" onclick="selectChip(this)">Flash de Celular</div>
+          <div class="chip" data-group="light-m" data-value="fluorescente" onclick="selectChip(this)">Fluorescente Crua</div>
+          <div class="chip" data-group="light-m" data-value="pos-chuva" onclick="selectChip(this)">Pós-Chuva / Reflexos</div>
         </div>
       </div>
     </div>
@@ -929,6 +1029,10 @@
           <div class="chip" data-group="dupla-composicao" data-value="um-na-frente" onclick="selectDChip(this)">Uma na frente da outra</div>
           <div class="chip" data-group="dupla-composicao" data-value="sentadas" onclick="selectDChip(this)">Sentadas lado a lado</div>
           <div class="chip" data-group="dupla-composicao" data-value="olhando-um-pro-outro" onclick="selectDChip(this)">Conversando / rindo</div>
+          <div class="chip" data-group="dupla-composicao" data-value="selfie-espelho" onclick="selectDChip(this)">Selfie no espelho</div>
+          <div class="chip" data-group="dupla-composicao" data-value="atravessando" onclick="selectDChip(this)">Atravessando a rua</div>
+          <div class="chip" data-group="dupla-composicao" data-value="banco" onclick="selectDChip(this)">Sentados em banco</div>
+          <div class="chip" data-group="dupla-composicao" data-value="foto-amigo" onclick="selectDChip(this)">Foto tirada por amigo</div>
         </div>
       </div>
     </div>
@@ -947,6 +1051,11 @@
           <div class="chip" data-group="dupla-scene" data-value="metro" onclick="selectDChip(this)">Metrô</div>
           <div class="chip" data-group="dupla-scene" data-value="carro-fora" onclick="selectDChip(this)">Encostadas no Carro</div>
           <div class="chip" data-group="dupla-scene" data-value="bar" onclick="selectDChip(this)">Bar / Boteco</div>
+          <div class="chip" data-group="dupla-scene" data-value="loja-conveniencia" onclick="selectDChip(this)">Loja de Conveniência</div>
+          <div class="chip" data-group="dupla-scene" data-value="estacionamento" onclick="selectDChip(this)">Estacionamento</div>
+          <div class="chip" data-group="dupla-scene" data-value="elevador" onclick="selectDChip(this)">Elevador</div>
+          <div class="chip" data-group="dupla-scene" data-value="posto" onclick="selectDChip(this)">Posto de Gasolina</div>
+          <div class="chip" data-group="dupla-scene" data-value="rua-chuva" onclick="selectDChip(this)">Rua Pós-Chuva</div>
         </div>
       </div>
     </div>
@@ -959,6 +1068,8 @@
           <div class="chip" data-group="dupla-light" data-value="cloudy" onclick="selectDChip(this)">Dia Nublado</div>
           <div class="chip" data-group="dupla-light" data-value="neon-night" onclick="selectDChip(this)">Noite com Néon</div>
           <div class="chip" data-group="dupla-light" data-value="flash" onclick="selectDChip(this)">Flash de Celular</div>
+          <div class="chip" data-group="dupla-light" data-value="fluorescente" onclick="selectDChip(this)">Fluorescente Crua</div>
+          <div class="chip" data-group="dupla-light" data-value="pos-chuva" onclick="selectDChip(this)">Pós-Chuva / Reflexos</div>
         </div>
       </div>
     </div>
@@ -991,8 +1102,9 @@
   <div class="section">
     <div class="section-header"><span class="dot"></span> Enquadramento</div>
     <div class="section-body"><div class="chips">
-      <div class="chip selected" data-group="hd-frame" data-value="dorso" onclick="selectHChip(this)">Dorso — foco na estampa</div>
-      <div class="chip" data-group="hd-frame" data-value="completo" onclick="selectHChip(this)">Look Completo</div>
+      <div class="chip selected" data-group="hd-frame" data-value="cintura" onclick="selectHChip(this)">Cintura pra cima — foco máximo</div>
+      <div class="chip" data-group="hd-frame" data-value="joelho" onclick="selectHChip(this)">Joelho pra cima — foco + look</div>
+      <div class="chip" data-group="hd-frame" data-value="completo" onclick="selectHChip(this)">Corpo inteiro — look completo</div>
     </div></div>
   </div>
 
@@ -1046,21 +1158,31 @@
     <div class="section">
       <div class="section-header"><span class="dot"></span> Outfit</div>
       <div class="section-body"><div class="chips">
-        <div class="chip selected" data-group="hd-outfit-m" data-value="streetwear-jogger" onclick="selectHChip(this)">Streetwear — Jogger</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-jeans" onclick="selectHChip(this)">Streetwear — Jeans Baggy</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-cargo" onclick="selectHChip(this)">Streetwear — Cargo Wide</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="y2k-jorts" onclick="selectHChip(this)">Y2K — Jorts Dark</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="y2k-flare" onclick="selectHChip(this)">Y2K — Calça Flare</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="y2k-extrawide" onclick="selectHChip(this)">Y2K — Baggy Extrawide</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="minimal-slim" onclick="selectHChip(this)">Minimal — Calça Slim</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="minimal-loafer" onclick="selectHChip(this)">Minimal — Wide + Loafer</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="grunge-coturno" onclick="selectHChip(this)">Grunge — Jeans + Coturno</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-shorts" onclick="selectHChip(this)">Athleisure — Shorts Nylon</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-slide" onclick="selectHChip(this)">Athleisure — Jogger + Slide</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-chunky" onclick="selectHChip(this)">Hypebeast — Jorts + Chunky</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-nb" onclick="selectHChip(this)">Hypebeast — Jorts + NB</div>
-        <div class="chip" data-group="hd-outfit-m" data-value="casual-jeans-dunk" onclick="selectHChip(this)">Casual — Jeans + Dunk</div>
+        <div class="chip selected" data-group="hd-outfit-m" data-value="streetwear-jogger" onclick="selectHChip(this)">Calça Moletom Ajustada + Tênis Branco</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-jeans" onclick="selectHChip(this)">Jeans Largo + Bolsa Transversal</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="streetwear-cargo" onclick="selectHChip(this)">Cargo Larga + Bolsa Transversal</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-jorts" onclick="selectHChip(this)">Y2K — Bermuda Jeans Escura Larga</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-flare" onclick="selectHChip(this)">Y2K — Calça Flare + Cinto</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="y2k-extrawide" onclick="selectHChip(this)">Y2K — Jeans Super Largo + Corrente</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="minimal-slim" onclick="selectHChip(this)">Minimal — Calça Preta Reta</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="minimal-loafer" onclick="selectHChip(this)">Minimal — Calça Preta Larga</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="grunge-coturno" onclick="selectHChip(this)">Grunge — Jeans Escuro + Bota</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-shorts" onclick="selectHChip(this)">Esportivo — Shorts Nylon</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="athleisure-slide" onclick="selectHChip(this)">Esportivo — Calça Moletom Larga</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-chunky" onclick="selectHChip(this)">Street — Bermuda Jeans + Tênis Robusto</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hypebeast-nb" onclick="selectHChip(this)">Street — Bermuda Jeans + Tênis Retrô</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="casual-jeans-dunk" onclick="selectHChip(this)">Casual — Jeans Azul</div>
         <div class="chip" data-group="hd-outfit-m" data-value="casual-sarja" onclick="selectHChip(this)">Casual — Shorts Sarja</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-jorts-cinza" onclick="selectHChip(this)">Bermuda Jeans Cinza Larga + Bolsa</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-shorts-moletom" onclick="selectHChip(this)">Shorts Moletom Preto + Meia Alta</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-baggy-cinza" onclick="selectHChip(this)">Jeans Cinza Super Largo + Corrente</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-cargo-preta" onclick="selectHChip(this)">Cargo Preta Larga + Bolsa</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-cargo-bege" onclick="selectHChip(this)">Cargo Bege Larga + Boné</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-parachute" onclick="selectHChip(this)">Calça Parachute Preta</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-track-retro" onclick="selectHChip(this)">Calça Esportiva Retrô + Boné</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-skater" onclick="selectHChip(this)">Skatista — Jeans Muito Largo</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-jorts-preta" onclick="selectHChip(this)">Bermuda Jeans Preta + Corrente</div>
+        <div class="chip" data-group="hd-outfit-m" data-value="hd-sarja-wide" onclick="selectHChip(this)">Calça Sarja Larga + Cinto</div>
       </div></div>
     </div>
   </div><!-- /hd-pane-masc -->
@@ -1092,21 +1214,31 @@
     <div class="section">
       <div class="section-header"><span class="dot"></span> Outfit</div>
       <div class="section-body"><div class="chips">
-        <div class="chip selected" data-group="hd-outfit-f" data-value="streetwear-jogger-f" onclick="selectHChip(this)">Streetwear — Jogger</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-cargo-f" onclick="selectHChip(this)">Streetwear — Cargo Feminina</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-legging" onclick="selectHChip(this)">Streetwear — Legging</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="y2k-jeans-wide" onclick="selectHChip(this)">Y2K — Jeans Wide</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="y2k-tracksuit-f" onclick="selectHChip(this)">Y2K — Tracksuit</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="y2k-cargo-f" onclick="selectHChip(this)">Y2K — Cargo Oversized</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="baddie-biker" onclick="selectHChip(this)">Baddie — Biker Shorts</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="baddie-monocromatico" onclick="selectHChip(this)">Baddie — Monocromático</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="baddie-denim-f" onclick="selectHChip(this)">Baddie — Shorts Jeans</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="grunge-coturno-f" onclick="selectHChip(this)">Grunge — Saia + Coturno</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="grunge-dark-f" onclick="selectHChip(this)">Grunge Dark — Meia Calça</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="minimal-social" onclick="selectHChip(this)">Minimal — Calça Social</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="athleisure-f" onclick="selectHChip(this)">Athleisure — Legging + Tênis</div>
-        <div class="chip" data-group="hd-outfit-f" data-value="casual-jeans-f" onclick="selectHChip(this)">Casual — Jeans + Sneaker</div>
+        <div class="chip selected" data-group="hd-outfit-f" data-value="streetwear-jogger-f" onclick="selectHChip(this)">Calça Moletom Ajustada + Tênis Branco</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-cargo-f" onclick="selectHChip(this)">Street — Cargo Feminina Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="streetwear-legging" onclick="selectHChip(this)">Street — Legging Preta</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-jeans-wide" onclick="selectHChip(this)">Y2K — Jeans Largo</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-tracksuit-f" onclick="selectHChip(this)">Y2K — Calça de Veludo</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="y2k-cargo-f" onclick="selectHChip(this)">Y2K — Cargo Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-biker" onclick="selectHChip(this)">Baddie — Shorts Ciclista</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-monocromatico" onclick="selectHChip(this)">Baddie — Saia Preta + Acessórios</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="baddie-denim-f" onclick="selectHChip(this)">Baddie — Shorts Jeans Escuro</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="grunge-coturno-f" onclick="selectHChip(this)">Grunge — Saia Preta + Bota</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="grunge-dark-f" onclick="selectHChip(this)">Grunge Dark — Mini Saia + Meia</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="minimal-social" onclick="selectHChip(this)">Minimal — Calça Social Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="athleisure-f" onclick="selectHChip(this)">Esportivo — Legging + Bolsa</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="casual-jeans-f" onclick="selectHChip(this)">Casual — Jeans Reto + Bolsa</div>
         <div class="chip" data-group="hd-outfit-f" data-value="casual-saia-plissada" onclick="selectHChip(this)">Casual — Saia Plissada</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-baddie-cargo" onclick="selectHChip(this)">Baddie — Cargo Preta Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-baddie-jeans" onclick="selectHChip(this)">Baddie — Jeans Largo + Cinto</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-y2k-parachute" onclick="selectHChip(this)">Y2K — Calça Parachute Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-y2k-cinza" onclick="selectHChip(this)">Y2K — Jeans Cinza Largo</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-street-jorts" onclick="selectHChip(this)">Street — Bermuda Jeans Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-trackpants" onclick="selectHChip(this)">Street — Calça Esportiva Larga</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-baddie-saia" onclick="selectHChip(this)">Baddie — Saia Longa + Fenda</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-cargo-creme" onclick="selectHChip(this)">Street — Cargo Creme + Bolsa</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-grunge-cinza" onclick="selectHChip(this)">Grunge — Cargo Cinza + Correntes</div>
+        <div class="chip" data-group="hd-outfit-f" data-value="hd-denim-preto" onclick="selectHChip(this)">Street — Jeans Preto Largo</div>
       </div></div>
     </div>
   </div><!-- /hd-pane-fem -->
@@ -1122,6 +1254,10 @@
       <div class="chip" data-group="hd-pose" data-value="encostado-costas" onclick="selectHChip(this)">Encostado de costas</div>
       <div class="chip" data-group="hd-pose" data-value="ombro" onclick="selectHChip(this)">Olhando por cima do ombro</div>
       <div class="chip" data-group="hd-pose" data-value="sentado-costas" onclick="selectHChip(this)">Sentado de costas</div>
+      <div class="chip" data-group="hd-pose" data-value="mao-nuca" onclick="selectHChip(this)">Mão na nuca</div>
+      <div class="chip" data-group="hd-pose" data-value="segurando-copo" onclick="selectHChip(this)">Copo na mão</div>
+      <div class="chip" data-group="hd-pose" data-value="escada-subindo" onclick="selectHChip(this)">Subindo escada</div>
+      <div class="chip" data-group="hd-pose" data-value="celular-costas" onclick="selectHChip(this)">Celular na mão</div>
     </div></div>
   </div>
 
@@ -1140,6 +1276,10 @@
       <div class="chip" data-group="hd-scene" data-value="bar" onclick="selectHChip(this)">Bar / Boteco</div>
       <div class="chip" data-group="hd-scene" data-value="quadra" onclick="selectHChip(this)">Quadra / Praça</div>
       <div class="chip" data-group="hd-scene" data-value="poste-sp" onclick="selectHChip(this)">Poste / Esquina SP</div>
+      <div class="chip" data-group="hd-scene" data-value="loja-conveniencia" onclick="selectHChip(this)">Loja de Conveniência</div>
+      <div class="chip" data-group="hd-scene" data-value="elevador" onclick="selectHChip(this)">Elevador</div>
+      <div class="chip" data-group="hd-scene" data-value="posto" onclick="selectHChip(this)">Posto de Gasolina</div>
+      <div class="chip" data-group="hd-scene" data-value="rua-chuva" onclick="selectHChip(this)">Rua Pós-Chuva</div>
     </div></div>
   </div>
 
@@ -1151,6 +1291,9 @@
       <div class="chip" data-group="hd-light" data-value="neon-night" onclick="selectHChip(this)">Noite com Néon</div>
       <div class="chip" data-group="hd-light" data-value="noite-urbana" onclick="selectHChip(this)">Noite Urbana</div>
       <div class="chip" data-group="hd-light" data-value="manha" onclick="selectHChip(this)">Manhã Clara</div>
+      <div class="chip" data-group="hd-light" data-value="flash-celular" onclick="selectHChip(this)">Flash de Celular</div>
+      <div class="chip" data-group="hd-light" data-value="fluorescente" onclick="selectHChip(this)">Fluorescente Crua</div>
+      <div class="chip" data-group="hd-light" data-value="pos-chuva" onclick="selectHChip(this)">Pós-Chuva / Reflexos</div>
     </div></div>
   </div>
 
@@ -1250,7 +1393,28 @@ const OUTFIT_F = {
   'baddie-athleisure': `paired with high-waisted black biker shorts, white chunky sneakers, a black zip-up crossbody fanny pack at the waist, gold hoop earrings, layered thin gold chains, and a gold bracelet. Body-confident and effortless — baddie meets gym aesthetic.`,
   'y2k-mini-saia': `styled with a low-rise denim micro mini skirt with visible stitching and raw hem, chunky white platform sneakers, a tiny silver metallic handbag with chain strap, a rhinestone butterfly clip in the hair, layered silver necklaces with star and moon pendants, jelly bracelets stacked on both wrists, and multiple thin silver rings. Pure early 2000s revival filtered through a contemporary Brazilian lens.`,
   'y2k-tracksuit': `styled with low-rise velvet or satin track pants in deep burgundy or electric blue with a side stripe, white chunky retro sneakers, a tiny logo mini bag worn crossbody, a thin diamanté belt at the hips, layered gold chains with a nameplate pendant, and hoop earrings. The look channels early 2000s R&B fashion — Destiny\'s Child meets São Paulo street style.`,
-  'y2k-cargo': `styled with low-rise baggy cargo pants in washed khaki with multiple visible pockets and silver chain details hanging from the belt loops, chunky black and white sneakers, a tiny black Y2K shoulder bag worn crossbody, a printed bandana tied loosely at the waist, layered chunky plastic and metal bracelets stacked on both wrists, a black choker necklace layered with longer chains, and small hoop earrings. The look is maximum Y2K energy — chaotic, fun, and entirely intentional.`
+  'y2k-cargo': `styled with low-rise baggy cargo pants in washed khaki with multiple visible pockets and silver chain details hanging from the belt loops, chunky black and white sneakers, a tiny black Y2K shoulder bag worn crossbody, a printed bandana tied loosely at the waist, layered chunky plastic and metal bracelets stacked on both wrists, a black choker necklace layered with longer chains, and small hoop earrings. The look is maximum Y2K energy — chaotic, fun, and entirely intentional.`,
+  'indie-sleaze': `styled with a faded black micro skirt or dark low-rise shorts, sheer tights, worn black ankle boots, a small shoulder bag, thin silver jewelry and slightly undone styling. The mood is early-2000s indie nightlife translated into a believable São Paulo outfit — cool, imperfect, never costume-like.`,
+  'blokette': `styled with relaxed track pants or a sporty mini skirt, white crew socks, retro low-profile sneakers, a small shoulder bag, and subtle football-inspired accessories. Feminine sporty styling with a casual Brazilian streetwear feel, not a themed costume.`,
+  'street-skirt': `styled with a long dark denim or washed cotton skirt sitting low on the waist, retro sneakers, a compact shoulder bag, silver rings and a simple chain necklace. The silhouette mixes relaxed streetwear with a feminine long-skirt proportion.`,
+  'baggy-denim': `styled with very loose mid-rise blue baggy jeans pooling naturally over retro sneakers, a slim belt, small shoulder bag, silver rings and understated jewelry. The bottom half feels intentionally oversized while the t-shirt remains the visual hero.`,
+  'soft-grunge': `styled with washed charcoal jeans, a studded or worn leather belt, black low-profile sneakers, thin layered silver necklaces and a compact dark shoulder bag. The styling has a soft grunge mood without becoming theatrical.`,
+  'casual-samba': `styled with straight-leg medium-wash jeans, retro black-and-white low-profile sneakers, a simple shoulder bag, small hoop earrings and one or two delicate rings. Everyday São Paulo casual styling, easy and believable.`,
+  'baddie-cargo-preta': `styled with low-rise washed-black wide cargo pants with oversized utility pockets and a relaxed drape, a slim black belt with silver hardware, a small black shoulder bag tucked high under the arm, chunky black-and-white street sneakers, layered silver necklaces, medium silver hoop earrings, and several rings. The silhouette is confident, urban, and unmistakably young Brazilian baddie streetwear.`,
+  'baddie-jeans-cinto': `styled with low-rise extra-wide dark blue jeans that stack naturally near the ankles, a statement black leather belt with a polished metal buckle, a compact black shoulder bag, clean retro sneakers, large gold hoop earrings, layered gold chains, and glossy dark nails. The outfit feels confident and casual rather than dressed-up.`,
+  'baddie-saia-cargo': `paired with a low-rise black cargo mini skirt with flap pockets and subtle metal hardware, a small shoulder bag worn close to the body, tall black socks and chunky street sneakers, silver hoop earrings, a thin choker, layered chains, and multiple rings. Young, edgy, and wearable with strong baddie energy.`,
+  'baddie-couro': `styled with relaxed wide-leg black faux-leather pants sitting low on the hips, a compact shoulder bag with silver hardware, black platform sneakers, silver hoop earrings, a layered chain necklace, and simple rings. The glossy lower half contrasts the cotton t-shirt without looking editorial.`,
+  'y2k-capri': `styled with low-rise fitted denim capri pants ending below the knee, a small metallic shoulder bag, retro white sneakers, a rhinestone belt, colorful bracelets, small hoop earrings, and layered necklaces. The look references early-2000s pop fashion while still feeling like something a young Brazilian woman would actually wear today.`,
+  'y2k-parachute': `styled with low-rise oversized parachute pants in silver-gray or washed charcoal nylon, gathered drawcord details at the waist and ankles, a tiny black shoulder bag, chunky retro sneakers, layered silver chains, hoop earrings, and several bracelets. The volume of the pants creates a strong Y2K street silhouette.`,
+  'y2k-saia-cargo': `paired with a low-rise khaki cargo mini skirt with visible utility pockets, a thin studded belt, a tiny shoulder bag, white retro sneakers with crew socks, layered necklaces, jelly bracelets, and small hoop earrings. Playful, youthful Y2K styling with a streetwear base.`,
+  'y2k-jeans-cinza': `styled with low-rise very wide gray washed jeans with subtle fading and natural stacking, a black belt with a metal buckle, a tiny shoulder bag, chunky retro sneakers, layered silver chains, small hoop earrings, and stacked bracelets. Relaxed early-2000s energy without looking like costume styling.`,
+  'street-cargo-creme': `styled with wide-leg cream or stone cargo pants with soft utility pockets and a loose drape, a black nylon shoulder bag, clean neutral sneakers, small gold hoops, a thin necklace, and a few understated rings. The palette is lighter but the silhouette stays young and streetwear-focused.`,
+  'street-jorts-f': `paired with oversized knee-length light-wash denim shorts with a loose skater-inspired fit, a small black shoulder bag, white crew socks, retro sneakers, silver hoops, a simple chain necklace, and a couple of rings. The proportions feel relaxed, current, and intentionally street.`,
+  'street-trackpants-f': `styled with loose black track pants with a subtle white side stripe and soft pooling at the ankle, a compact shoulder bag, retro running sneakers, silver hoop earrings, a thin chain necklace, and a sporty watch. Casual young streetwear with an effortless São Paulo feel.`,
+  'street-denim-preto-f': `styled with washed-black extra-wide jeans sitting slightly low on the hips, a silver-buckle belt, a compact black shoulder bag, chunky dark sneakers, layered silver necklaces, hoop earrings, and several rings. The outfit is dark, simple, and strongly streetwear-oriented.`,
+  'grunge-cargo-cinza-f': `styled with oversized faded-gray cargo pants with visible seams and metal chain details at the waist, a worn black shoulder bag, chunky black boots, a thin black choker, layered silver chains, hoop earrings, and dark nail polish. Gritty but still youthful and wearable rather than costume-like.`,
+  'baddie-saia-longa': `paired with a low-rise black fitted maxi skirt with a thigh-high side slit and subtle ruching at the hips, a small structured shoulder bag, chunky black sneakers or platform shoes, large gold hoops, layered thin gold chains, and glossy rings. Feminine baddie styling with a stronger streetwear silhouette.`
+
 };
 const POSE_F = {
   'iced-coffee': `Candid and spontaneous, as if a friend captured the moment. Relaxed posture with slight asymmetry. One hand partially inside the pocket while the other holds an iced coffee. Looking away from the camera instead of posing directly.`,
@@ -1267,7 +1431,13 @@ const POSE_F = {
   'mexendo-cabelo': `One hand raised and lightly touching or adjusting the hair — pushing it back, tucking a strand behind the ear, or simply running fingers through it. The gesture feels completely absent-minded. Gaze directed slightly downward or to the side. The other arm hangs naturally. Caught mid-movement, as if unaware of the camera.`,
   'celular-sentada': `Seated on a step, bench, or ledge, phone held loosely in both hands or one hand, eyes directed at the screen. Slight forward lean, posture relaxed and casual. The expression is neutral or faintly amused — scrolling or reading something. The photo feels like an accidental capture while she was distracted.`,
   drink: `Holding a glass of wine, cocktail, or cold drink loosely in one hand, arm slightly bent. Gaze directed to the side or slightly downward — not at the camera. The other hand rests at her side or lightly touches the glass from below. Relaxed posture with natural weight on one leg. The moment feels like a candid capture mid-conversation at a bar or event.`,
-  'jogando-cabelo': `Caught mid-movement as she tosses or flips her hair to one side — head slightly tilted, hair in natural motion, a few strands mid-air. Eyes slightly squinted from the movement, expression relaxed and unaware. One arm may be raised slightly near the hair. The shot feels like a freeze-frame from a video, completely candid and unposed.`
+  'jogando-cabelo': `Caught mid-movement as she tosses or flips her hair to one side — head slightly tilted, hair in natural motion, a few strands mid-air. Eyes slightly squinted from the movement, expression relaxed and unaware. One arm may be raised slightly near the hair. The shot feels like a freeze-frame from a video, completely candid and unposed.`,
+  'oculos': `She is caught naturally adjusting her sunglasses or prescription glasses with one hand, elbow slightly bent, eyes not necessarily looking at the camera. The gesture feels mid-action rather than posed.`,
+  'fone': `She is placing one wireless earbud into her ear or adjusting wired earphones, with the other arm relaxed. Her attention is on the small action, not on posing for the camera.`,
+  'sacola': `She casually holds a small shopping or takeaway bag at one side while standing or walking, arm hanging naturally and body weight shifted slightly.`,
+  'mao-bolso-f': `One hand rests casually inside a jeans or pants pocket while the other arm hangs loose. Her shoulders remain relaxed and the pose has natural asymmetry.`,
+  'virando': `She is captured in the middle of turning her upper body toward the camera after having been facing slightly away. Hair and t-shirt show subtle motion, creating a candid in-between frame.`,
+  'escada-sentada': `She is seated casually on a concrete step with one knee slightly higher, torso upright enough to keep the t-shirt visible, hands relaxed near the lap. The posture is informal and unstudied.`
 };
 const SCENE_F = {
   'cafe-sp': `Scene: late afternoon in São Paulo, Brazil. She is casually standing outside a small neighborhood café next to a concrete wall with slightly peeling paint and old posters partially torn off. Background contains parked motorcycles, overhead wires, distant apartment buildings and subtle urban clutter. Everything feels naturally lived-in and authentic.`,
@@ -1289,17 +1459,30 @@ const SCENE_F = {
   feira: `Scene: a street fair or covered market in São Paulo. She is near a vendor stall with colorful produce, tarpaulins, and street clutter visible in the background. Natural diffused light. Alive, local, and spontaneous.`,
   rooftop: `Scene: a rooftop or open terrace in São Paulo. She is near the railing or edge wall with the city skyline softly blurred behind her. Late afternoon or evening light. The kind of casual rooftop bar or friend's apartment terrace that exists all over SP.`,
   banheiro: `Scene: the bathroom of a bar or balada in São Paulo. She is near a mirror or tiled wall, with warm or slightly overexposed bathroom lighting. Background shows blurred mirror reflections and bar bathroom clutter. Spontaneous and nightlife-adjacent — a candid moment between songs.`,
-  corredor: `Scene: a stairwell or corridor inside a São Paulo building — worn concrete steps, painted walls, iron railings, fluorescent overhead light. She is on the stairs or landing. The setting feels intimate and unexpected — the kind of candid photo taken while leaving or arriving somewhere.`
+  corredor: `Scene: a stairwell or corridor inside a São Paulo building — worn concrete steps, painted walls, iron railings, fluorescent overhead light. She is on the stairs or landing. The setting feels intimate and unexpected — the kind of candid photo taken while leaving or arriving somewhere.`,
+  'loja-conveniencia': `Scene: inside or directly outside a small Brazilian convenience store at night or late afternoon. Refrigerated drink cases, product shelves, stickers and fluorescent signage appear softly blurred. Everyday, bright, slightly chaotic and believable.`,
+  'elevador': `Scene: inside an ordinary apartment or shopping-center elevator with brushed metal or mirrored walls, minor smudges, ceiling lights and tight spatial framing. Feels like a quick photo taken while going somewhere.`,
+  'lavanderia-self': `Scene: small self-service or apartment laundry area with washing machines, tiled floor, plastic basket and ordinary overhead lighting. Functional and unglamorous, creating authentic lifestyle context.`,
+  'posto': `Scene: Brazilian gas station convenience area or forecourt. Fuel-pump glow, concrete ground, convenience-store signage and parked cars softly blurred. Casual nighttime or dusk atmosphere.`,
+  'rua-chuva': `Scene: São Paulo street shortly after rain. Wet asphalt and sidewalk reflect storefront and traffic lights, with puddles, parked cars and imperfect urban surfaces. The environment feels fresh, damp and naturally cinematic without looking staged.`,
+  'hotel-corredor': `Scene: ordinary hotel or apartment-building corridor with neutral walls, patterned floor or carpet, identical doors and warm ceiling lights. The narrow perspective feels spontaneous, like a photo taken before going out.`
 };
 const LIGHT_F = {
   golden: `Lighting: natural golden hour sunlight, realistic light falloff, soft shadow under the collar, subtle highlights on the fabric, no studio lighting, slight exposure variations.`,
   cloudy: `Lighting: soft overcast daylight, diffused and even with no harsh shadows. Muted film-like tone. Slight underexposure gives a calm editorial feel without studio polish.`,
   'neon-night': `Lighting: urban nighttime with mixed neon signage — warm reds, cool blues, deep purples. Practical light from shop windows and street lamps. Background softly blurred with city bokeh.`,
   'noite-urbana': `Lighting: natural urban nighttime without neon — soft ambient light from distant streetlamps, lit shop windows, and building facades. The illumination is subtle and uneven, casting gentle warm pools of light against deep shadow. The overall exposure feels slightly underlit and authentic — the kind of nighttime photo taken without thinking about the lighting.`,
-  'flash-celular': `Lighting: direct smartphone flash photography at night. Harsh, flat frontal light from the phone flash — bright and slightly overexposed on the face and t-shirt, with the background falling almost completely dark behind her. Hard shadows cast directly behind the subject. Slight red-eye effect. The skin and fabric appear slightly blown out in the center of the frame. The overall image quality feels raw and unpolished — exactly like a photo taken at a party or on a night out, not a planned shoot.`
+  'flash-celular': `Lighting: direct smartphone flash photography at night. Harsh, flat frontal light from the phone flash — bright and slightly overexposed on the face and t-shirt, with the background falling almost completely dark behind her. Hard shadows cast directly behind the subject. Slight red-eye effect. The skin and fabric appear slightly blown out in the center of the frame. The overall image quality feels raw and unpolished — exactly like a photo taken at a party or on a night out, not a planned shoot.`,
+  'janela': `Lighting: soft natural window light entering from one side, creating uneven but flattering illumination across the face and t-shirt. The opposite side falls gently into shadow. No ring light, no fill, no studio polish.`,
+  'fluorescente': `Lighting: harsh ordinary fluorescent ceiling light with a slight greenish cast, flat top-down illumination and imperfect skin tones. The image looks like it was taken inside a convenience store, hallway, metro or bathroom without any attempt to improve the light.`,
+  'pos-chuva': `Lighting: mixed cool ambient evening light and reflected street/storefront light bouncing from wet pavement. Small warm and colored reflections appear naturally on skin and fabric, with slightly uneven smartphone exposure.`
 };
 const PRESERVE_F = `Preserve the t-shirt design perfectly and exactly as shown in the reference image. Maintain identical artwork, colors, typography, print placement, proportions, scale, details, and overall appearance without any modifications whatsoever. The print must exhibit realistic deformation caused by fabric draping, including slight perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking in high-tension areas, and natural loss of detail inside deep fabric creases — like a real screen-printed graphic physically applied to the fabric.`;
-const COMPOSITION_F = `Composition: medium shot from waist up. The t-shirt is unmistakably the hero of the image, occupying approximately 60–70% of the frame. Face and surroundings support the lifestyle context but never overpower the garment. Shot vertically like an authentic Instagram post.`;
+const FRAME_F = {
+  completo: `Composition: full-body candid shot at natural eye level. The complete outfit is visible, including footwear, but the t-shirt remains the strongest visual element and the styling must never overpower it.`,
+  joelho: `Composition: medium-long shot framed from approximately the knees upward. No feet or footwear visible. The t-shirt occupies a larger share of the image while enough of the pants, skirt, or shorts remains visible to communicate the streetwear look.`,
+  cintura: `Composition: tight lifestyle shot framed from approximately the waist or upper hips upward. No lower legs, feet, or footwear visible. The t-shirt is the unmistakable hero, occupying roughly 65–75% of the useful frame. Only styling visible near the waist, shoulders, neck, hands, and bags should influence the image.`
+};
 const REALISM_F = `Realism details: slight fabric wrinkles and folds, natural draping of cotton fabric, realistic bunching around sleeves and waist, tiny imperfections in the cotton texture, slight motion blur on hands, realistic skin texture and pores, slightly messy hair, subtle facial asymmetry, realistic creases in pants, lightly worn sneakers, slight sensor noise, subtle film photography grain, natural depth of field, realistic shadows and highlights.`;
 const FACE_F = `Facial realism: naturally attractive but not model-perfect, subtle asymmetry between eyes and eyebrows, slightly uneven skin tone, visible pores and tiny imperfections, faint under-eye shadows, individual flyaway hairs, realistic lips with natural texture, eyebrows with irregular hairs, slight imperfections in teeth when visible, authentic relaxed expression, no beauty filter, no porcelain skin, no doll-like face, no exaggerated symmetry, no flawless makeup, no CGI skin. She resembles an ordinary stylish Brazilian woman captured candidly by a friend — not an Instagram influencer or AI-generated model.`;
 
@@ -1308,7 +1491,9 @@ const FACE_F = `Facial realism: naturally attractive but not model-perfect, subt
 // ═══════════════════════════════════════════════════════
 const CAMERA_M = {
   iphone: `Ultra-realistic candid streetwear photography, shot on iPhone 14 Pro, 26mm lens, natural HDR, authentic documentary style, subtle film grain. The image should feel accidental and completely unposed, like a frame extracted from a casual video recorded by a friend.`,
-  android: `Ultra-realistic candid streetwear photography, shot on a mid-range Android smartphone (similar to a Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, no cinematic HDR, authentic low-fi quality typical of everyday Brazilian phone photography. The image should feel accidental and completely unposed, like a frame extracted from a casual video recorded by a friend.`
+  android: `Ultra-realistic candid streetwear photography, shot on a mid-range Android smartphone (similar to a Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, no cinematic HDR, authentic low-fi quality typical of everyday Brazilian phone photography. The image should feel accidental and completely unposed, like a frame extracted from a casual video recorded by a friend.`,
+  'android-basic': `Ultra-realistic candid lifestyle photography shot on a basic budget Android phone, standard wide lens, soft autofocus, visible digital noise and slight JPEG compression. The framing feels casual and imperfect, like a friend quickly opened the camera app and took the photo without adjusting anything.`,
+  'iphone-old': `Ultra-realistic candid lifestyle photography shot on an older iPhone with the standard camera app, modest dynamic range, slightly warm white balance, mild sharpening and natural handheld softness. No Portrait Mode, no filter, no polished computational look.`
 };
 const RATIO_M = {
   '4:5': `Image ratio: 4:5 vertical format, optimized for Instagram feed posts.`,
@@ -1334,7 +1519,9 @@ const HAIR_M = {
   'buzz-cut': `clean buzz cut, uniformly short all around with natural texture visible on top`,
   'cacheado-m': `short curly hair with defined ringlets on top and a clean fade on the sides`,
   'crespo-m': `natural coily afro-textured hair, low-cut with tight visible coils and a clean line-up`,
-  'longo-m': `longer wavy or slightly tousled hair falling to the jaw or collar, pushed loosely to one side`
+  'longo-m': `longer wavy or slightly tousled hair falling to the jaw or collar, pushed loosely to one side`,
+  'mullet': `modern short mullet with textured length at the back, softly tapered sides and an intentionally imperfect, youthful shape`,
+  'dreads-curtas': `short natural locs or compact dreadlocks with visible individual texture, casually styled and not overly groomed`
 };
 const EXTRAS_M = {
   bigode: `He has a light mustache — thin and natural, slightly uneven, not perfectly groomed.`,
@@ -1361,7 +1548,28 @@ const OUTFIT_M = {
   'bermuda-tactel-preta': `styled with black tactel or nylon athletic shorts reaching just above the knee with a clean streamlined cut, white Nike Air Max sneakers with visible air sole, minimal invisible socks, a slim black shoulder bag worn crossbody, a rubber sports watch, and layered thin silver chains. The look is clean, functional, and streetwear-adjacent without being loud.`,
   'jeans-slim-azul': `styled with slim straight-leg medium blue denim jeans with a clean wash and subtle fading at the thighs, white Nike Dunk Low sneakers with clean laces, a slim brown leather belt, and layered silver chains of varying lengths with a small pendant. No bag. The look is simple and wearable — the kind of everyday Brazilian streetwear that feels put-together without effort.`,
   'shorts-sarja-bege': `styled with mid-length beige or khaki twill shorts reaching just below the knee with a clean structure and minimal detailing, white or off-white Adidas Campus sneakers, white crew socks folded once at the ankle, a black bucket hat worn straight, and a thin silver chain. No bag. The look is relaxed, clean, and quietly stylish — influenced by skate culture and contemporary São Paulo street fashion.`,
-  'wide-preta-loafer': `styled with wide-leg black trousers with a clean drape and subtle break at the ankle — wide but not oversized, intentional and structured — worn with black leather loafers and no visible socks, a single delicate gold chain necklace, and one or two gold rings. No bag, no cap. The aesthetic is minimal, slightly elevated, and quietly fashion-forward — clean without being stiff.`
+  'wide-preta-loafer': `styled with wide-leg black trousers with a clean drape and subtle break at the ankle — wide but not oversized, intentional and structured — worn with black leather loafers and no visible socks, a single delicate gold chain necklace, and one or two gold rings. No bag, no cap. The aesthetic is minimal, slightly elevated, and quietly fashion-forward — clean without being stiff.`,
+  'workwear-carpenter': `styled with loose brown or washed black carpenter pants, worn skate-inspired sneakers, a practical canvas belt, a small keychain at the belt loop and minimal silver jewelry. Functional workwear translated into casual São Paulo street style.`,
+  'football-core': `styled with relaxed nylon track pants or long athletic shorts, retro indoor-football sneakers, high white socks, a small crossbody bag and subtle football-culture references. Sporty and youthful without looking like a uniform.`,
+  'skater-baggy': `styled with heavily baggy blue denim pooling over worn skate shoes, a canvas belt, wallet chain and a simple beanie or cap. The silhouette feels naturally skater-influenced and lived-in.`,
+  'techwear-light': `styled with wide black nylon cargo pants with restrained utility pockets, dark technical sneakers, a compact crossbody bag and minimal metal accessories. Clean functional streetwear, not futuristic costume techwear.`,
+  'denim-on-denim': `styled with relaxed dark denim jeans and a faded denim overshirt tied around the waist or carried casually, paired with low-profile sneakers and a simple silver chain. The t-shirt stays fully visible and dominant.`,
+  'minimal-track': `styled with clean straight-leg black track pants, retro low-profile sneakers, a simple watch and one thin silver chain. No bag. Quiet, contemporary everyday styling that keeps all attention on the t-shirt.`,
+  'jorts-cinza-bolsa': `styled with oversized faded-gray denim shorts reaching just below the knee, a black canvas shoulder bag worn naturally at the side, white crew socks, retro gray running sneakers, a simple silver chain necklace, and one or two rings. Relaxed young streetwear with the same easy silhouette as classic jorts styling.`,
+  'jorts-azul-cinto': `styled with loose knee-length medium-blue denim shorts, a black leather belt with a silver buckle, a compact crossbody bag worn low, white crew socks, clean retro sneakers, a silver chain necklace, and a simple watch. Casual and current without looking overstyled.`,
+  'shorts-moletom-preto': `styled with relaxed black fleece shorts ending above the knee, tall white athletic socks, clean white low-top street sneakers, a compact black crossbody bag, a simple silver chain, and a black sports watch. Easy young streetwear built around comfort and a clean silhouette.`,
+  'shorts-moletom-cinza': `styled with heather-gray loose fleece shorts, a washed black baseball cap, white crew socks, retro white sneakers, a small black shoulder bag, and a thin silver chain. Looks like a real casual outfit for a young guy in São Paulo rather than a fashion campaign.`,
+  'baggy-cinza-corrente': `styled with extremely loose faded-gray denim jeans with a wide skater silhouette and natural stacking, a silver wallet chain hanging from one belt loop, a plain black belt, dark retro sneakers, a small shoulder bag, and layered subtle silver jewelry. Urban and young with strong streetwear proportions.`,
+  'baggy-azul-cinto': `styled with extra-wide mid-blue jeans sitting naturally at the waist, a visible black belt with a rectangular silver buckle, a compact shoulder bag, white retro sneakers, and a simple chain necklace. Clean oversized streetwear with no unnecessary luxury styling.`,
+  'cargo-preta-wide': `styled with wide washed-black cargo pants with large side pockets and a relaxed drape, a black nylon crossbody bag worn diagonally, dark chunky sneakers, a silver chain necklace, a small hoop earring, and a simple watch. Functional streetwear that still keeps the t-shirt as the main piece.`,
+  'cargo-bege-wide': `styled with loose beige cargo pants with large utility pockets, a washed black cap, a dark shoulder bag, white retro sneakers, a thin silver chain, and a sports watch. A lighter young streetwear look with relaxed proportions.`,
+  'parachute-preta': `styled with oversized black nylon parachute pants with drawcord details and soft volume through the leg, a compact technical shoulder bag, dark running sneakers, a thin silver chain, and a small hoop earring. Modern streetwear with a slightly futuristic edge but still believable.`,
+  'trackpants-retro': `styled with loose navy or black track pants with a contrasting side stripe, a simple baseball cap, white retro running sneakers, a small shoulder bag, a silver chain, and a sports watch. Youthful sports-street styling inspired by everyday football and skate culture.`,
+  'skater-preto': `styled with extremely wide washed-black jeans with a long loose break and natural stacking, a plain belt, worn skate sneakers, a canvas shoulder bag, a beanie or cap, and minimal silver jewelry. Strong skater silhouette, casual and genuinely wearable.`,
+  'street-sarja-wide': `styled with wide straight-leg dark beige or olive twill pants, a black belt with silver buckle, a compact black shoulder bag, retro sneakers, a simple chain necklace, and a watch. Clean streetwear that feels more mature without becoming formal.`,
+  'bermuda-cargo-wide': `styled with oversized black or olive cargo shorts reaching the knee, a black crossbody shoulder bag, white crew socks, chunky street sneakers, a simple silver chain, and a dark cap. Relaxed utility streetwear with a youthful Brazilian feel.`,
+  'jorts-preta-corrente': `styled with loose washed-black denim shorts below the knee, a silver wallet chain hanging from the waistband, a plain black belt, a compact shoulder bag, white crew socks, black-and-white sneakers, and layered subtle silver jewelry. Darker jorts styling with a simple streetwear edge.`
+
 };
 const POSE_M = {
   'mao-no-rosto': `Pose: one hand raised casually to the face — fingers lightly brushing the cheek or temple, elbow bent at a relaxed angle. Head slightly tilted downward, gaze directed to the side or toward the ground. The gesture feels absent-minded and completely unposed, as if he's thinking about something while a friend snapped the photo. Shoulders slightly rounded, weight shifted to one leg.`,
@@ -1376,7 +1584,14 @@ const POSE_M = {
   'costas-ajustando': `Pose: caught mid-movement from behind — one or both hands reaching back to adjust the waistband, belt, or fabric of his shorts or pants. The motion creates a natural, candid body position with slight forward lean. The back of the t-shirt stretches naturally across the shoulders and is fully visible. No face visible — completely spontaneous, as if the photo was taken without him noticing.`,
   'costas-mao-nuca': `Pose: standing with his back to the camera, one hand raised and resting casually on the back of his neck or the lower part of his head. Elbow pointing upward and outward. Head turned very slightly to one side — a sliver of the jaw or ear may be barely visible, but no face. The back print is fully centered and clearly visible. Relaxed and effortlessly candid.`,
   'costas-andando': `Pose: walking away from the camera, mid-stride. Body naturally in motion — arms swinging slightly, one foot forward, posture relaxed. The back of the t-shirt is in full view, moving naturally with the body. Head facing forward, away from the camera. No face visible. The shot feels like it was captured from behind while he was leaving — completely unplanned and authentic.`,
-  'costas-encostado': `Pose: leaning with his back against a wall, railing, or surface, fully facing away from the camera. Arms hanging loosely at his sides or tucked into pockets. Legs slightly apart or one ankle crossed over the other. Head tilted slightly downward or to one side. The back of the t-shirt is flat and fully visible against the body. The pose feels natural and unhurried — like someone resting between moments.`
+  'costas-encostado': `Pose: leaning with his back against a wall, railing, or surface, fully facing away from the camera. Arms hanging loosely at his sides or tucked into pockets. Legs slightly apart or one ankle crossed over the other. Head tilted slightly downward or to one side. The back of the t-shirt is flat and fully visible against the body. The pose feels natural and unhurried — like someone resting between moments.`,
+  'fone-m': `He is caught adjusting one earbud or headphone with one hand while the other arm hangs naturally. His attention is on the gesture rather than the camera.`,
+  'oculos-m': `He casually adjusts sunglasses or glasses at the bridge or temple with one hand, shoulders relaxed and head slightly turned away.`,
+  'bebida-m': `He holds a takeaway coffee, can, or plastic cup loosely at one side while standing naturally. The hand position does not cover the t-shirt graphic.`,
+  'olhando-lado': `He stands relaxed with his head turned toward something outside the frame, as if distracted by the street. The body remains naturally oriented toward the camera.`,
+  'costas-celular': `Back-facing pose while one hand loosely holds a phone down beside the thigh. He appears to be checking it between steps, but the back print remains unobstructed.`,
+  'costas-sacola': `Back-facing pose while carrying a small shopping or convenience-store bag in one hand. The bag hangs low and never overlaps the back graphic.`,
+  'costas-ombro': `His torso remains fully turned away while he glances briefly over one shoulder. Only a partial side profile may appear; the entire back print stays clearly readable.`
 };
 const SCENE_M = {
   'calcada-sp': `Scene: late afternoon in São Paulo, Brazil. He is standing on a slightly worn sidewalk beside a stone wall or old electrical utility box covered with graffiti, stickers and faded paint. Sidewalk tiles are irregular and slightly dirty. Overhead wires visible above. The atmosphere feels naturally urban and lived-in — nothing clean or staged, small imperfections and street clutter add realism.`,
@@ -1394,15 +1609,40 @@ const SCENE_M = {
   academia: `Scene: outside a street-level gym or fitness studio in São Paulo, or a public outdoor workout area with equipment. He is near the entrance or a concrete workout station. Background shows gym equipment, a fence, or urban street through glass. The environment is functional and unpretentious — not a luxury gym.`,
   restaurante: `Scene: a casual restaurant or lanchonete in São Paulo. He is seated at or near a simple table with a wooden or plastic chair visible. Background shows other tables, tiled walls, or a counter. Warm ambient lighting. The environment feels like a local spot — accessible, lived-in, and authentically Brazilian.`,
   ponte: `Scene: under or near a São Paulo overpass or viaduto — the kind of raw concrete infrastructure that defines the city's visual identity. He is near a concrete pillar or the edge of the structure. Background shows the urban landscape below or around — wires, buildings, graffiti on concrete. The setting feels gritty, iconic, and uniquely SP.`,
-  feira: `Scene: a street fair or covered market in São Paulo. He is walking through or standing near a vendor stall. Background shows colorful produce, tarpaulins, and the visual clutter of a busy feira. Natural diffused light. The environment feels alive, local, and spontaneous — the kind of place anyone in São Paulo visits on a Saturday morning.`
+  feira: `Scene: a street fair or covered market in São Paulo. He is walking through or standing near a vendor stall. Background shows colorful produce, tarpaulins, and the visual clutter of a busy feira. Natural diffused light. The environment feels alive, local, and spontaneous — the kind of place anyone in São Paulo visits on a Saturday morning.`,
+  'loja-conveniencia': `Scene: inside or outside a small Brazilian convenience store. Fluorescent drink cases, snack shelves, stickers and signage create an ordinary late-night urban backdrop, softly blurred and not staged.`,
+  'elevador': `Scene: ordinary apartment or shopping-center elevator with brushed metal or mirror walls, subtle smudges and hard ceiling lights. Tight everyday framing like a quick photo between floors.`,
+  'posto': `Scene: Brazilian gas station forecourt or convenience-store entrance at dusk/night. Fuel pumps, parked cars, concrete ground and illuminated signs appear naturally in the background.`,
+  'rua-chuva': `Scene: São Paulo street just after rain. Wet asphalt and sidewalks reflect traffic lights and storefronts, with puddles, parked cars and raw urban texture.`,
+  'loja-disco': `Scene: small independent record or streetwear shop with shelves of vinyl, posters, stickers and narrow aisles. Warm or fluorescent interior light, casually cluttered and believable.`
 };
 const LIGHT_M = {
   'tarde-sp': `Lighting: natural late afternoon sunlight with realistic shadow falloff. Uneven exposure typical of smartphone cameras. No studio lighting. Slight overexposure on some pavement areas and subtle shadows under the cap brim if worn. Everything feels naturally lit — no beauty light, no fill.`,
   cloudy: `Lighting: soft overcast daylight, flat and diffused with no harsh shadows. Muted, slightly desaturated tones typical of cloudy São Paulo afternoons. The light wraps evenly around the figure without any directional drama.`,
   'neon-night': `Lighting: São Paulo nighttime with mixed artificial light sources — warm streetlamps, colored neon from nearby signs, and the ambient glow of shop windows. Colored light reflections on fabric and skin. Background with soft bokeh from city lights.`,
-  manha: `Lighting: clear São Paulo morning light — bright and slightly cool, with crisp shadows and good natural contrast. The sun is still low enough to create gentle directional light without harshness. Everything feels fresh and unfiltered.`
+  manha: `Lighting: clear São Paulo morning light — bright and slightly cool, with crisp shadows and good natural contrast. The sun is still low enough to create gentle directional light without harshness. Everything feels fresh and unfiltered.`,
+  'flash-celular': `Lighting: direct smartphone flash at night. Harsh flat frontal light hits the face and t-shirt, with bright center exposure, hard shadows directly behind the subject and a much darker background. Slight blown highlights and imperfect skin rendering make it feel like a real spontaneous party or street photo, not a planned shoot.`,
+  'fluorescente': `Lighting: ordinary harsh fluorescent ceiling light with a faint greenish cast, flat top-down shadows and imperfect skin/fabric color. No correction, no fill, no studio polish.`,
+  'pos-chuva': `Lighting: mixed evening street light reflected from wet pavement after rain. Cool ambient tones combine with warmer storefront reflections, producing uneven smartphone exposure and realistic small highlights on the fabric.`
 };
-const COMPOSITION_M = `Composition: full body shot from a standing eye-level perspective, captured by a friend from several feet away. Subject occupies around 55–65% of the frame with plenty of surrounding environment visible. Slight off-center composition. The t-shirt remains the visual focus of the upper body.`;
+const FRAME_M = {
+  completo: `Composition: full body shot from a standing eye-level perspective, captured by a friend from several feet away. Footwear can be visible, but the t-shirt remains the visual focus of the upper body.`,
+  joelho: `Composition: medium-long shot framed from approximately the knees upward. No feet or footwear visible. The t-shirt occupies around 60–70% of the main subject area while the upper portion of the pants or shorts still communicates the streetwear styling.`,
+  cintura: `Composition: tighter candid shot framed from approximately the waist or upper hips upward. No lower legs, feet, or footwear visible. The t-shirt is the absolute visual hero, occupying roughly 65–75% of the useful frame, with only upper-body accessories and a hint of the waistband visible.`
+};
+function adaptOutfitToFrame(text, frame) {
+  if (!text || frame === 'completo') return text;
+  const footwear = /(sneaker|shoe|boot|loafer|sandal|slide|mule|sock|anklet|air force|air max|dunk|new balance|campus|converse|footwear)/i;
+  let chunks = text.split(',').map(x => x.trim()).filter(Boolean);
+  chunks = chunks.filter(x => !footwear.test(x));
+  let cleaned = chunks.join(', ');
+  if (frame === 'cintura') {
+    cleaned += `. Do not introduce or mention any footwear or below-the-knee styling because it is outside the crop. Keep only the visible waistband/upper portion of the bottom garment, bag, jewelry, and upper-body accessories.`;
+  } else {
+    cleaned += `. Footwear is intentionally outside the frame and must not influence the camera crop.`;
+  }
+  return cleaned;
+}
 const REALISM_M = `Realism details: slight motion blur, authentic cotton wrinkles and natural fabric draping, bunching around the waist, slightly worn sneakers with dirty sole edges, sensor noise, subtle compression artifacts, realistic skin texture, imperfect posture, flyaway hair strands, tiny facial asymmetries, no beauty filter, no influencer look, no editorial quality. The image should resemble a random frame from a friend's phone gallery rather than a fashion campaign or AI-generated artwork.`;
 const FACE_M = `Face and body realism: ordinary stylish Brazilian young adult around 22 years old, naturally attractive but not model-perfect. Athletic and naturally fit build — visibly toned arms and chest with a lean, proportionate physique, the kind of body a young Brazilian guy develops naturally without being exaggerated or gym-obsessed. The t-shirt fits in a way that reveals a fit upper body without being tight. Slight facial asymmetry, visible pores, subtle under-eye shadows, slightly messy hair, relaxed neutral expression, no exaggerated grooming, no porcelain skin, no uncanny valley appearance. He should look like someone you could genuinely encounter on a street in São Paulo.`;
 
@@ -1430,7 +1670,11 @@ const DUPLA_COMPOSICAO = {
   'encostadas': `Composition: both subjects lean casually against the same wall or surface — one slightly more relaxed than the other, each in their own natural pose. They are close but not in contact. Both t-shirts are front-facing and fully visible.`,
   'um-na-frente': `Composition: one subject stands slightly in front of and to one side of the other, creating natural depth where both are in sharp focus but at different distances. The arrangement is organic, not posed. Both t-shirt designs are fully readable.`,
   'sentadas': `Composition: both subjects are seated next to each other — on a step, low wall, bench, or curb. Natural seated postures, slightly leaning in different directions. Both t-shirts visible and facing the camera.`,
-  'olhando-um-pro-outro': `Composition: the two subjects face or turn toward each other mid-conversation or mid-laugh. Bodies angled inward. The camera captures the moment from the side or slight front angle, making both t-shirts readable. The interaction feels completely real.`
+  'olhando-um-pro-outro': `Composition: the two subjects face or turn toward each other mid-conversation or mid-laugh. Bodies angled inward. The camera captures the moment from the side or slight front angle, making both t-shirts readable. The interaction feels completely real.`,
+  'selfie-espelho': `Composition: both people stand naturally in front of a large mirror while one holds the phone. The phone may cover part of that person’s face but must not cover either t-shirt graphic. Their heights and stances differ naturally; the reflection feels casual and imperfect.`,
+  'atravessando': `Composition: both people are captured mid-step while crossing a quiet street or moving across the frame together. Their walking rhythms differ slightly, arms moving naturally, while both shirt graphics remain visible.`,
+  'banco': `Composition: both people sit casually on a public bench or low wall, bodies angled slightly differently, relaxed knees and hands. The t-shirts remain readable and not folded heavily at the waist.`,
+  'foto-amigo': `Composition: photo taken by a third friend from a natural standing distance. Both people are loosely grouped rather than symmetrically posed, one perhaps mid-laugh or looking away, creating a believable candid group moment.`
 };
 const DUPLA_TSHIRT = {
   regular: `Both subjects are wearing regular-fit cotton t-shirts — each wearing a DIFFERENT design from the store. The first t-shirt design (Reference Image 1) is worn by the person on the left or in front. The second t-shirt design (Reference Image 2) is worn by the person on the right or in back. Both t-shirts are the absolute visual heroes of the image.`,
@@ -1447,13 +1691,20 @@ const DUPLA_SCENE = {
   'shopping': `Scene: inside a São Paulo shopping mall corridor. Softly blurred storefronts and mall lighting behind both subjects.`,
   'metro': `Scene: São Paulo metro station corridor or platform. Tiled walls, commuters softly blurred behind both subjects.`,
   'carro-fora': `Scene: São Paulo street. Both subjects leaning casually against a parked car or near it. Urban street and buildings softly blurred behind them.`,
-  'bar': `Scene: outside or inside a casual Brazilian bar or boteco. Plastic tables, tiled walls, softly blurred customers. Informal and authentic neighborhood atmosphere.`
+  'bar': `Scene: outside or inside a casual Brazilian bar or boteco. Plastic tables, tiled walls, softly blurred customers. Informal and authentic neighborhood atmosphere.`,
+  'loja-conveniencia': `Scene: inside or immediately outside a Brazilian convenience store with fluorescent drink fridges, product shelves and signage softly blurred. The scene feels like a spontaneous stop with friends.`,
+  'estacionamento': `Scene: open-air parking lot or concrete parking garage. Faded markings, parked cars, pillars and uneven lighting create a raw everyday urban backdrop.`,
+  'elevador': `Scene: ordinary elevator with brushed metal or mirrored walls, slight smudges and overhead ceiling lights. Tight framing naturally pushes both people close together.`,
+  'posto': `Scene: Brazilian gas station forecourt or convenience entrance at dusk/night, with pumps, parked cars and bright signage in the background.`,
+  'rua-chuva': `Scene: city street shortly after rain, with wet asphalt reflecting storefronts and traffic lights, scattered puddles and ordinary parked cars.`
 };
 const DUPLA_LIGHT = {
   golden: `Lighting: natural golden hour sunlight, realistic light falloff, soft shadows, subtle highlights on both fabrics. No studio lighting. Warm and authentic.`,
   cloudy: `Lighting: soft overcast daylight, diffused and even with no harsh shadows. Muted film-like tone.`,
   'neon-night': `Lighting: São Paulo urban nighttime with mixed neon signage — warm reds, cool blues, deep purples. Practical light from shop windows and streetlamps.`,
-  flash: `Lighting: direct smartphone flash photography at night. Harsh frontal flash light, slightly overexposed on both subjects, dark background. Raw and unpolished — like a party photo.`
+  flash: `Lighting: direct smartphone flash photography at night. Harsh frontal flash light, slightly overexposed on both subjects, dark background. Raw and unpolished — like a party photo.`,
+  'fluorescente': `Lighting: hard ordinary fluorescent overhead light, slightly greenish and flat, with imperfect skin tone rendering and little dimensional polish. Feels like a convenience store, elevator or corridor.`,
+  'pos-chuva': `Lighting: mixed cool evening ambience and warm storefront reflections bouncing from wet pavement. Uneven smartphone exposure, natural tiny highlights and realistic urban color contamination.`
 };
 const DUPLA_PRESERVE = `CRITICAL — PRESERVE BOTH T-SHIRT DESIGNS EXACTLY:
 - T-shirt 1 (Reference Image 1): reproduce the graphic design with 100% fidelity — identical artwork, colors, typography, placement, proportions, and scale. Apply it to the first subject (left or front).
@@ -1502,7 +1753,7 @@ function selectDChip(el) {
   renderPrompt();
 }
 const stateH = {
-  camera: 'iphone', ratio: '4:5', frame: 'dorso', hood: 'sem', size: 'pm',
+  camera: 'iphone', ratio: '4:5', frame: 'cintura', hood: 'sem', size: 'pm',
   gender: 'masc',
   'skin-m': 'moreno', 'hair-m': 'curto', 'outfit-m': 'streetwear-jogger',
   'skin-f': 'morena', 'hair-f': 'liso-longo', 'outfit-f': 'streetwear-jogger-f',
@@ -1543,11 +1794,11 @@ const state = {
   mode: 'individual',
   gender: 'fem',
   // fem
-  camera: 'iphone', ratio: '4:5', tshirt: 'regular', print: 'frente',
+  camera: 'iphone', ratio: '4:5', frame: 'cintura', tshirt: 'regular', print: 'frente',
   skin: 'morena', hair: 'liso-longo', outfit: 'y2k', pose: 'iced-coffee',
   scene: 'cafe-sp', light: 'golden',
   // masc
-  cameraM: 'android', ratioM: '1:1', tshirtM: 'oversized', printM: 'frente',
+  cameraM: 'android', ratioM: '1:1', frameM: 'completo', tshirtM: 'oversized', printM: 'frente',
   skinM: 'moreno', hairM: 'curto-natural', extras: new Set(),
   outfitM: 'jorts-dark-tote', poseM: 'mao-no-rosto',
   sceneM: 'calcada-sp', lightM: 'tarde-sp'
@@ -1572,12 +1823,12 @@ function buildPrompt() {
       PRESERVE_F,
       FIXED_TSHIRT_GRAPHIC,
       printBlock,
-      `Wearing the t-shirt ${OUTFIT_F[state.outfit]}`,
+      `Wearing the t-shirt ${adaptOutfitToFrame(OUTFIT_F[state.outfit], state.frame)}`,
       SCENE_F[state.scene],
       `Background softly blurred with realistic depth of field.`,
       poseBlock,
       `The framing naturally emphasizes the t-shirt, which occupies most of the composition.`,
-      COMPOSITION_F,
+      FRAME_F[state.frame],
       LIGHT_F[state.light],
       REALISM_F,
       `Model: She has ${SKIN_F[state.skin]}, with ${HAIR_F[state.hair]}.`,
@@ -1597,11 +1848,11 @@ function buildPrompt() {
         TSHIRT_M[state.tshirtM],
         FIXED_TSHIRT_GRAPHIC,
         `The t-shirt's graphic design is on the BACK. The model is standing with his back fully turned toward the camera. The back print is the absolute hero of this image — it must be preserved perfectly from the reference: identical artwork, colors, typography, placement, proportions, and scale. No face is visible. The camera captures only the back of the model. Do not show or imply any front-facing view.`,
-        `Styled with the t-shirt ${OUTFIT_M[state.outfitM]}`,
+        `Styled with the t-shirt ${adaptOutfitToFrame(OUTFIT_M[state.outfitM], state.frameM)}`,
         SCENE_M[state.sceneM],
         `Background softly blurred with realistic depth of field.`,
         poseBlock,
-        `Composition: medium-to-full body shot from behind. The back of the t-shirt occupies approximately 60–70% of the frame. The graphic print is unmistakably the centerpiece. No face, no front view, no hint of the front design.`,
+        `${FRAME_M[state.frameM]} Camera remains behind the model. The back print is unmistakably the centerpiece. No face, no front view, no hint of the front design.`,
         LIGHT_M[state.lightM],
         REALISM_M,
         `Model: He has ${SKIN_M[state.skinM]}, with ${HAIR_M[state.hairM]}. Athletic and naturally fit build — toned back and shoulders visible through the t-shirt drape.`,
@@ -1614,11 +1865,11 @@ function buildPrompt() {
       RATIO_M[state.ratioM],
       TSHIRT_M[state.tshirtM],
       FIXED_TSHIRT_GRAPHIC,
-      `Styled with the t-shirt ${OUTFIT_M[state.outfitM]}`,
+      `Styled with the t-shirt ${adaptOutfitToFrame(OUTFIT_M[state.outfitM], state.frameM)}`,
       SCENE_M[state.sceneM],
       `Background softly blurred with realistic depth of field.`,
       poseBlock,
-      COMPOSITION_M,
+      FRAME_M[state.frameM],
       LIGHT_M[state.lightM],
       REALISM_M,
       `Model: He has ${SKIN_M[state.skinM]}, with ${HAIR_M[state.hairM]}.${extrasText}`,
@@ -1629,6 +1880,13 @@ function buildPrompt() {
 
 
 function randomizePrompt() {
+  if (state.mode === 'moletom') {
+    function pickH(g) { var chips=document.querySelectorAll('[data-group="'+g+'"]'); if(chips.length) selectHChip(chips[Math.floor(Math.random()*chips.length)]); }
+    pickH('hd-camera'); pickH('hd-frame'); pickH('hd-size'); pickH('hd-hood'); pickH('hd-pose'); pickH('hd-scene'); pickH('hd-light');
+    var genders=document.querySelectorAll('[data-group="hd-gender"]'); if(genders.length){ var gb=genders[Math.floor(Math.random()*genders.length)]; setHGender(gb.dataset.value,gb); if(stateH.gender==='masc'){pickH('hd-skin-m');pickH('hd-hair-m');pickH('hd-outfit-m');}else{pickH('hd-skin-f');pickH('hd-hair-f');pickH('hd-outfit-f');}}
+    var hb=document.querySelector('[onclick="randomizePrompt()"]'); if(hb){hb.textContent='✓ Gerado!';setTimeout(function(){hb.textContent='🎲 Gerar Combinação Aleatória';},1200);}
+    return;
+  }
   if (state.mode === 'dupla') {
     function pickD(g) {
       var chips = document.querySelectorAll('[data-group="' + g + '"]');
@@ -1736,9 +1994,9 @@ function renderPrompt() {
 // INTERACTIONS
 // ═══════════════════════════════════════════════════════
 const GROUP_MAP = {
-  camera: 'camera', ratio: 'ratio', tshirt: 'tshirt', print: 'print',
+  camera: 'camera', ratio: 'ratio', frame: 'frame', tshirt: 'tshirt', print: 'print',
   skin: 'skin', hair: 'hair', outfit: 'outfit', pose: 'pose', scene: 'scene', light: 'light',
-  'camera-m': 'cameraM', 'ratio-m': 'ratioM', 'tshirt-m': 'tshirtM', 'print-m': 'printM',
+  'camera-m': 'cameraM', 'ratio-m': 'ratioM', 'frame-m': 'frameM', 'tshirt-m': 'tshirtM', 'print-m': 'printM',
   'skin-m': 'skinM', 'hair-m': 'hairM', 'outfit-m': 'outfitM', 'pose-m': 'poseM',
   'scene-m': 'sceneM', 'light-m': 'lightM'
 };
@@ -1889,21 +2147,22 @@ function toast(msg) {
 renderPrompt();
 
 // ── REVIEWS ──────────────────────────────────────────
-var RV={ratio:'3:4',tshirt:'regular',type:'segurando',person:'ningum',scene:'quarto',cam:'basico'};
+var RV={ratio:'3:4',tshirt:'regular',type:'segurando',person:'ningum',scene:'quarto',cam:'basico',light:'janela'};
 var RV_RATIO={'3:4':'Image ratio: 3:4 vertical format, the default aspect ratio of a smartphone camera held vertically.','1:1':'Image ratio: 1:1 square format, as used in shopping app reviews.','4:5':'Image ratio: 4:5 vertical format.','9:16':'Image ratio: 9:16 vertical format for Stories and TikTok.','4:3':'Image ratio: 4:3 horizontal format, typical of a casual smartphone photo taken with the phone turned sideways.','16:9':'Image ratio: 16:9 horizontal format, resembling a quick frame captured from a casual smartphone video.'};
 var RV_TSHIRT={regular:'The t-shirt is a regular-fit cotton piece with standard shoulder seams and natural silhouette.',oversized:'The t-shirt is an oversized boxy cotton piece with dropped shoulder seams and slightly shortened hem.','regular-solta':'The t-shirt is a regular-fit cotton piece worn one size looser, with standard shoulder seams, relaxed sleeves, and a naturally comfortable silhouette.','oversized-larga':'The t-shirt is an oversized boxy cotton piece with visibly dropped shoulder seams, wide sleeves, a loose body, and a slightly shortened hem. The fit looks intentionally roomy without appearing artificially inflated.'};
-var RV_CAM={basico:'Shot on a basic low-end Android smartphone. Noticeable digital grain, soft auto-focus, no filters, no editing.',antigo:'Shot on an older entry-level Android smartphone. Low resolution, unstable auto-focus, visible compression, washed-out colors, and no editing.',medio:'Shot on a mid-range Android smartphone. Moderate detail, slight digital noise. No filters or editing.','frontal-android':'Shot with the front-facing camera of a basic Android smartphone. Softer details, mild lens distortion, uneven exposure, and visible compression. No beauty filter or editing.','iphone-antigo':'Shot on an older iPhone using the standard camera app. Slightly warm white balance, modest dynamic range, mild sharpening, and natural compression. No filters or editing.','whatsapp':'Shot on an ordinary smartphone and then compressed after being sent through WhatsApp. Reduced detail, visible JPEG artifacts, softened edges, and slightly inaccurate colors. No filters or retouching.'};
-var RV_CAM_DETAIL={basico:FIXED_CAMERA_QUALITY,antigo:'Camera quality: very low-resolution older Android smartphone camera, visibly soft focus, heavy grain in indoor shadows, muted and inaccurate colors, strong JPEG compression artifacts, weak dynamic range, occasional blown highlights, slight hand shake, and minimal fine detail. The image looks untouched and straight from an outdated budget phone.',medio:'Camera quality: ordinary mid-range Android smartphone camera, moderate resolution, natural but imperfect auto-focus, mild noise in darker areas, slightly inconsistent white balance, restrained sharpening, limited dynamic range, subtle compression, and no computational photography polish. The image looks casual and unedited, not professional.', 'frontal-android':'Camera quality: basic Android front-facing camera with lower detail than the rear camera, soft facial and fabric texture, slight wide-angle distortion, visible noise, uneven exposure, mild motion blur, compressed shadows, and no beauty enhancement. Looks like an ordinary quick selfie with no editing.', 'iphone-antigo':'Camera quality: older iPhone camera with moderate detail, slightly warm color rendering, limited shadow recovery, mild digital sharpening, subtle sensor noise, occasional highlight clipping, and natural handheld softness. No Portrait Mode, no filters, and no editing.',whatsapp:'Camera quality: ordinary smartphone photo degraded by WhatsApp compression, with reduced resolution, softened fabric detail, visible blocky JPEG artifacts, slight color shifts, edge ringing around the graphic print, and mild pixelation. It must still look like an authentic customer photo, not an intentionally applied effect.'};
-var RV_SCENE={quarto:'Background: typical Brazilian bedroom. Unmade bed, plain pillow, rumpled sheets. Nothing staged. Packaging partially visible at frame edge.',sala:'Background: Brazilian living room. Couch partially visible, tiled floor. Everyday objects casually present.',banheiro:'Background: Brazilian home bathroom. Tiled walls, mirror partially visible. Overhead bathroom lamp.',cozinha:'Background: Brazilian kitchen. Tiled walls, refrigerator or utensils in background.',varanda:'Background: Brazilian apartment balcony. Railing visible, outdoor daylight, distant buildings softly blurred.',sofa:'Background: Brazilian living room sofa. Couch fabric visible, throw pillow partially in frame.',cama:'Background: close view of an ordinary Brazilian bed. Rumpled sheet, mismatched pillow or blanket, and small everyday objects near the edge. Nothing arranged for the photo.',mesa:'Background: simple dining or study table inside a Brazilian home. Wood, plastic, or glass surface with small everyday objects nearby, such as keys, a charger, cup, or folded receipt.','cadeira':'Background: ordinary bedroom or living-room chair inside a Brazilian home. The chair is partially visible with clothing or a bag casually resting nearby.','corredor':'Background: narrow corridor inside a Brazilian house or apartment. Plain painted walls, tiled floor, open doorway, and uneven household lighting.','lavanderia':'Background: small Brazilian laundry area. Washing machine, utility sink, hanging cloths, cleaning products, and tiled walls casually visible.','quintal':'Background: simple Brazilian backyard or service patio. Concrete or tiled floor, wall, clothesline, plastic chair, and natural outdoor daylight.','garagem':'Background: residential Brazilian garage. Concrete floor, plain wall, part of a car or motorcycle, storage items, and mixed daylight from the entrance.','elevador':'Background: ordinary apartment or shopping-center elevator. Brushed metal walls or mirror, ceiling lights, minor smudges, and tight framing.','shopping':'Background: casual Brazilian shopping mall corridor. Storefront lights, tiled floor, a few distant people softly blurred, and no staged fashion atmosphere.','calcada':'Background: ordinary Brazilian neighborhood sidewalk. Concrete pavement, residential walls, parked cars, utility poles, and imperfect urban details.','carro':'Background: inside an ordinary compact car. Fabric seat, seat belt, door panel, dashboard edge, and daylight entering unevenly through the windows.','praia':'Background: Brazilian beach or seaside promenade. Sand or pavement, distant umbrellas or buildings, bright natural daylight, and casual vacation clutter.','academia':'Background: ordinary neighborhood gym. Mirror, rubber flooring, weight machines, benches, and other people softly blurred in the distance.','faculdade':'Background: Brazilian college or school corridor. Painted walls, simple benches, classroom doors, backpacks, and cool overhead lighting.'};
-var RV_TYPE={segurando:'Customer holding the t-shirt up with one hand, displaying the front print. Grip is casual. Face completely out of frame.',esticada:'Customer holding the t-shirt stretched between both hands. Grip uneven and natural. Only hands and forearms visible.',embalagem:'T-shirt still partially inside shipping packaging. Folded or loosely arranged with packaging creases. No person.',dobrada:'T-shirt loosely folded on a flat surface. Front print faces upward. Imperfect natural folding. No person.','detalhe':'Extreme close-up of the graphic print. Natural fabric texture and cotton grain visible. No person.','vestindo-sem':'Customer wearing the t-shirt framed from chest down. Face completely out of frame. Natural posture.','vestindo-mao':'Customer wearing the t-shirt, covering face with one hand. Natural gesture. Face completely obscured.','vestindo-costas':'Customer wearing the t-shirt with back to camera. Face not visible.','selfie':'Customer taking mirror selfie with phone covering face entirely. T-shirt visible. Slight mirror smudges.','cama-aberta':'T-shirt spread loosely across an unmade bed. The graphic print faces upward but the fabric is not perfectly flat. Sleeves and hem fall unevenly over the sheets. No person.','cabide':'T-shirt hanging from a basic plastic or wooden hanger, held by one hand or placed on a wardrobe door. Fabric hangs naturally with vertical folds. Face completely out of frame.','tirando-pacote':'Customer caught while pulling the t-shirt out of the shipping package. One hand holds the package while the other lifts the fabric. The print is partially revealed through natural folds. Face out of frame.','pacote-aberto':'Opened shipping package resting beside the t-shirt. The garment is loosely unfolded with tissue, plastic, or shipping material casually visible. No person.','gola':'Close-up review photo focused on the collar, shoulder seam, and upper portion of the print. Cotton texture, stitching, and natural folds clearly visible. No person.','tecido':'Customer pinching or lightly pulling a small section of the t-shirt fabric between two fingers to show thickness and texture. The gesture is casual and imperfect.','etiqueta':'Close-up of the inside neck label or printed label while one hand pulls the collar open. Stitching, cotton texture, and slight fabric tension visible. Face completely out of frame.','barra':'Close-up of the lower hem and side seam while the customer holds the fabric lightly. Natural wrinkles, stitching, and print edge may be partially visible.','espelho-corpo':'Customer taking a full-body mirror photo while wearing the t-shirt. Phone covers the face entirely. Posture is relaxed, slightly asymmetrical, and unposed. Mirror has minor smudges.','sentado':'Customer wearing the t-shirt while sitting casually on the edge of a bed, couch, chair, or low wall. Torso remains clearly visible. Posture is relaxed and slightly slouched.','andando':'Customer wearing the t-shirt captured mid-step by another person. Arms and fabric move naturally. The frame is slightly imperfect and the face may be cropped or turned away.','celular':'Customer wearing the t-shirt while looking down at their phone. Body slightly curved forward, one arm relaxed, and no awareness of the camera.','apontando':'Customer wearing the t-shirt and casually pointing toward the graphic print with one hand. The gesture is informal and slightly uneven, not promotional.','bracos-cruzados':'Customer wearing the t-shirt with arms loosely crossed below the main print area. Shoulders relaxed, posture natural, and face cropped or turned away.','mao-bolso':'Customer wearing the t-shirt with one hand casually inside a pants pocket and the other arm hanging naturally. Body weight shifted to one side.','sentado-sofa':'Customer wearing the t-shirt while sitting casually on a living-room sofa. Torso angled slightly, one arm resting naturally, and the print remains visible through realistic fabric folds.','selfie-carro':'Customer taking a quick selfie while seated inside a car. Phone partially or fully covers the face. Tight framing, uneven window light, and casual posture.','foto-amigo':'Photo taken by a friend from a natural standing distance. Customer is wearing the t-shirt and appears unaware or only slightly aware of the camera. Framing is imperfect and not centered like a fashion shoot.'};
+var RV_CAM={basico:'Shot on a basic low-end Android smartphone. Noticeable digital grain, soft auto-focus, no filters, no editing.',antigo:'Shot on an older entry-level Android smartphone. Low resolution, unstable auto-focus, visible compression, washed-out colors, and no editing.',medio:'Shot on a mid-range Android smartphone. Moderate detail, slight digital noise. No filters or editing.','frontal-android':'Shot with the front-facing camera of a basic Android smartphone. Softer details, mild lens distortion, uneven exposure, and visible compression. No beauty filter or editing.','iphone-antigo':'Shot on an older iPhone using the standard camera app. Slightly warm white balance, modest dynamic range, mild sharpening, and natural compression. No filters or editing.','whatsapp':'Shot on an ordinary smartphone and then compressed after being sent through WhatsApp. Reduced detail, visible JPEG artifacts, softened edges, and slightly inaccurate colors. No filters or retouching.','flash-basico':'Shot on a basic Android smartphone using the built-in flash. Harsh direct light, uneven exposure, hard shadows and ordinary low-end camera rendering. No filters or editing.','screen-grab':'Captured as a still frame from a casual smartphone video. Slight motion blur, lower per-frame detail, compression and imperfect timing make the image feel accidental and real.'};
+var RV_CAM_DETAIL={basico:FIXED_CAMERA_QUALITY,antigo:'Camera quality: very low-resolution older Android smartphone camera, visibly soft focus, heavy grain in indoor shadows, muted and inaccurate colors, strong JPEG compression artifacts, weak dynamic range, occasional blown highlights, slight hand shake, and minimal fine detail. The image looks untouched and straight from an outdated budget phone.',medio:'Camera quality: ordinary mid-range Android smartphone camera, moderate resolution, natural but imperfect auto-focus, mild noise in darker areas, slightly inconsistent white balance, restrained sharpening, limited dynamic range, subtle compression, and no computational photography polish. The image looks casual and unedited, not professional.', 'frontal-android':'Camera quality: basic Android front-facing camera with lower detail than the rear camera, soft facial and fabric texture, slight wide-angle distortion, visible noise, uneven exposure, mild motion blur, compressed shadows, and no beauty enhancement. Looks like an ordinary quick selfie with no editing.', 'iphone-antigo':'Camera quality: older iPhone camera with moderate detail, slightly warm color rendering, limited shadow recovery, mild digital sharpening, subtle sensor noise, occasional highlight clipping, and natural handheld softness. No Portrait Mode, no filters, and no editing.',whatsapp:'Camera quality: ordinary smartphone photo degraded by WhatsApp compression, with reduced resolution, softened fabric detail, visible blocky JPEG artifacts, slight color shifts, edge ringing around the graphic print, and mild pixelation. It must still look like an authentic customer photo, not an intentionally applied effect.','flash-basico':'Camera quality: low-end Android rear camera with built-in flash, soft autofocus, visible noise in the dark background, center-weighted overexposure, hard-edged shadows, washed skin highlights and mild JPEG artifacts. It should look technically imperfect rather than stylized.','screen-grab':'Camera quality: frame grabbed from a compressed handheld smartphone video, with slight motion blur, reduced sharpness, temporal compression artifacts, imperfect exposure and a casual off-moment expression or body position.'};
+var RV_SCENE={quarto:'Background: typical Brazilian bedroom. Unmade bed, plain pillow, rumpled sheets. Nothing staged. Packaging partially visible at frame edge.',sala:'Background: Brazilian living room. Couch partially visible, tiled floor. Everyday objects casually present.',banheiro:'Background: Brazilian home bathroom. Tiled walls, mirror partially visible. Overhead bathroom lamp.',cozinha:'Background: Brazilian kitchen. Tiled walls, refrigerator or utensils in background.',varanda:'Background: Brazilian apartment balcony. Railing visible, outdoor daylight, distant buildings softly blurred.',sofa:'Background: Brazilian living room sofa. Couch fabric visible, throw pillow partially in frame.',cama:'Background: close view of an ordinary Brazilian bed. Rumpled sheet, mismatched pillow or blanket, and small everyday objects near the edge. Nothing arranged for the photo.',mesa:'Background: simple dining or study table inside a Brazilian home. Wood, plastic, or glass surface with small everyday objects nearby, such as keys, a charger, cup, or folded receipt.','cadeira':'Background: ordinary bedroom or living-room chair inside a Brazilian home. The chair is partially visible with clothing or a bag casually resting nearby.','corredor':'Background: narrow corridor inside a Brazilian house or apartment. Plain painted walls, tiled floor, open doorway, and uneven household lighting.','lavanderia':'Background: small Brazilian laundry area. Washing machine, utility sink, hanging cloths, cleaning products, and tiled walls casually visible.','quintal':'Background: simple Brazilian backyard or service patio. Concrete or tiled floor, wall, clothesline, plastic chair, and natural outdoor daylight.','garagem':'Background: residential Brazilian garage. Concrete floor, plain wall, part of a car or motorcycle, storage items, and mixed daylight from the entrance.','elevador':'Background: ordinary apartment or shopping-center elevator. Brushed metal walls or mirror, ceiling lights, minor smudges, and tight framing.','shopping':'Background: casual Brazilian shopping mall corridor. Storefront lights, tiled floor, a few distant people softly blurred, and no staged fashion atmosphere.','calcada':'Background: ordinary Brazilian neighborhood sidewalk. Concrete pavement, residential walls, parked cars, utility poles, and imperfect urban details.','carro':'Background: inside an ordinary compact car. Fabric seat, seat belt, door panel, dashboard edge, and daylight entering unevenly through the windows.','praia':'Background: Brazilian beach or seaside promenade. Sand or pavement, distant umbrellas or buildings, bright natural daylight, and casual vacation clutter.','academia':'Background: ordinary neighborhood gym. Mirror, rubber flooring, weight machines, benches, and other people softly blurred in the distance.','faculdade':'Background: Brazilian college or school corridor. Painted walls, simple benches, classroom doors, backpacks, and cool overhead lighting.','provador':'Background: ordinary clothing-store fitting room. Full-length mirror, curtain or plain door, bench or hooks, neutral walls, harsh ceiling light, and small signs of real use.','escada-condominio':'Background: apartment-building stairwell with painted concrete walls, metal handrail, tiled or concrete steps and practical ceiling lighting.','portaria':'Background: simple Brazilian apartment lobby or building entrance. Glass door, intercom, mailboxes, tiled floor and ordinary ceiling lights.','onibus':'Background: inside a Brazilian bus or public transport vehicle. Fabric or plastic seat, window reflections, handrails and moving city blur outside.','lanchonete':'Background: casual neighborhood snack bar or fast-food table. Plastic tray, simple table surface, bright menu lighting and ordinary customers softly blurred.'};
+var RV_TYPE={segurando:'Customer holding the t-shirt up with one hand, displaying the front print. Grip is casual. Face completely out of frame.',esticada:'Customer holding the t-shirt stretched between both hands. Grip uneven and natural. Only hands and forearms visible.',embalagem:'T-shirt still partially inside shipping packaging. Folded or loosely arranged with packaging creases. No person.',dobrada:'T-shirt loosely folded on a flat surface. Front print faces upward. Imperfect natural folding. No person.','detalhe':'Extreme close-up of the graphic print. Natural fabric texture and cotton grain visible. No person.','vestindo-sem':'Customer wearing the t-shirt framed from chest down. Face completely out of frame. Natural posture.','vestindo-mao':'Customer wearing the t-shirt, covering face with one hand. Natural gesture. Face completely obscured.','vestindo-costas':'Customer wearing the t-shirt with back to camera. Face not visible.','selfie':'Customer taking mirror selfie with phone covering face entirely. T-shirt visible. Slight mirror smudges.','cama-aberta':'T-shirt spread loosely across an unmade bed. The graphic print faces upward but the fabric is not perfectly flat. Sleeves and hem fall unevenly over the sheets. No person.','cabide':'T-shirt hanging from a basic plastic or wooden hanger, held by one hand or placed on a wardrobe door. Fabric hangs naturally with vertical folds. Face completely out of frame.','tirando-pacote':'Customer caught while pulling the t-shirt out of the shipping package. One hand holds the package while the other lifts the fabric. The print is partially revealed through natural folds. Face out of frame.','pacote-aberto':'Opened shipping package resting beside the t-shirt. The garment is loosely unfolded with tissue, plastic, or shipping material casually visible. No person.','gola':'Close-up review photo focused on the collar, shoulder seam, and upper portion of the print. Cotton texture, stitching, and natural folds clearly visible. No person.','tecido':'Customer pinching or lightly pulling a small section of the t-shirt fabric between two fingers to show thickness and texture. The gesture is casual and imperfect.','etiqueta':'Close-up of the inside neck label or printed label while one hand pulls the collar open. Stitching, cotton texture, and slight fabric tension visible. Face completely out of frame.','barra':'Close-up of the lower hem and side seam while the customer holds the fabric lightly. Natural wrinkles, stitching, and print edge may be partially visible.','espelho-corpo':'Customer taking a full-body mirror photo while wearing the t-shirt. Phone covers the face entirely. Posture is relaxed, slightly asymmetrical, and unposed. Mirror has minor smudges.','sentado':'Customer wearing the t-shirt while sitting casually on the edge of a bed, couch, chair, or low wall. Torso remains clearly visible. Posture is relaxed and slightly slouched.','andando':'Customer wearing the t-shirt captured mid-step by another person. Arms and fabric move naturally. The frame is slightly imperfect and the face may be cropped or turned away.','celular':'Customer wearing the t-shirt while looking down at their phone. Body slightly curved forward, one arm relaxed, and no awareness of the camera.','apontando':'Customer wearing the t-shirt and casually pointing toward the graphic print with one hand. The gesture is informal and slightly uneven, not promotional.','bracos-cruzados':'Customer wearing the t-shirt with arms loosely crossed below the main print area. Shoulders relaxed, posture natural, and face cropped or turned away.','mao-bolso':'Customer wearing the t-shirt with one hand casually inside a pants pocket and the other arm hanging naturally. Body weight shifted to one side.','sentado-sofa':'Customer wearing the t-shirt while sitting casually on a living-room sofa. Torso angled slightly, one arm resting naturally, and the print remains visible through realistic fabric folds.','selfie-carro':'Customer taking a quick selfie while seated inside a car. Phone partially or fully covers the face. Tight framing, uneven window light, and casual posture.','foto-amigo':'Photo taken by a friend from a natural standing distance. Customer is wearing the t-shirt and appears unaware or only slightly aware of the camera. Framing is imperfect and not centered like a fashion shoot.','amassada-mao':'Close review photo of the customer bunching a section of the t-shirt fabric loosely in one hand to demonstrate softness and thickness. Fingers press irregular folds into the cotton; no polished product styling.','comparando-tamanho':'Customer holds the t-shirt by both side seams or shoulder points to show its real width and fit. The garment hangs unevenly, with natural sag and no attempt to make it perfectly symmetrical.','close-costura':'Very close review photo of a real seam, sleeve join, collar stitching or side seam. Cotton fibers, thread, small wrinkles and ordinary manufacturing details are visible. No person beyond fingertips if needed.','sobre-cadeira':'The t-shirt is casually draped over the back or seat of an ordinary chair, not folded. Sleeves and hem hang unevenly and the graphic bends naturally with the chair shape.','provador':'Customer wearing the t-shirt in an ordinary fitting-room mirror photo. Phone covers most or all of the face, posture is practical rather than stylish, and the image feels like a quick fit check.','flash-espelho':'Customer wearing the t-shirt in a mirror selfie using direct phone flash. The phone and bright flash reflection partially obscure the face, while the shirt remains visible below. Mirror smudges and harsh exposure are welcome.'};
 var RV_PERSON={ningum:'',homem:'The customer is a young Brazilian man, approximately 20-30 years old. Ordinary-looking. Average build. Realistic skin texture.',mulher:'The customer is a young Brazilian woman, approximately 20-30 years old. Ordinary-looking. Average build. No professional makeup.','homem-jovem':'The customer is a young Brazilian man, approximately 18-24 years old. Ordinary-looking, naturally slim or average build, casual grooming, realistic skin texture, and no model-like posing.','mulher-jovem':'The customer is a young Brazilian woman, approximately 18-24 years old. Ordinary-looking, natural body proportions, realistic skin texture, casual hair, and no professional makeup or beauty filter.','homem-adulto':'The customer is a Brazilian man, approximately 30-45 years old. Ordinary-looking, average build, natural facial lines, realistic skin texture, and casual everyday appearance.','mulher-adulta':'The customer is a Brazilian woman, approximately 30-45 years old. Ordinary-looking, natural body proportions, realistic skin texture, casual hair, and minimal or no makeup.','maos':'Only the customer’s hands and forearms appear in the image. Natural skin texture, ordinary nails, small imperfections, and no jewelry styling intended for a commercial shoot.','casal':'Two ordinary Brazilian customers appear together, approximately 20-35 years old. Their body language is relaxed and familiar, with natural differences in height, build, and appearance. Neither looks like a professional model.'};
 var RV_PRESERVE='The t-shirt graphic print must be preserved perfectly and exactly as shown in the reference image. Identical artwork, colors, typography, placement, proportions, and scale. The print must exhibit realistic deformation caused by fabric draping, including perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking, and natural loss of detail inside fabric creases.';
 var RV_REALISM='Realism details: slight motion blur, fabric creases from packaging, natural cotton texture, authentic draping, unpredictable wrinkles, no studio lighting. Must look like a photo taken in 10 seconds to send via WhatsApp.';
-function buildRevPrompt(){var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_CAM_DETAIL[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type],RV_PERSON[RV.person],RV_SCENE[RV.scene],'Lighting: natural daylight from a window. Uneven and slightly warm. No ring light, no flash, no studio light.',RV_REALISM];return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');}
+var RV_LIGHT={janela:'Lighting: natural daylight from a nearby window. Uneven and slightly warm, with one side brighter than the other. No ring light, no flash, no studio light.','flash-noite':'Lighting: direct built-in smartphone flash in a dark room or at night. Harsh frontal light, hard shadow behind the subject or shirt, blown highlights on skin/fabric and a much darker background. Raw and unplanned.','lampada-quente':'Lighting: ordinary warm household ceiling bulb or bedside lamp. Yellowish white balance, uneven pools of light, deeper shadows and slightly inaccurate fabric color — exactly like an indoor customer photo at night.','banheiro':'Lighting: harsh bathroom ceiling light, bright from above with flat skin rendering, slight green or warm cast depending on the bulb, and possible mirror glare. No correction or beautification.','nublado':'Lighting: soft gray daylight from an overcast day, low contrast and slightly cool/desaturated color. Flat but natural, with no dramatic shadows.','carro':'Lighting: uneven daylight entering through car windows, one side of the subject brighter while the cabin remains darker. Mixed reflections from glass and dashboard surfaces create imperfect exposure.','fluorescente':'Lighting: crude fluorescent overhead light with a slight greenish cast, flat illumination and ordinary color contamination. Feels like a hallway, shop, laundry or public indoor space.'};
+function buildRevPrompt(){var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_CAM_DETAIL[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type],RV_PERSON[RV.person],RV_SCENE[RV.scene],RV_LIGHT[RV.light],RV_REALISM];return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');}
 function renderRevPrompt(){var el=document.getElementById('rev-output');if(el)el.textContent=buildRevPrompt();}
-function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-scene':'scene','rv-cam':'cam'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
+function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
 function randomizeRevPrompt(){
-  var groups=['rv-ratio','rv-tshirt','rv-type','rv-person','rv-scene','rv-cam'];
+  var groups=['rv-ratio','rv-tshirt','rv-type','rv-person','rv-scene','rv-cam','rv-light'];
   groups.forEach(function(group){
     var chips=Array.from(document.querySelectorAll('[data-group="'+group+'"]'));
     if(!chips.length)return;
@@ -2479,7 +2738,18 @@ const HD_OUTFIT_M = {
   'hypebeast-chunky': `paired below with oversized dark wash denim shorts reaching below the knee, oversized chunky white dad sneakers with thick mixed-branding soles, white crew socks worn high. A black New Era snapback cap turned backwards. A black nylon sling crossbody bag. Layered silver chains with a cross pendant. Silver watch with a chunky chain bracelet.`,
   'hypebeast-nb': `paired below with light wash denim shorts reaching just below the knee with a clean faded finish, white New Balance 550 sneakers, white crew socks slightly visible. A thin silver chain necklace. Simple silver watch. Two or three thin silver rings. A white bucket hat worn slightly tilted. Clean and understated hypebeast energy — the hoodie carries all the weight.`,
   'casual-jeans-dunk': `paired below with slim straight-leg medium blue denim jeans with a clean wash and subtle fading at the thighs, white Nike Dunk Low sneakers with clean laces, a slim brown leather belt. Layered silver chains of varying lengths. No bag. Simple and wearable — the kind of everyday Brazilian streetwear that feels put-together without effort.`,
-  'casual-sarja': `paired below with mid-length beige or khaki twill shorts reaching just below the knee, white or off-white Adidas Campus sneakers, white crew socks folded once at the ankle. A plain black baseball cap worn forward. A thin silver chain. No bag. Relaxed and quietly stylish — a natural cold-day look in São Paulo.`
+  'casual-sarja': `paired below with mid-length beige or khaki twill shorts reaching just below the knee, white or off-white Adidas Campus sneakers, white crew socks folded once at the ankle. A plain black baseball cap worn forward. A thin silver chain. No bag. Relaxed and quietly stylish — a natural cold-day look in São Paulo.`,
+  'hd-jorts-cinza': `paired below with oversized faded-gray knee-length denim shorts, a compact black shoulder bag, white crew socks, retro running sneakers, a simple silver chain, and a watch. Relaxed contemporary streetwear with the hoodie remaining visually dominant.`,
+  'hd-shorts-moletom': `paired below with relaxed black fleece shorts, tall white athletic socks, clean white street sneakers, a compact crossbody bag, a thin silver chain, and a sports watch. Comfortable young street styling similar to an everyday São Paulo fit.`,
+  'hd-baggy-cinza': `paired below with extremely wide faded-gray jeans with natural stacking, a silver wallet chain at one belt loop, a plain black belt, dark skate sneakers, and minimal silver jewelry. Strong skater-inspired proportions without competing with the hoodie.`,
+  'hd-cargo-preta': `paired below with wide washed-black cargo pants with large utility pockets, a black nylon crossbody bag, dark chunky sneakers, a simple silver chain, and a small hoop earring. Functional modern streetwear.`,
+  'hd-cargo-bege': `paired below with loose beige cargo pants, a washed black cap, a compact shoulder bag, white retro sneakers, and a thin silver chain. A lighter casual street palette with relaxed proportions.`,
+  'hd-parachute': `paired below with oversized black nylon parachute pants with drawcord details, a small technical shoulder bag, dark running sneakers, and understated silver jewelry. Modern young streetwear with soft volume.`,
+  'hd-track-retro': `paired below with loose black or navy track pants with a contrasting side stripe, a plain baseball cap, retro running sneakers, a small shoulder bag, and a sports watch. Everyday sports-street influence.`,
+  'hd-skater': `paired below with extremely loose washed-black skate jeans, a canvas shoulder bag, worn skate sneakers, a beanie or cap, and minimal silver jewelry. Casual, youthful, and unpolished.`,
+  'hd-jorts-preta': `paired below with loose washed-black knee-length denim shorts, a silver wallet chain, a plain black belt, white crew socks, black-and-white sneakers, and a compact shoulder bag. Dark jorts streetwear with simple accessories.`,
+  'hd-sarja-wide': `paired below with wide straight-leg olive or dark beige twill pants, a black belt with a silver buckle, a compact shoulder bag, retro sneakers, and a simple chain necklace. Clean young streetwear with slightly more mature proportions.`
+
 };
 // ── SKIN — FEMININO
 const HD_SKIN_F = {
@@ -2513,7 +2783,18 @@ const HD_OUTFIT_F = {
   'minimal-social': `paired below with wide-leg tailored trousers in beige or off-white with a clean press crease and structured drape, black pointed-toe ballet flats or simple black loafers. A small black leather clutch. A single thin gold chain necklace. Large gold hoop earrings. The clean minimal aesthetic lets the hoodie function as a relaxed statement piece against intentionally elevated bottom wear.`,
   'athleisure-f': `paired below with high-waisted black athletic leggings with a slim taper, modern white training sneakers. White ankle socks. A sleek black fanny pack worn at the waist. A silver sports watch. Hair in a high ponytail or sleek bun. Clean fitness-inspired styling — the hoodie as an outer layer over a performance-ready outfit.`,
   'casual-jeans-f': `paired below with light blue high-waisted straight-leg jeans and clean white low-top sneakers. Small gold hoop earrings. A simple gold necklace. A small shoulder bag. Effortlessly stylish everyday Brazilian streetwear — the hoodie worn naturally as the main piece in a simple, wearable casual look.`,
-  'casual-saia-plissada': `paired below with a short black pleated skirt with a subtle swirl, clean white low-top canvas sneakers, white ankle socks with a delicate trim. A tiny structured crossbody bag in black. Small pearl or gold stud earrings. A thin delicate bracelet. The soft feminine bottom half creates a playful contrast with the heavy structure of the oversized hoodie above.`
+  'casual-saia-plissada': `paired below with a short black pleated skirt with a subtle swirl, clean white low-top canvas sneakers, white ankle socks with a delicate trim. A tiny structured crossbody bag in black. Small pearl or gold stud earrings. A thin delicate bracelet. The soft feminine bottom half creates a playful contrast with the heavy structure of the oversized hoodie above.`,
+  'hd-baddie-cargo': `paired below with low-rise washed-black wide cargo pants with oversized utility pockets, a compact black shoulder bag, chunky black-and-white sneakers, medium silver hoops, layered necklaces, and several rings. Confident young baddie streetwear with the hoodie as the hero.`,
+  'hd-baddie-jeans': `paired below with low-rise extra-wide dark blue jeans, a statement black belt with a metal buckle, a compact shoulder bag, retro sneakers, large gold hoops, and layered gold chains. Casual baddie styling with strong street proportions.`,
+  'hd-y2k-parachute': `paired below with low-rise oversized silver-gray or charcoal parachute pants with drawcord details, a tiny shoulder bag, chunky retro sneakers, layered silver chains, hoop earrings, and stacked bracelets. Strong Y2K volume and movement.`,
+  'hd-y2k-cinza': `paired below with low-rise very wide gray washed jeans, a black belt with metal buckle, a tiny shoulder bag, chunky retro sneakers, silver chains, hoop earrings, and bracelets. Easy early-2000s street energy.`,
+  'hd-street-jorts': `paired below with oversized light-wash knee-length denim shorts with a loose skater fit, a compact black shoulder bag, white crew socks, retro sneakers, silver hoops, and a simple chain. Relaxed and current.`,
+  'hd-trackpants': `paired below with loose black track pants with a subtle contrasting side stripe, a compact shoulder bag, retro running sneakers, silver hoops, a sporty watch, and a thin chain. Casual urban sports-street styling.`,
+  'hd-baddie-saia': `paired below with a low-rise fitted black maxi skirt with a side slit, a small shoulder bag, chunky black sneakers or platform shoes, large gold hoops, layered thin gold chains, and rings. Feminine baddie styling without looking formal.`,
+  'hd-cargo-creme': `paired below with wide cream or stone cargo pants with soft utility pockets, a black nylon shoulder bag, neutral sneakers, small gold hoops, a thin necklace, and understated rings. Light-toned streetwear with relaxed proportions.`,
+  'hd-grunge-cinza': `paired below with oversized faded-gray cargo pants with visible seams and chain details, a worn black shoulder bag, chunky dark boots, a thin black choker, layered silver chains, and dark nail polish. Youthful grunge-street styling.`,
+  'hd-denim-preto': `paired below with washed-black extra-wide jeans, a silver-buckle belt, a compact shoulder bag, chunky dark sneakers, layered silver necklaces, hoop earrings, and several rings. Dark simple streetwear with a strong silhouette.`
+
 };
 const HD_POSE = {
   'costas-neutro': `Pose: the subject is standing with their back fully toward the camera. Both arms hang naturally at the sides, posture relaxed and unstudied. Weight shifted slightly to one leg, creating a natural asymmetry in the silhouette. Head straight, not turned. The back panel of the hoodie is flat, fully visible, and centered in the frame. The moment feels completely candid — as if the photo was taken without them noticing.`,
@@ -2522,7 +2803,11 @@ const HD_POSE = {
   'andando-costas': `Pose: the subject is captured mid-stride, walking away from the camera. Body in natural walking motion — one foot ahead of the other, arms in a gentle natural swing, posture relaxed. The back panel of the hoodie moves naturally with the body, showing slight fabric shift. Head facing forward and away from the camera. The shot feels extracted from a candid video — completely unplanned and authentic.`,
   'encostado-costas': `Pose: the subject is leaning with their back against a wall or surface, fully facing away from the camera. Arms hanging loosely at the sides or tucked into the kangaroo pocket. Legs slightly apart or one ankle crossed casually over the other. The back of the hoodie is flat and fully visible against the body. The pose feels natural and unhurried — someone resting between moments without any performance.`,
   ombro: `Pose: the subject is standing with their back mostly toward the camera, head turned and looking back over one shoulder toward the camera. The turn is entirely in the neck and head — the body and back remain facing away from the camera. The back panel of the hoodie is fully visible. A partial side view of the face, jaw, or at most a cheekbone becomes visible from this angle. The expression is relaxed and unposed — not a deliberate pose, more like they heard their name called. The back print remains the undisputed hero of the image.`,
-  'sentado-costas': `Pose: the subject is seated on a ledge, step, low wall, or curb with their back facing the camera. Elbows resting on the knees or arms hanging loosely. Head angled slightly downward or to the side. The back of the hoodie drapes naturally over the seated posture, showing realistic fabric behavior when seated. No face visible. Relaxed and entirely candid.`
+  'sentado-costas': `Pose: the subject is seated on a ledge, step, low wall, or curb with their back facing the camera. Elbows resting on the knees or arms hanging loosely. Head angled slightly downward or to the side. The back of the hoodie drapes naturally over the seated posture, showing realistic fabric behavior when seated. No face visible. Relaxed and entirely candid.`,
+  'mao-nuca': `Pose: back fully toward the camera while one hand rests briefly at the nape of the neck, elbow angled outward. The other arm hangs naturally. The gesture creates mild shoulder tension but leaves the central back graphic unobstructed.`,
+  'segurando-copo': `Pose: subject stands or walks with their back to the camera while loosely holding a takeaway cup or can down at one side. The prop stays below the hoodie graphic and feels incidental.`,
+  'escada-subindo': `Pose: subject is captured from behind while climbing a concrete staircase, one foot on the next step, body leaning slightly forward. The hoodie shifts naturally with the movement while the back print remains readable.`,
+  'celular-costas': `Pose: subject stands or walks away with one phone held casually near the thigh, as if just checking it. Head remains mostly forward and the back panel is fully visible.`
 };
 const HD_SCENE = {
   'calcada-sp': `Scene: late afternoon on a São Paulo sidewalk. Slightly worn urban footpath beside a concrete wall with faded paint or old posters. Overhead wires, distant apartment buildings, and subtle street clutter in background. The atmosphere feels naturally urban and lived-in — nothing clean or staged.`,
@@ -2536,14 +2821,21 @@ const HD_SCENE = {
   estacionamento: `Scene: open-air parking lot or parking garage in São Paulo. Concrete pillars, faded line markings, dim overhead lighting. Raw and industrial — the kind of backdrop that feels entirely accidental.`,
   bar: `Scene: outside or inside a casual Brazilian bar or boteco. Plastic tables, tiled counter, concrete wall with beer brand stickers and handwritten menus. Softly blurred customers and bottles in background. Authentic neighborhood atmosphere.`,
   quadra: `Scene: outdoor court or public square in São Paulo. Near concrete benches, low walls, or court fencing. Urban greenery and distant buildings in the background. The environment feels like a natural gathering spot in the neighborhood.`,
-  'poste-sp': `Scene: a typical São Paulo street corner near a concrete utility pole or old iron lamppost. Overhead wires, faded paint on nearby walls, and distant apartment buildings surround the subject. The pavement is irregular. The environment feels like an unremarkable corner of the city — exactly the kind of place a local would naturally stop.`
+  'poste-sp': `Scene: a typical São Paulo street corner near a concrete utility pole or old iron lamppost. Overhead wires, faded paint on nearby walls, and distant apartment buildings surround the subject. The pavement is irregular. The environment feels like an unremarkable corner of the city — exactly the kind of place a local would naturally stop.`,
+  'loja-conveniencia': `Scene: inside or outside a small São Paulo convenience store. Fluorescent refrigerators, snack shelves and bright signage sit softly blurred behind the subject. Everyday late-night city atmosphere.`,
+  'elevador': `Scene: ordinary apartment or shopping-center elevator with brushed metal or mirrored walls, minor smudges and hard ceiling lights. Tight framing feels spontaneous and practical.`,
+  'posto': `Scene: Brazilian gas station forecourt or convenience-store entrance at dusk or night. Fuel pumps, concrete ground, parked cars and lit signs create a believable urban stop.`,
+  'rua-chuva': `Scene: São Paulo street shortly after rainfall. Wet pavement reflects traffic and storefront lights, with puddles, concrete walls and parked vehicles adding raw city texture.`
 };
 const HD_LIGHT = {
   'tarde-sp': `Lighting: natural late afternoon São Paulo sunlight — warm and slightly golden, casting realistic directional shadows. No studio lighting. Slight overexposure on horizontal surfaces typical of smartphone cameras. Everything feels naturally lit — no beauty light, no fill.`,
   cloudy: `Lighting: overcast winter daylight, soft and diffused with no harsh shadows. Flat, slightly cool and desaturated tones — the kind of heavy gray São Paulo winter afternoon that feels still and muted.`,
   'neon-night': `Lighting: urban São Paulo nighttime with mixed artificial light sources — warm streetlamps, colored neon from nearby signs, ambient glow from shop windows. Colored light reflections on the hoodie fabric and skin. Background with soft city bokeh.`,
   'noite-urbana': `Lighting: natural urban nighttime without neon — soft ambient light from distant streetlamps, lit shop windows, and building facades. The illumination is subtle and uneven, casting gentle warm pools of light against deep shadow. The overall exposure feels slightly underlit and authentic.`,
-  manha: `Lighting: clear winter morning light — bright and slightly cool, with crisp directional shadows. The air feels cold and fresh. No filter, no warmth added. The kind of light that makes concrete look sharp and clean.`
+  manha: `Lighting: clear winter morning light — bright and slightly cool, with crisp directional shadows. The air feels cold and fresh. No filter, no warmth added. The kind of light that makes concrete look sharp and clean.`,
+  'flash-celular': `Lighting: direct smartphone flash at night. The hoodie and subject are hit by harsh frontal light with bright slightly blown highlights, hard shadows directly behind, and a much darker background. The fleece texture and back print remain readable despite the crude exposure. Feels like a quick real phone photo.`,
+  'fluorescente': `Lighting: harsh ordinary fluorescent ceiling light with faint green cast and flat top-down illumination. Fabric colors render imperfectly, shadows are unflattering, and nothing looks professionally corrected.`,
+  'pos-chuva': `Lighting: mixed evening ambience with warm and colored city reflections bouncing from wet pavement after rain. Uneven smartphone exposure creates realistic glints on the fleece and deep shadow areas.`
 };
 const HD_PRESERVE = `Preserve the hoodie's back print design perfectly and exactly as shown in the reference image. Maintain identical artwork, colors, typography, print placement, proportions, scale, and all details without any modifications whatsoever. The print must exhibit realistic deformation caused by fabric draping — perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking in high-tension areas, and natural loss of detail inside deep fabric creases, as if the graphic is physically printed onto real heavyweight fleece fabric.`;
 const HD_REALISM = `Realism details: natural heavyweight fleece texture visible on the hoodie surface, realistic fabric weight and drape, visible ribbing at cuffs and hem, kangaroo pocket visible in front, authentic stitching at seams. Slight motion blur, sensor noise, subtle JPEG compression, natural depth of field. The image should look like a real candid photo taken by a friend on their phone — not a fashion campaign, not a lookbook, not an AI render.`;
@@ -2575,7 +2867,8 @@ function buildHoletomPrompt() {
 
   const skinText = isMasc ? HD_SKIN_M[h['skin-m']] : HD_SKIN_F[h['skin-f']];
   const hairText = isMasc ? HD_HAIR_M[h['hair-m']] : HD_HAIR_F[h['hair-f']];
-  const outfitText = isMasc ? HD_OUTFIT_M[h['outfit-m']] : HD_OUTFIT_F[h['outfit-f']];
+  const outfitRaw = isMasc ? HD_OUTFIT_M[h['outfit-m']] : HD_OUTFIT_F[h['outfit-f']];
+  const outfitText = adaptOutfitToFrame(outfitRaw, h.frame);
   const faceText = isMasc ? HD_FACE_M : HD_FACE_F;
 
   const genderDesc = isMasc
@@ -2595,7 +2888,7 @@ function buildHoletomPrompt() {
     HD_POSE[h.pose],
     `The back panel of the hoodie and its graphic print are the absolute visual hero of this image.`,
     outfitText ? `The hoodie is ${outfitText}` : ``,
-    !isCompleto ? `No legs or feet visible in the frame — the framing cuts at waist level or slightly below.` : ``,
+    h.frame === 'cintura' ? `Composition: framed from the waist or upper hips upward. No lower legs, feet, or footwear visible. The hoodie back graphic fills most of the useful frame and is the absolute hero.` : (h.frame === 'joelho' ? `Composition: framed from approximately the knees upward. No feet or footwear visible. Enough of the lower garment remains visible to communicate the outfit while the hoodie dominates.` : `Composition: full-body view with the complete outfit visible, while the hoodie back print remains the strongest visual element.`),
     HD_SCENE[h.scene],
     `Background softly blurred with realistic depth of field.`,
     HD_FRAME[h.frame],
@@ -2657,6 +2950,12 @@ function buildHoletomPrompt() {
         <div class="chip" data-group="rv-type" data-value="sentado-sofa" onclick="rvChip(this)">Sentado no sofá</div>
         <div class="chip" data-group="rv-type" data-value="selfie-carro" onclick="rvChip(this)">Selfie dentro do carro</div>
         <div class="chip" data-group="rv-type" data-value="foto-amigo" onclick="rvChip(this)">Foto tirada por amigo</div>
+        <div class="chip" data-group="rv-type" data-value="amassada-mao" onclick="rvChip(this)">Amassando tecido na mão</div>
+        <div class="chip" data-group="rv-type" data-value="comparando-tamanho" onclick="rvChip(this)">Mostrando largura</div>
+        <div class="chip" data-group="rv-type" data-value="close-costura" onclick="rvChip(this)">Close da costura</div>
+        <div class="chip" data-group="rv-type" data-value="sobre-cadeira" onclick="rvChip(this)">Jogada na cadeira</div>
+        <div class="chip" data-group="rv-type" data-value="provador" onclick="rvChip(this)">Foto no provador</div>
+        <div class="chip" data-group="rv-type" data-value="flash-espelho" onclick="rvChip(this)">Espelho com flash</div>
       </div></div></div>
       <div class="section"><div class="section-header"><span class="dot"></span> Quem aparece</div><div class="section-body"><div class="chips">
         <div class="chip selected" data-group="rv-person" data-value="ningum" onclick="rvChip(this)">Só a camiseta</div>
@@ -2690,6 +2989,11 @@ function buildHoletomPrompt() {
         <div class="chip" data-group="rv-scene" data-value="praia" onclick="rvChip(this)">Praia / Orla</div>
         <div class="chip" data-group="rv-scene" data-value="academia" onclick="rvChip(this)">Academia de bairro</div>
         <div class="chip" data-group="rv-scene" data-value="faculdade" onclick="rvChip(this)">Faculdade / Escola</div>
+        <div class="chip" data-group="rv-scene" data-value="provador" onclick="rvChip(this)">Provador de Loja</div>
+        <div class="chip" data-group="rv-scene" data-value="escada-condominio" onclick="rvChip(this)">Escada do Prédio</div>
+        <div class="chip" data-group="rv-scene" data-value="portaria" onclick="rvChip(this)">Portaria / Hall</div>
+        <div class="chip" data-group="rv-scene" data-value="onibus" onclick="rvChip(this)">Ônibus / Transporte</div>
+        <div class="chip" data-group="rv-scene" data-value="lanchonete" onclick="rvChip(this)">Lanchonete</div>
       </div></div></div>
       <div class="section"><div class="section-header"><span class="dot"></span> Qualidade da Câmera</div><div class="section-body"><div class="chips">
         <div class="chip selected" data-group="rv-cam" data-value="basico" onclick="rvChip(this)">Celular Básico</div>
@@ -2698,6 +3002,17 @@ function buildHoletomPrompt() {
         <div class="chip" data-group="rv-cam" data-value="frontal-android" onclick="rvChip(this)">Câmera Frontal Android</div>
         <div class="chip" data-group="rv-cam" data-value="iphone-antigo" onclick="rvChip(this)">iPhone Antigo</div>
         <div class="chip" data-group="rv-cam" data-value="whatsapp" onclick="rvChip(this)">Comprimida pelo WhatsApp</div>
+        <div class="chip" data-group="rv-cam" data-value="flash-basico" onclick="rvChip(this)">Android + Flash</div>
+        <div class="chip" data-group="rv-cam" data-value="screen-grab" onclick="rvChip(this)">Frame de Vídeo</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Iluminação</div><div class="section-body"><div class="chips">
+        <div class="chip selected" data-group="rv-light" data-value="janela" onclick="rvChip(this)">Janela Natural</div>
+        <div class="chip" data-group="rv-light" data-value="flash-noite" onclick="rvChip(this)">Flash à Noite</div>
+        <div class="chip" data-group="rv-light" data-value="lampada-quente" onclick="rvChip(this)">Lâmpada Quente</div>
+        <div class="chip" data-group="rv-light" data-value="banheiro" onclick="rvChip(this)">Luz de Banheiro</div>
+        <div class="chip" data-group="rv-light" data-value="nublado" onclick="rvChip(this)">Dia Nublado</div>
+        <div class="chip" data-group="rv-light" data-value="carro" onclick="rvChip(this)">Luz Irregular do Carro</div>
+        <div class="chip" data-group="rv-light" data-value="fluorescente" onclick="rvChip(this)">Fluorescente Crua</div>
       </div></div></div>
     </div>
     <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:20px;gap:16px;">
