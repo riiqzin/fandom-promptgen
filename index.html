@@ -409,6 +409,24 @@
   .mode-toggle-btn.active { background: #1e1708; color: var(--gold-light); border-bottom: 2px solid var(--gold); }
   .dupla-badge { display:inline-block;background:linear-gradient(135deg,#1e1708,#2a200a);border:1px solid var(--gold);color:var(--gold-light);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;margin-left:8px; }
 
+
+
+  /* ── OUTFIT FOLDERS ───────────────────────────── */
+  .outfit-folder-list{display:flex;flex-direction:column;gap:8px;}
+  .outfit-folder{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#0d0d0d;}
+  .outfit-folder-head{width:100%;border:0;background:var(--surface2);color:var(--text);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;text-align:left;font:inherit;}
+  .outfit-folder-head:hover{background:var(--surface3);}
+  .outfit-folder-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--gold-light);}
+  .outfit-folder-count{font-size:10px;color:var(--text-muted);font-weight:600;}
+  .outfit-folder-arrow{color:var(--gold-dim);transition:transform .18s ease;}
+  .outfit-folder.open .outfit-folder-arrow{transform:rotate(180deg);}
+  .outfit-folder-body{display:none;padding:10px;border-top:1px solid var(--border);}
+  .outfit-folder.open .outfit-folder-body{display:block;animation:accordionOpen .18s ease both;}
+  .outfit-folder .chips{gap:7px;}
+  .dupla-person-card{border:1px solid var(--border-gold);border-radius:10px;background:#0d0a02;overflow:hidden;}
+  .dupla-person-head{padding:9px 12px;background:#171205;border-bottom:1px solid var(--border-gold);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light);}
+  .dupla-person-body{padding:12px;}
+
 </style>
 
 <style>
@@ -981,6 +999,8 @@
         <div class="chips">
           <div class="chip selected" data-group="dupla-camera" data-value="iphone" onclick="selectDChip(this)">iPhone 14 Pro</div>
           <div class="chip" data-group="dupla-camera" data-value="android" onclick="selectDChip(this)">Android Mid-range</div>
+          <div class="chip" data-group="dupla-camera" data-value="android-basic" onclick="selectDChip(this)">Android Básico</div>
+          <div class="chip" data-group="dupla-camera" data-value="iphone-old" onclick="selectDChip(this)">iPhone Antigo</div>
         </div>
       </div>
     </div>
@@ -993,6 +1013,18 @@
           <div class="chip selected" data-group="dupla-ratio" data-value="1:1" onclick="selectDChip(this)">1:1 — Quadrado</div>
           <div class="chip" data-group="dupla-ratio" data-value="9:16" onclick="selectDChip(this)">9:16 — Stories/TikTok</div>
         </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><span class="dot"></span> Enquadramento</div>
+      <div class="section-body">
+        <div class="chips">
+          <div class="chip selected" data-group="dupla-frame" data-value="completo" onclick="selectDChip(this)">Corpo inteiro</div>
+          <div class="chip" data-group="dupla-frame" data-value="joelho" onclick="selectDChip(this)">Do joelho pra cima</div>
+          <div class="chip" data-group="dupla-frame" data-value="cintura" onclick="selectDChip(this)">Da cintura pra cima</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.5;margin-top:6px;">Os outfits são adaptados ao corte para não forçar calçados ou detalhes fora do quadro.</div>
       </div>
     </div>
 
@@ -1014,6 +1046,21 @@
           <div class="chip" data-group="dupla-tshirt" data-value="regular" onclick="selectDChip(this)">Ambas Regular Fit</div>
           <div class="chip selected" data-group="dupla-tshirt" data-value="oversized" onclick="selectDChip(this)">Ambas Oversized Boxy</div>
           <div class="chip" data-group="dupla-tshirt" data-value="misto" onclick="selectDChip(this)">Misto (1 de cada)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="dupla-outfits-section">
+      <div class="section-header"><span class="dot"></span> Outfits da Dupla</div>
+      <div class="section-body">
+        <div style="font-size:10.5px;color:var(--text-muted);line-height:1.55;">Escolha o look de cada pessoa separadamente. As opções mudam automaticamente conforme “Quem está na foto”.</div>
+        <div class="dupla-person-card">
+          <div class="dupla-person-head" id="dupla-person1-title">Pessoa 1</div>
+          <div class="dupla-person-body"><div id="dupla-outfit-1"></div></div>
+        </div>
+        <div class="dupla-person-card">
+          <div class="dupla-person-head" id="dupla-person2-title">Pessoa 2</div>
+          <div class="dupla-person-body"><div id="dupla-outfit-2"></div></div>
         </div>
       </div>
     </div>
@@ -1652,12 +1699,19 @@ const FACE_M = `Face and body realism: ordinary stylish Brazilian young adult ar
 // ═══════════════════════════════════════════════════════
 const DUPLA_CAMERA = {
   iphone: `Ultra-realistic candid lifestyle photography, shot on iPhone 14 Pro, 26mm lens, natural HDR, authentic documentary style, subtle film grain, Instagram street photography aesthetic.`,
-  android: `Ultra-realistic candid lifestyle photography, shot on a mid-range Android smartphone (Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, authentic low-fi everyday Brazilian phone photography.`
+  android: `Ultra-realistic candid lifestyle photography, shot on a mid-range Android smartphone (Samsung Galaxy A-series or Motorola G-series), standard wide lens, natural auto-processing, slight digital noise, authentic low-fi everyday Brazilian phone photography.`,
+  'android-basic': `Ultra-realistic candid lifestyle photography shot on a basic low-end Android smartphone, with soft autofocus, heavy digital grain in shadows, washed colors, visible compression, limited dynamic range and imperfect white balance. Looks completely unedited and spontaneous.`,
+  'iphone-old': `Ultra-realistic candid lifestyle photography shot on an older iPhone generation, with softer detail, moderate digital noise, limited HDR, slightly inconsistent exposure and the natural imperfections of an aging phone camera. Casual and unpolished.`
 };
 const DUPLA_RATIO = {
   '4:5': `Image ratio: 4:5 vertical format, optimized for Instagram feed posts.`,
   '1:1': `Image ratio: 1:1 square format, optimized for Instagram grid.`,
   '9:16': `Image ratio: 9:16 vertical format, optimized for Instagram Stories and TikTok.`
+};
+const DUPLA_FRAME = {
+  completo: `Framing: full-body candid shot with both people visible from head to shoes. Their complete outfits can be read clearly while both t-shirts remain the visual heroes.`,
+  joelho: `Framing: both people shown approximately from the knees upward. Feet and footwear are outside the frame; lower garments remain partially visible without pulling the camera wider.`,
+  cintura: `Framing: both people shown from the waist or upper hips upward. No lower legs or footwear visible. The two t-shirt graphics dominate the composition.`
 };
 const DUPLA_GENERO = {
   '2mulheres': { desc: `Two young Brazilian women, both approximately 20–27 years old. Each has a distinctly different appearance — different skin tones, hair types, and body proportions so they look like real friends rather than clones of each other. Both naturally attractive but not model-perfect: slight facial asymmetry, realistic skin texture, individual imperfections. Their combined presence feels authentic and spontaneous, like two real friends who asked a passerby to take a photo.` },
@@ -1715,27 +1769,65 @@ const DUPLA_REALISM = `Realism details: natural cotton wrinkles and draping on b
 const DUPLA_FRAMING = `Framing: both t-shirt designs must be simultaneously readable in the same frame. Neither shirt may be obscured, cropped, or hidden. The frame should feel candid and spontaneous — not a staged lookbook, but an organic moment between two real people wearing the store's t-shirts.`;
 
 const stateD = {
-  camera: 'iphone', ratio: '1:1', genero: '2mulheres',
-  tshirt: 'oversized', composicao: 'lado-a-lado',
+  camera: 'iphone', ratio: '1:1', frame: 'completo', genero: '2mulheres',
+  tshirt: 'oversized', outfit1: 'y2k', outfit2: 'baddie-grunge', composicao: 'lado-a-lado',
   scene: 'calcada-sp', light: 'golden'
 };
 const DUPLA_GROUP_MAP = {
-  'dupla-camera': 'camera', 'dupla-ratio': 'ratio', 'dupla-genero': 'genero',
-  'dupla-tshirt': 'tshirt', 'dupla-composicao': 'composicao',
+  'dupla-camera': 'camera', 'dupla-ratio': 'ratio', 'dupla-frame': 'frame', 'dupla-genero': 'genero',
+  'dupla-tshirt': 'tshirt', 'dupla-outfit-1': 'outfit1', 'dupla-outfit-2': 'outfit2', 'dupla-composicao': 'composicao',
   'dupla-scene': 'scene', 'dupla-light': 'light'
 };
+function duplaGenders(){
+  if(stateD.genero==='2homens') return ['masc','masc'];
+  if(stateD.genero==='homemmulher') return ['masc','fem'];
+  return ['fem','fem'];
+}
+function getOutfitLabels(gender){
+  const group=gender==='masc'?'outfit-m':'outfit';
+  const map={};
+  document.querySelectorAll('[data-group="'+group+'"]').forEach(function(el){ map[el.dataset.value]=el.textContent.trim(); });
+  return map;
+}
+function renderDuplaOutfits(){
+  const genders=duplaGenders();
+  [0,1].forEach(function(idx){
+    const gender=genders[idx], key=idx===0?'outfit1':'outfit2', group='dupla-outfit-'+(idx+1);
+    const source=gender==='masc'?OUTFIT_M:OUTFIT_F;
+    const labels=getOutfitLabels(gender);
+    if(!source[stateD[key]]) stateD[key]=Object.keys(source)[idx===0?0:Math.min(1,Object.keys(source).length-1)];
+    const title=document.getElementById('dupla-person'+(idx+1)+'-title');
+    if(title) title.textContent='Pessoa '+(idx+1)+' — '+(gender==='masc'?'Masculino':'Feminino');
+    const target=document.getElementById('dupla-outfit-'+(idx+1));
+    if(!target) return;
+    target.innerHTML='<div class="chips">'+Object.keys(source).map(function(v){
+      const name=labels[v]||v.replace(/-/g,' ');
+      return '<div class="chip'+(stateD[key]===v?' selected':'')+'" data-group="'+group+'" data-value="'+v+'" onclick="selectDChip(this)">'+name+'</div>';
+    }).join('')+'</div>';
+    organizeOutfitContainer(target, group);
+  });
+}
 function buildDuplaPrompt() {
-  const d = stateD;
+  const d = stateD, genders=duplaGenders();
+  const raw1=(genders[0]==='masc'?OUTFIT_M:OUTFIT_F)[d.outfit1];
+  const raw2=(genders[1]==='masc'?OUTFIT_M:OUTFIT_F)[d.outfit2];
+  const outfit1=adaptOutfitToFrame(raw1,d.frame);
+  const outfit2=adaptOutfitToFrame(raw2,d.frame);
   return [
     `[DUPLA — 2 CAMISETAS DIFERENTES] Antes de enviar: anexe as 2 imagens de referência. Imagem 1 = camiseta da pessoa à esquerda/frente. Imagem 2 = camiseta da pessoa à direita/atrás.`,
-    ``,
     DUPLA_CAMERA[d.camera],
     FIXED_CAMERA_QUALITY,
     DUPLA_RATIO[d.ratio],
+    DUPLA_FRAME[d.frame],
     `SUBJECTS: ${DUPLA_GENERO[d.genero].desc}`,
     DUPLA_TSHIRT[d.tshirt],
     DUPLA_PRESERVE,
     FIXED_TSHIRT_GRAPHIC,
+    `PERSON 1 OUTFIT (${genders[0]==='masc'?'man':'woman'}): ${outfit1}`,
+    genders[0]==='masc' ? MALE_BAG_RULE : ``,
+    `PERSON 2 OUTFIT (${genders[1]==='masc'?'man':'woman'}): ${outfit2}`,
+    genders[1]==='masc' ? MALE_BAG_RULE : ``,
+    `The two outfits must feel coordinated enough to belong in the same photo, but not identical or matching like uniforms. Each person keeps a distinct silhouette and accessories.`,
     DUPLA_COMPOSICAO[d.composicao],
     DUPLA_FRAMING,
     DUPLA_SCENE[d.scene],
@@ -1751,8 +1843,52 @@ function selectDChip(el) {
   el.classList.add('selected');
   const key = DUPLA_GROUP_MAP[group];
   if (key) stateD[key] = el.dataset.value;
+  if(group==='dupla-genero') renderDuplaOutfits();
   renderPrompt();
 }
+
+// ── Outfit folders (Gerar) ─────────────────────────────
+function outfitFolderName(value,label){
+  const t=(value+' '+label).toLowerCase();
+  if(t.includes('y2k')||t.includes('blokette')||t.includes('indie')) return 'Y2K & Retrô';
+  if(t.includes('baddie')) return 'Baddie';
+  if(t.includes('grunge')||t.includes('punk')||t.includes('rock')) return 'Grunge & Dark';
+  if(t.includes('minimal')||t.includes('clean')||t.includes('social')) return 'Clean & Minimal';
+  if(t.includes('athleisure')||t.includes('esport')||t.includes('sport')||t.includes('jogger')||t.includes('moletom')||t.includes('track')) return 'Sport & Athleisure';
+  if(t.includes('street')||t.includes('hype')||t.includes('cargo')||t.includes('baggy')||t.includes('jorts')||t.includes('skater')||t.includes('parachute')) return 'Streetwear';
+  if(t.includes('casual')||t.includes('jeans')||t.includes('shorts')||t.includes('saia')) return 'Casual & Denim';
+  return 'Outros estilos';
+}
+function organizeOutfitContainer(root, group){
+  if(!root||root.dataset.folderized==='1') return;
+  let chipsWrap=root.matches('.chips')?root:root.querySelector(':scope > .chips');
+  if(!chipsWrap) chipsWrap=root.querySelector('.chips');
+  if(!chipsWrap) return;
+  const items=Array.from(chipsWrap.children).filter(function(el){return el.dataset&&el.dataset.group===group;});
+  if(!items.length) return;
+  const buckets={};
+  items.forEach(function(el){ const cat=outfitFolderName(el.dataset.value,el.textContent); (buckets[cat]||(buckets[cat]=[])).push(el); });
+  const list=document.createElement('div'); list.className='outfit-folder-list';
+  const order=['Streetwear','Y2K & Retrô','Baddie','Grunge & Dark','Clean & Minimal','Sport & Athleisure','Casual & Denim','Outros estilos'];
+  order.forEach(function(cat){ if(!buckets[cat]) return;
+    const folder=document.createElement('div'); folder.className='outfit-folder';
+    const hasSelected=buckets[cat].some(function(x){return x.classList.contains('selected');}); if(hasSelected) folder.classList.add('open');
+    const head=document.createElement('button'); head.type='button'; head.className='outfit-folder-head';
+    head.innerHTML='<span class="outfit-folder-title">📁 '+cat+' <span class="outfit-folder-count">'+buckets[cat].length+' outfits</span></span><span class="outfit-folder-arrow">⌄</span>';
+    const body=document.createElement('div'); body.className='outfit-folder-body'; const inner=document.createElement('div'); inner.className='chips';
+    buckets[cat].forEach(function(el){inner.appendChild(el);}); body.appendChild(inner); folder.appendChild(head); folder.appendChild(body);
+    head.onclick=function(){folder.classList.toggle('open');}; list.appendChild(folder);
+  });
+  chipsWrap.replaceWith(list); root.dataset.folderized='1';
+}
+function organizeAllOutfitFolders(){
+  [['pane-fem','outfit'],['pane-masc','outfit-m'],['hd-pane-masc','hd-outfit-m'],['hd-pane-fem','hd-outfit-f']].forEach(function(pair){
+    const pane=document.getElementById(pair[0]); if(!pane)return; const chip=pane.querySelector('[data-group="'+pair[1]+'"]'); if(!chip)return; organizeOutfitContainer(chip.parentElement,pair[1]);
+  });
+  renderDuplaOutfits();
+}
+setTimeout(organizeAllOutfitFolders,0);
+
 const stateH = {
   camera: 'iphone', ratio: '4:5', frame: 'cintura', hood: 'sem', size: 'pm',
   gender: 'masc',
@@ -1901,8 +2037,8 @@ function randomizePrompt() {
       if (!chips.length) return;
       selectDChip(chips[Math.floor(Math.random() * chips.length)]);
     }
-    pickD('dupla-camera'); pickD('dupla-genero'); pickD('dupla-tshirt');
-    pickD('dupla-composicao'); pickD('dupla-scene'); pickD('dupla-light');
+    pickD('dupla-camera'); pickD('dupla-genero'); pickD('dupla-frame'); pickD('dupla-tshirt');
+    pickD('dupla-outfit-1'); pickD('dupla-outfit-2'); pickD('dupla-composicao'); pickD('dupla-scene'); pickD('dupla-light');
     var btn = document.querySelector('[onclick="randomizePrompt()"]');
     if (btn) { btn.textContent = '✓ Gerado!'; setTimeout(function(){ btn.textContent = '🎲 Gerar Combinação Aleatória'; }, 1200); }
     return;
