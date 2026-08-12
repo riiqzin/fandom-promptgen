@@ -1531,6 +1531,221 @@ body.ffh-v2 #reviews-panel .rv-output .prompt-box>div:last-child{padding:10px 13
 }
 </style>
 
+
+<style id="ffh-v5-final-card-qa">
+/* ═══════════════════════════════════════════════════════════════
+   FFH V5 — FINAL CARD QA / HARMONY PASS
+   Fixes clipping, nested Moletom layout, review overflow and keeps
+   every builder card readable at every supported viewport.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Safety baseline: builder cards are never allowed to crop their own controls. */
+body.ffh-v2 .panel-left>.pane.show>.section,
+body.ffh-v2 #pane-dupla>.section,
+body.ffh-v2 #pane-moletom>.section{
+  min-width:0!important;
+  height:auto!important;
+  min-height:148px!important;
+  align-self:stretch!important;
+}
+body.ffh-v2 .panel-left>.pane.show>.section .section-body,
+body.ffh-v2 #pane-dupla>.section .section-body,
+body.ffh-v2 #pane-moletom>.section .section-body{
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+}
+
+/* Long labels must wrap instead of forcing/cropping a card. */
+body.ffh-v2 .chip,body.ffh-v2 .toggle-chip,
+body.ffh-v2 #reviews-panel .chip{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+/* ── DUPLA — strict rows, no accidental masonry/cropping ───── */
+body.ffh-v2 #pane-dupla.show{
+  grid-auto-flow:row!important;
+  grid-auto-rows:auto!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 #pane-dupla>.section{
+  overflow:hidden!important;
+}
+body.ffh-v2 #dupla-outfits-section{
+  min-height:0!important;
+}
+body.ffh-v2 #dupla-outfits-section .dupla-person-card{
+  height:auto!important;
+  min-height:0!important;
+}
+body.ffh-v2 #dupla-outfits-section .dupla-person-body{
+  min-height:0!important;
+  overflow:visible!important;
+}
+
+/* ── MOLETOM — nested model panes are first-class grid modules ─ */
+body.ffh-v2 #pane-moletom.show{
+  grid-auto-flow:row!important;
+  grid-auto-rows:auto!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc,
+body.ffh-v2 #pane-moletom>#hd-pane-fem{
+  grid-column:1/-1!important;
+  min-width:0!important;
+  width:100%!important;
+  margin:0!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc:not(.show),
+body.ffh-v2 #pane-moletom>#hd-pane-fem:not(.show){display:none!important;}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show,
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
+  grid-auto-rows:auto!important;
+  gap:12px!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section,
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section{
+  --module-accent:226,142,108;
+  min-width:0!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  grid-column:span 5!important;
+  position:relative!important;
+  isolation:isolate!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  background:radial-gradient(380px 120px at -8% -30%,rgba(var(--module-accent),.10),transparent 65%),linear-gradient(145deg,rgba(21,23,26,.97),rgba(12,14,16,.985))!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.02) inset,0 18px 42px rgba(0,0,0,.13)!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section:nth-child(2),
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section:nth-child(2){
+  --module-accent:216,182,87;
+  grid-column:span 7!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section:before,
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section:before{
+  content:""!important;position:absolute!important;left:0!important;top:0!important;width:100%!important;height:2px!important;
+  background:linear-gradient(90deg,rgba(var(--module-accent),.9),rgba(var(--module-accent),.22) 34%,transparent 78%)!important;opacity:.65!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section .section-body,
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section .section-body{
+  flex:1 1 auto!important;height:auto!important;min-height:0!important;overflow:visible!important;
+}
+body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section:nth-child(2) .chips,
+body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section:nth-child(2) .chips{
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr))!important;
+}
+
+/* Keep the direct Moletom tiles compact and equal without forcing content height. */
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="camera"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="ratio"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="frame"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hoodie-size"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hood"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="gender"]{
+  min-height:150px!important;
+}
+
+/* ── REVIEWS — content-driven rows; nothing inside a card may be clipped ─ */
+body.ffh-v2 #reviews-panel .rv-controls{
+  grid-auto-flow:row!important;
+  grid-auto-rows:max-content!important;
+  align-items:start!important;
+  align-content:start!important;
+  padding-bottom:80px!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section{
+  height:auto!important;
+  min-height:0!important;
+  align-self:start!important;
+  overflow:visible!important;
+  contain:none!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section:after{
+  border-radius:15px!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section .section-header{
+  flex:0 0 auto!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section .section-body{
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+  padding-bottom:15px!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section .chips{
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section .chip{
+  height:auto!important;
+  min-height:42px!important;
+}
+/* Broad review groups get full width and enough columns to stay easy to scan. */
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="photo"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="scene"]{
+  grid-column:1/-1!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="photo"] .chips,
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="scene"] .chips{
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr))!important;
+}
+
+/* Prevent the review builder header from participating in an accidental stretched row. */
+body.ffh-v2 #reviews-panel .rv-builder-head{
+  height:auto!important;
+  align-self:stretch!important;
+}
+
+/* ── TABLET / NARROW DESKTOP QA ───────────────────────── */
+@media(max-width:1450px){
+  body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section,
+  body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section{
+    grid-column:1/-1!important;
+  }
+  body.ffh-v2 #reviews-panel .rv-controls>.section{
+    grid-column:1/-1!important;
+  }
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="ratio"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="shirt"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="person"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="camera"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="light"]{
+    grid-column:span 6!important;
+  }
+}
+@media(max-width:1180px){
+  body.ffh-v2 #pane-moletom>#hd-pane-masc.show,
+  body.ffh-v2 #pane-moletom>#hd-pane-fem.show{grid-template-columns:1fr!important;}
+  body.ffh-v2 #pane-moletom>#hd-pane-masc.show>.section,
+  body.ffh-v2 #pane-moletom>#hd-pane-fem.show>.section{grid-column:1!important;}
+}
+@media(max-width:900px){
+  body.ffh-v2 #reviews-panel .rv-controls>.section,
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind]{grid-column:1/-1!important;}
+  body.ffh-v2 #reviews-panel .rv-controls>.section .chips{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+@media(max-width:560px){
+  body.ffh-v2 #reviews-panel .rv-controls>.section .chips,
+  body.ffh-v2 #pane-moletom .chips,
+  body.ffh-v2 #pane-dupla .chips{grid-template-columns:1fr!important;}
+}
+</style>
+
 </head>
 <body>
 
