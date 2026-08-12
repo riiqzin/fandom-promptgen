@@ -5318,3 +5318,275 @@ body.ffh-v2 #pane-moletom > #hd-pane-fem.show > .section:last-child{
 </style>
 </body>
 </html>
+
+<style id="ffh-card-layout-v6">
+/* ═══════════════════════════════════════════════════════════════
+   FFH CARD LAYOUT V6 — editorial 12-column builder
+   Goal: less "boxes stacked", clearer hierarchy and tighter rhythm.
+   Visual-only. Existing data attributes / onclick logic remain intact.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 12-column composition for every creation pane */
+body.ffh-v2 .panel-left>.pane.show,
+body.ffh-v2 #pane-dupla,
+body.ffh-v2 #pane-moletom{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-auto-flow:row dense!important;
+  grid-auto-rows:auto!important;
+  gap:12px!important;
+  align-items:stretch!important;
+}
+
+/* remove legacy half/wide sizing; V6 sizes cards by purpose */
+body.ffh-v2 .panel-left>.pane.show>.section,
+body.ffh-v2 #pane-dupla>.section,
+body.ffh-v2 #pane-moletom>.section{
+  grid-column:span 6!important;
+  height:auto!important;
+  min-height:0!important;
+  align-self:stretch!important;
+}
+
+/* QUICK CONTROLS — compact modules, four-up when possible */
+body.ffh-v2 .section[data-v3-kind="camera"],
+body.ffh-v2 .section[data-v3-kind="ratio"],
+body.ffh-v2 .section[data-v3-kind="frame"],
+body.ffh-v2 .section[data-v3-kind="shirt"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="camera"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="ratio"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="frame"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="camera"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="ratio"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="frame"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hoodie-size"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hood"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="gender"]{
+  grid-column:span 3!important;
+}
+
+/* medium controls */
+body.ffh-v2 .section[data-v3-kind="model"],
+body.ffh-v2 .section[data-v3-kind="light"],
+body.ffh-v2 .section[data-v3-kind="pose"],
+body.ffh-v2 .section[data-v3-kind="scene"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="people"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="interaction"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="pose"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="scene"],
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="light"]{
+  grid-column:span 6!important;
+}
+
+/* content-heavy modules own the complete row */
+body.ffh-v2 .section[data-v3-kind="outfit"],
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="duo-outfit"],
+body.ffh-v2 #dupla-outfits-section,
+body.ffh-v2 #pane-dupla>.section:has(.dupla-person-card),
+body.ffh-v2 #pane-moletom>.section:has(.outfit-folder-list),
+body.ffh-v2 #pane-moletom>.section:has(.hd-pane),
+body.ffh-v2 #pane-moletom>.section:has([id^="hd-pane-"]){
+  grid-column:1/-1!important;
+}
+
+/* Individual editorial pairing: model + light / pose + scene / outfit full */
+body.ffh-v2 #pane-fem .section[data-v3-kind="model"],
+body.ffh-v2 #pane-masc .section[data-v3-kind="model"]{grid-column:span 7!important;}
+body.ffh-v2 #pane-fem .section[data-v3-kind="light"],
+body.ffh-v2 #pane-masc .section[data-v3-kind="light"]{grid-column:span 5!important;}
+body.ffh-v2 #pane-fem .section[data-v3-kind="pose"],
+body.ffh-v2 #pane-masc .section[data-v3-kind="pose"]{grid-column:span 5!important;}
+body.ffh-v2 #pane-fem .section[data-v3-kind="scene"],
+body.ffh-v2 #pane-masc .section[data-v3-kind="scene"]{grid-column:span 7!important;}
+
+/* Card shell: flatter, cleaner, more like a professional control surface */
+body.ffh-v2 .panel-left>.pane.show>.section,
+body.ffh-v2 #pane-dupla>.section,
+body.ffh-v2 #pane-moletom>.section{
+  border-radius:14px!important;
+  border:1px solid rgba(255,255,255,.072)!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.018),transparent 38%),
+    rgba(13,15,17,.93)!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.10),inset 0 1px rgba(255,255,255,.018)!important;
+  overflow:hidden!important;
+}
+body.ffh-v2 .panel-left>.pane.show>.section:before,
+body.ffh-v2 #pane-dupla>.section:before,
+body.ffh-v2 #pane-moletom>.section:before{
+  height:1px!important;
+  opacity:.72!important;
+  background:linear-gradient(90deg,rgba(var(--module-accent),.78),rgba(var(--module-accent),.16) 42%,transparent 82%)!important;
+}
+body.ffh-v2 .panel-left>.pane.show>.section:after,
+body.ffh-v2 #pane-dupla>.section:after,
+body.ffh-v2 #pane-moletom>.section:after{display:none!important;}
+body.ffh-v2 .panel-left>.pane.show>.section:hover,
+body.ffh-v2 #pane-dupla>.section:hover,
+body.ffh-v2 #pane-moletom>.section:hover{
+  transform:none!important;
+  border-color:rgba(var(--module-accent),.20)!important;
+  box-shadow:0 16px 36px rgba(0,0,0,.15),inset 0 1px rgba(255,255,255,.025)!important;
+}
+
+/* Header shrinks from a "card title bar" into a compact module label */
+body.ffh-v2 .panel-left .section-header{
+  min-height:50px!important;
+  padding:10px 12px 7px!important;
+  gap:8px!important;
+  font-size:9.2px!important;
+}
+body.ffh-v2 .panel-left .section-header:before{
+  width:29px!important;height:29px!important;flex-basis:29px!important;
+  border-radius:9px!important;font-size:7.5px!important;
+  box-shadow:none!important;
+}
+body.ffh-v2 .panel-left .section[data-v2-index] .section-header:after{
+  min-width:24px!important;height:19px!important;padding:0 5px!important;font-size:7px!important;
+}
+body.ffh-v2 .panel-left .section-body{
+  padding:5px 12px 13px!important;
+  gap:9px!important;
+}
+
+/* Tiles: regular visual rhythm; text can wrap without wrecking the grid */
+body.ffh-v2 .panel-left .chips{
+  grid-template-columns:repeat(auto-fit,minmax(116px,1fr))!important;
+  gap:6px!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 .panel-left .chip,
+body.ffh-v2 .panel-left .toggle-chip{
+  min-height:36px!important;
+  height:auto!important;
+  padding:7px 27px 7px 10px!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+body.ffh-v2 .panel-left .chip.selected,
+body.ffh-v2 .panel-left .toggle-chip.on{padding-right:31px!important;}
+body.ffh-v2 .panel-left .chip:after,
+body.ffh-v2 .panel-left .toggle-chip:after{right:9px!important;}
+
+/* Compact cards intentionally use fewer columns so they stay readable */
+body.ffh-v2 .section[data-v3-kind="camera"] .chips,
+body.ffh-v2 .section[data-v3-kind="ratio"] .chips,
+body.ffh-v2 .section[data-v3-kind="frame"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hoodie-size"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hood"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="gender"] .chips{
+  grid-template-columns:1fr!important;
+}
+body.ffh-v2 .section[data-v3-kind="shirt"] .chips{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+
+/* Medium modules: purposeful density */
+body.ffh-v2 .section[data-v3-kind="model"] .chips{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="pose"] .chips{grid-template-columns:repeat(auto-fit,minmax(128px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="scene"] .chips{grid-template-columns:repeat(auto-fit,minmax(138px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="light"] .chips{grid-template-columns:repeat(auto-fit,minmax(128px,1fr))!important;}
+
+/* Subsections become clear internal groups */
+body.ffh-v2 .panel-left .sub-label{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  margin:5px 0 0!important;color:#74777a!important;
+}
+body.ffh-v2 .panel-left .sub-label:after{
+  content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(255,255,255,.065),transparent);
+}
+
+/* Outfit becomes a browser, not an accordion stack */
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-list,
+body.ffh-v2 #pane-moletom .outfit-folder-list{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px!important;
+}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder.open,
+body.ffh-v2 #pane-moletom .outfit-folder.open{grid-column:1/-1!important;}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-head,
+body.ffh-v2 #pane-moletom .outfit-folder-head{min-height:43px!important;padding:0 11px!important;}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-body .chips,
+body.ffh-v2 #pane-moletom .outfit-folder-body .chips{
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr))!important;
+}
+
+/* Dupla: two people read as two parallel workspaces */
+body.ffh-v2 #pane-dupla .dupla-person-card{
+  min-width:0!important;border-radius:12px!important;
+  background:rgba(255,255,255,.018)!important;border-color:rgba(255,255,255,.065)!important;
+}
+body.ffh-v2 #pane-dupla .dupla-person-head{
+  min-height:42px!important;display:flex!important;align-items:center!important;padding:0 12px!important;
+  background:rgba(216,182,87,.045)!important;border-bottom-color:rgba(216,182,87,.12)!important;
+}
+body.ffh-v2 #pane-dupla .dupla-person-body{padding:10px!important;}
+body.ffh-v2 #dupla-outfits-section .section-body{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;
+}
+
+/* Moletom nested masculine/feminine pane: own full-width internal dashboard */
+body.ffh-v2 #pane-moletom .hd-pane.show,
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+  overflow:visible!important;
+}
+body.ffh-v2 #pane-moletom .hd-pane.show>.section,
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section{
+  grid-column:span 6!important;
+  min-width:0!important;width:100%!important;height:auto!important;
+}
+body.ffh-v2 #pane-moletom .hd-pane.show>.section:has(.outfit-folder-list),
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section:has(.outfit-folder-list){grid-column:1/-1!important;}
+
+/* REVIEW STUDIO — same design grammar, optimized for lots of choices */
+body.ffh-v2 #reviews-panel .rv-controls{
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-auto-flow:row dense!important;
+  gap:12px!important;
+}
+body.ffh-v2 #reviews-panel .rv-builder-head{grid-column:1/-1!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section{
+  height:auto!important;min-height:0!important;grid-column:span 6!important;
+  border-radius:14px!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="ratio"]{grid-column:span 5!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="shirt"]{grid-column:span 7!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="person"]{grid-column:span 5!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="camera"]{grid-column:span 6!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="light"]{grid-column:span 6!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="photo"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="scene"]{grid-column:1/-1!important;}
+body.ffh-v2 #reviews-panel .section-header{min-height:50px!important;padding:9px 12px 6px!important;}
+body.ffh-v2 #reviews-panel .section-header:before{width:29px!important;height:29px!important;flex-basis:29px!important;border-radius:9px!important;font-size:7px!important;}
+body.ffh-v2 #reviews-panel .section-body{padding:4px 12px 13px!important;}
+body.ffh-v2 #reviews-panel .chips{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))!important;gap:6px!important;}
+body.ffh-v2 #reviews-panel .section[data-rv-kind="photo"] .chips,
+body.ffh-v2 #reviews-panel .section[data-rv-kind="scene"] .chips{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;}
+body.ffh-v2 #reviews-panel .chip{min-height:36px!important;padding:7px 29px 7px 10px!important;font-size:9.8px!important;white-space:normal!important;overflow-wrap:anywhere!important;}
+
+/* Graceful contraction: 4-up -> 2-up -> 1-up without awkward leftovers */
+@media(max-width:1540px){
+  body.ffh-v2 .section[data-v3-kind="camera"],body.ffh-v2 .section[data-v3-kind="ratio"],body.ffh-v2 .section[data-v3-kind="frame"],body.ffh-v2 .section[data-v3-kind="shirt"],
+  body.ffh-v2 #pane-dupla>.section[data-v4-kind="camera"],body.ffh-v2 #pane-dupla>.section[data-v4-kind="ratio"],body.ffh-v2 #pane-dupla>.section[data-v4-kind="frame"],
+  body.ffh-v2 #pane-moletom>.section[data-v4-kind="camera"],body.ffh-v2 #pane-moletom>.section[data-v4-kind="ratio"],body.ffh-v2 #pane-moletom>.section[data-v4-kind="frame"],body.ffh-v2 #pane-moletom>.section[data-v4-kind="hoodie-size"],body.ffh-v2 #pane-moletom>.section[data-v4-kind="hood"],body.ffh-v2 #pane-moletom>.section[data-v4-kind="gender"]{grid-column:span 6!important;}
+  body.ffh-v2 #pane-fem .section[data-v3-kind="model"],body.ffh-v2 #pane-masc .section[data-v3-kind="model"],body.ffh-v2 #pane-fem .section[data-v3-kind="light"],body.ffh-v2 #pane-masc .section[data-v3-kind="light"],body.ffh-v2 #pane-fem .section[data-v3-kind="pose"],body.ffh-v2 #pane-masc .section[data-v3-kind="pose"],body.ffh-v2 #pane-fem .section[data-v3-kind="scene"],body.ffh-v2 #pane-masc .section[data-v3-kind="scene"]{grid-column:span 6!important;}
+}
+@media(max-width:1180px){
+  body.ffh-v2 .panel-left>.pane.show,body.ffh-v2 #pane-dupla,body.ffh-v2 #pane-moletom{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  body.ffh-v2 .panel-left>.pane.show>.section,body.ffh-v2 #pane-dupla>.section,body.ffh-v2 #pane-moletom>.section{grid-column:span 1!important;}
+  body.ffh-v2 .section[data-v3-kind="model"],body.ffh-v2 .section[data-v3-kind="outfit"],body.ffh-v2 .section[data-v3-kind="pose"],body.ffh-v2 .section[data-v3-kind="scene"],body.ffh-v2 .section[data-v3-kind="light"],body.ffh-v2 #dupla-outfits-section,body.ffh-v2 #pane-dupla>.section:has(.dupla-person-card),body.ffh-v2 #pane-moletom>.section:has(.outfit-folder-list),body.ffh-v2 #pane-moletom>.section:has([id^="hd-pane-"]){grid-column:1/-1!important;}
+  body.ffh-v2 #reviews-panel .rv-controls>.section{grid-column:1/-1!important;}
+}
+@media(max-width:760px){
+  body.ffh-v2 .panel-left>.pane.show,body.ffh-v2 #pane-dupla,body.ffh-v2 #pane-moletom{display:flex!important;flex-direction:column!important;gap:9px!important;}
+  body.ffh-v2 #dupla-outfits-section .section-body{grid-template-columns:1fr!important;}
+  body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-list,body.ffh-v2 #pane-moletom .outfit-folder-list{grid-template-columns:1fr!important;}
+  body.ffh-v2 #pane-moletom .hd-pane.show,body.ffh-v2 #pane-moletom [id^="hd-pane-"].show{display:flex!important;flex-direction:column!important;}
+}
+</style>
