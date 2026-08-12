@@ -5590,3 +5590,380 @@ body.ffh-v2 #reviews-panel .chip{min-height:36px!important;padding:7px 29px 7px 
   body.ffh-v2 #pane-moletom .hd-pane.show,body.ffh-v2 #pane-moletom [id^="hd-pane-"].show{display:flex!important;flex-direction:column!important;}
 }
 </style>
+
+<style id="ffh-builder-v7-control-surface">
+/* ═══════════════════════════════════════════════════════════════
+   FFH BUILDER V7 — CONTROL SURFACE
+   Completely replaces the "many cards" visual language.
+   Sections become horizontal parameter rows: identity rail + controls.
+   Visual only: existing values, data attributes and click handlers untouched.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ---------- CORE BUILDER FLOW ---------- */
+body.ffh-v2 .panel-left>.pane.show,
+body.ffh-v2 #pane-dupla,
+body.ffh-v2 #pane-moletom{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+  align-items:stretch!important;
+}
+
+/* Every module becomes a readable horizontal control strip. */
+body.ffh-v2 .panel-left>.pane.show>.section,
+body.ffh-v2 #pane-dupla>.section,
+body.ffh-v2 #pane-moletom>.section{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:174px minmax(0,1fr)!important;
+  grid-template-rows:auto!important;
+  align-items:stretch!important;
+  overflow:visible!important;
+  border-radius:15px!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  background:rgba(13,15,17,.84)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.09),inset 0 1px rgba(255,255,255,.018)!important;
+  transition:border-color .18s ease,background .18s ease,box-shadow .18s ease!important;
+}
+body.ffh-v2 .panel-left>.pane.show>.section:hover,
+body.ffh-v2 #pane-dupla>.section:hover,
+body.ffh-v2 #pane-moletom>.section:hover{
+  transform:none!important;
+  background:rgba(15,17,19,.94)!important;
+  border-color:rgba(var(--module-accent),.22)!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.13),inset 0 1px rgba(255,255,255,.022)!important;
+}
+body.ffh-v2 .panel-left>.pane.show>.section:before,
+body.ffh-v2 #pane-dupla>.section:before,
+body.ffh-v2 #pane-moletom>.section:before{
+  content:""!important;
+  position:absolute!important;
+  left:-1px!important;top:14px!important;bottom:14px!important;width:2px!important;height:auto!important;
+  border-radius:99px!important;
+  background:rgb(var(--module-accent))!important;
+  opacity:.7!important;
+  box-shadow:0 0 18px rgba(var(--module-accent),.2)!important;
+}
+
+/* Identity rail: icon, title, number. No old card-header bar. */
+body.ffh-v2 .panel-left .section-header{
+  min-width:0!important;
+  min-height:94px!important;
+  height:auto!important;
+  padding:16px 15px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:8px!important;
+  border:0!important;
+  border-right:1px solid rgba(255,255,255,.06)!important;
+  background:linear-gradient(90deg,rgba(var(--module-accent),.045),transparent)!important;
+  border-radius:14px 0 0 14px!important;
+  color:#d1cec5!important;
+  font-size:9.5px!important;
+  line-height:1.25!important;
+  letter-spacing:.11em!important;
+  white-space:normal!important;
+}
+body.ffh-v2 .panel-left .section-header .dot{display:none!important;}
+body.ffh-v2 .panel-left .section-header:before{
+  width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  border-radius:10px!important;
+  background:rgba(var(--module-accent),.10)!important;
+  border:1px solid rgba(var(--module-accent),.22)!important;
+  color:rgb(var(--module-accent))!important;
+  font-size:8px!important;font-weight:900!important;letter-spacing:.02em!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.025)!important;
+}
+body.ffh-v2 .panel-left .section[data-v2-index] .section-header:after{
+  position:absolute!important;
+  left:58px!important;top:18px!important;right:auto!important;
+  min-width:0!important;width:auto!important;height:auto!important;
+  padding:0!important;border:0!important;background:transparent!important;
+  color:#54575a!important;font-size:7px!important;line-height:1!important;
+  letter-spacing:.14em!important;
+}
+
+/* Control area */
+body.ffh-v2 .panel-left .section-body{
+  min-width:0!important;
+  width:100%!important;
+  padding:14px 16px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:10px!important;
+  overflow:visible!important;
+}
+
+/* Options become a stable choice matrix, not narrow pills. */
+body.ffh-v2 .panel-left .chips{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;
+  gap:7px!important;
+  align-items:stretch!important;
+}
+body.ffh-v2 .panel-left .chip,
+body.ffh-v2 .panel-left .toggle-chip{
+  position:relative!important;
+  min-width:0!important;
+  width:100%!important;
+  min-height:40px!important;
+  height:auto!important;
+  padding:9px 30px 9px 11px!important;
+  border-radius:9px!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  background:rgba(255,255,255,.022)!important;
+  color:#94989c!important;
+  font-size:10px!important;
+  font-weight:610!important;
+  line-height:1.22!important;
+  text-align:left!important;
+  justify-content:flex-start!important;
+  white-space:normal!important;
+  word-break:normal!important;
+  overflow-wrap:break-word!important;
+  writing-mode:horizontal-tb!important;
+  text-orientation:mixed!important;
+  transition:background .14s ease,border-color .14s ease,color .14s ease,transform .14s ease!important;
+}
+body.ffh-v2 .panel-left .chip:hover,
+body.ffh-v2 .panel-left .toggle-chip:hover{
+  transform:translateY(-1px)!important;
+  background:rgba(255,255,255,.043)!important;
+  border-color:rgba(var(--module-accent),.23)!important;
+  color:#d7d8d6!important;
+}
+body.ffh-v2 .panel-left .chip.selected,
+body.ffh-v2 .panel-left .toggle-chip.on{
+  background:linear-gradient(135deg,rgba(var(--module-accent),.17),rgba(var(--module-accent),.07))!important;
+  border-color:rgba(var(--module-accent),.48)!important;
+  color:#f1e5bd!important;
+  box-shadow:inset 3px 0 rgb(var(--module-accent)),0 5px 14px rgba(0,0,0,.10)!important;
+}
+body.ffh-v2 .panel-left .chip:after,
+body.ffh-v2 .panel-left .toggle-chip:after{
+  right:10px!important;top:50%!important;transform:translateY(-50%)!important;
+}
+body.ffh-v2 .panel-left .chip.selected:after,
+body.ffh-v2 .panel-left .toggle-chip.on:after{transform:translateY(-50%) scale(1)!important;}
+
+/* Internal labels are small section captions instead of horizontal divider clutter. */
+body.ffh-v2 .panel-left .sub-label{
+  margin:4px 0 -1px!important;
+  display:block!important;
+  font-size:8px!important;
+  font-weight:820!important;
+  letter-spacing:.14em!important;
+  color:#5f6367!important;
+}
+body.ffh-v2 .panel-left .sub-label:after{display:none!important;}
+
+/* ---------- DENSITY BY MODULE TYPE ---------- */
+body.ffh-v2 .section[data-v3-kind="camera"] .chips,
+body.ffh-v2 .section[data-v3-kind="ratio"] .chips,
+body.ffh-v2 .section[data-v3-kind="frame"] .chips,
+body.ffh-v2 .section[data-v3-kind="shirt"] .chips,
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="camera"] .chips,
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="ratio"] .chips,
+body.ffh-v2 #pane-dupla>.section[data-v4-kind="frame"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="camera"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="ratio"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="frame"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hoodie-size"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="hood"] .chips,
+body.ffh-v2 #pane-moletom>.section[data-v4-kind="gender"] .chips{
+  grid-template-columns:repeat(auto-fit,minmax(135px,1fr))!important;
+}
+body.ffh-v2 .section[data-v3-kind="model"] .chips{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="pose"] .chips{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="scene"] .chips{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))!important;}
+body.ffh-v2 .section[data-v3-kind="light"] .chips{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))!important;}
+
+/* ---------- OUTFIT = STYLE BROWSER ---------- */
+body.ffh-v2 .section[data-v3-kind="outfit"],
+body.ffh-v2 #pane-moletom .section:has(.outfit-folder-list){
+  grid-template-columns:174px minmax(0,1fr)!important;
+}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-list,
+body.ffh-v2 #pane-moletom .outfit-folder-list{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important;
+  gap:7px!important;
+}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder,
+body.ffh-v2 #pane-moletom .outfit-folder{
+  min-width:0!important;
+  border-radius:9px!important;
+  border:1px solid rgba(255,255,255,.065)!important;
+  background:rgba(255,255,255,.018)!important;
+  overflow:hidden!important;
+}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder.open,
+body.ffh-v2 #pane-moletom .outfit-folder.open{grid-column:1/-1!important;}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-head,
+body.ffh-v2 #pane-moletom .outfit-folder-head{
+  min-height:45px!important;padding:0 12px!important;background:transparent!important;
+}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder.open .outfit-folder-head,
+body.ffh-v2 #pane-moletom .outfit-folder.open .outfit-folder-head{background:rgba(var(--module-accent),.045)!important;}
+body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-body .chips,
+body.ffh-v2 #pane-moletom .outfit-folder-body .chips{
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr))!important;
+}
+
+/* ---------- DUPLA = PARALLEL PEOPLE WORKSPACE ---------- */
+body.ffh-v2 #pane-dupla .dupla-person-card{
+  min-width:0!important;
+  border-radius:11px!important;
+  border:1px solid rgba(255,255,255,.065)!important;
+  background:rgba(255,255,255,.016)!important;
+  overflow:hidden!important;
+}
+body.ffh-v2 #pane-dupla .dupla-person-head{
+  min-height:42px!important;padding:0 13px!important;
+  display:flex!important;align-items:center!important;
+  border-bottom:1px solid rgba(255,255,255,.055)!important;
+  background:linear-gradient(90deg,rgba(216,182,87,.055),transparent)!important;
+  font-size:9px!important;
+}
+body.ffh-v2 #pane-dupla .dupla-person-body{padding:12px!important;}
+body.ffh-v2 #dupla-outfits-section .section-body{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+
+/* ---------- MOLETOM NESTED PANES ---------- */
+body.ffh-v2 #pane-moletom .hd-pane.show,
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show{
+  width:100%!important;
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:9px!important;
+  overflow:visible!important;
+}
+body.ffh-v2 #pane-moletom .hd-pane.show>.section,
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  display:grid!important;
+  grid-template-columns:174px minmax(0,1fr)!important;
+  overflow:visible!important;
+}
+
+/* ---------- REVIEW STUDIO: SAME LANGUAGE ---------- */
+body.ffh-v2 #reviews-panel .rv-controls{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+body.ffh-v2 #reviews-panel .rv-builder-head{width:100%!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:174px minmax(0,1fr)!important;
+  overflow:visible!important;
+  border-radius:15px!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  background:rgba(13,15,17,.84)!important;
+}
+body.ffh-v2 #reviews-panel .section-header{
+  min-height:94px!important;height:auto!important;
+  padding:16px 15px!important;
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:8px!important;
+  border:0!important;border-right:1px solid rgba(255,255,255,.06)!important;
+  border-radius:14px 0 0 14px!important;
+  background:linear-gradient(90deg,rgba(var(--module-accent),.045),transparent)!important;
+}
+body.ffh-v2 #reviews-panel .section-header:before{width:34px!important;height:34px!important;flex:0 0 34px!important;border-radius:10px!important;}
+body.ffh-v2 #reviews-panel .section-body{padding:14px 16px!important;min-width:0!important;}
+body.ffh-v2 #reviews-panel .chips{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr))!important;
+  gap:7px!important;
+}
+body.ffh-v2 #reviews-panel .section[data-rv-kind="photo"] .chips,
+body.ffh-v2 #reviews-panel .section[data-rv-kind="scene"] .chips{
+  grid-template-columns:repeat(auto-fit,minmax(175px,1fr))!important;
+}
+body.ffh-v2 #reviews-panel .chip{
+  min-width:0!important;width:100%!important;min-height:40px!important;height:auto!important;
+  padding:9px 31px 9px 11px!important;
+  border-radius:9px!important;
+  white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;
+  writing-mode:horizontal-tb!important;text-orientation:mixed!important;text-align:left!important;justify-content:flex-start!important;
+}
+
+/* ---------- DESKTOP COMPACT HEADER MODE ---------- */
+@media(min-width:1500px){
+  body.ffh-v2 .panel-left>.pane.show>.section,
+  body.ffh-v2 #pane-dupla>.section,
+  body.ffh-v2 #pane-moletom>.section,
+  body.ffh-v2 #reviews-panel .rv-controls>.section{
+    grid-template-columns:188px minmax(0,1fr)!important;
+  }
+  body.ffh-v2 #pane-moletom .hd-pane.show>.section,
+  body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section{grid-template-columns:188px minmax(0,1fr)!important;}
+}
+
+/* ---------- RESPONSIVE: no thin cards, ever ---------- */
+@media(max-width:1260px){
+  body.ffh-v2 .panel-left>.pane.show>.section,
+  body.ffh-v2 #pane-dupla>.section,
+  body.ffh-v2 #pane-moletom>.section,
+  body.ffh-v2 #pane-moletom .hd-pane.show>.section,
+  body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section,
+  body.ffh-v2 #reviews-panel .rv-controls>.section{
+    grid-template-columns:150px minmax(0,1fr)!important;
+  }
+  body.ffh-v2 #dupla-outfits-section .section-body{grid-template-columns:1fr!important;}
+}
+@media(max-width:860px){
+  body.ffh-v2 .panel-left>.pane.show>.section,
+  body.ffh-v2 #pane-dupla>.section,
+  body.ffh-v2 #pane-moletom>.section,
+  body.ffh-v2 #pane-moletom .hd-pane.show>.section,
+  body.ffh-v2 #pane-moletom [id^="hd-pane-"].show>.section,
+  body.ffh-v2 #reviews-panel .rv-controls>.section{
+    display:block!important;
+  }
+  body.ffh-v2 .panel-left .section-header,
+  body.ffh-v2 #reviews-panel .section-header{
+    min-height:54px!important;
+    padding:10px 12px!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    border-right:0!important;
+    border-bottom:1px solid rgba(255,255,255,.055)!important;
+    border-radius:14px 14px 0 0!important;
+  }
+  body.ffh-v2 .panel-left .section[data-v2-index] .section-header:after{left:auto!important;right:12px!important;top:50%!important;transform:translateY(-50%)!important;}
+  body.ffh-v2 .panel-left .chips,
+  body.ffh-v2 #reviews-panel .chips{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+@media(max-width:560px){
+  body.ffh-v2 .panel-left .chips,
+  body.ffh-v2 #reviews-panel .chips,
+  body.ffh-v2 .section[data-v3-kind="outfit"] .outfit-folder-list,
+  body.ffh-v2 #pane-moletom .outfit-folder-list{
+    grid-template-columns:1fr!important;
+  }
+}
+</style>
