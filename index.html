@@ -5967,3 +5967,41 @@ body.ffh-v2 #reviews-panel .chip{
   }
 }
 </style>
+
+<style id="ffh-v7-1-mode-isolation-fix">
+/* ═══════════════════════════════════════════════════════════════
+   FFH V7.1 — MODE ISOLATION FIX
+   V7's control-surface styling accidentally forced Dupla and
+   Moletom to display even without .show. Keep only the active mode
+   mounted visually. Existing setMode() remains the source of truth.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hard isolation between the four builder panes. */
+body.ffh-v2 .panel-left > #pane-fem:not(.show),
+body.ffh-v2 .panel-left > #pane-masc:not(.show),
+body.ffh-v2 .panel-left > #pane-dupla:not(.show),
+body.ffh-v2 .panel-left > #pane-moletom:not(.show){
+  display:none!important;
+}
+
+/* The active pane alone gets the V7 control-surface flow. */
+body.ffh-v2 .panel-left > #pane-fem.show,
+body.ffh-v2 .panel-left > #pane-masc.show,
+body.ffh-v2 .panel-left > #pane-dupla.show,
+body.ffh-v2 .panel-left > #pane-moletom.show{
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  min-width:0!important;
+}
+
+/* Moletom has its own nested gender panes; isolate those too. */
+body.ffh-v2 #pane-moletom .hd-pane:not(.show),
+body.ffh-v2 #pane-moletom [id^="hd-pane-"]:not(.show){
+  display:none!important;
+}
+body.ffh-v2 #pane-moletom .hd-pane.show,
+body.ffh-v2 #pane-moletom [id^="hd-pane-"].show{
+  display:flex!important;
+}
+</style>
