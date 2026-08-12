@@ -5248,5 +5248,73 @@ document.getElementById('shirt-modal').addEventListener('click', function(e) {
 })();
 </script>
 
+
+
+<style id="ffh-natural-scroll-fix-v5">
+/* ─────────────────────────────────────────────────────────────
+   FFH NATURAL SCROLL FIX V5
+   The config scroller sits below .ffh-canvas-head inside a
+   flex-column. It must consume the REMAINING height, not 100%
+   of the full stage. This restores wheel/trackpad access to the
+   final cards (Cenário, Iluminação, etc.) in every builder mode.
+   ───────────────────────────────────────────────────────────── */
+body.ffh-v2 .ffh-config-stage{
+  display:flex!important;
+  flex-direction:column!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+body.ffh-v2 .ffh-canvas-head{
+  flex:0 0 auto!important;
+}
+body.ffh-v2 .ffh-config-stage > .panel-left{
+  flex:1 1 0!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior-y:contain!important;
+  scrollbar-gutter:stable!important;
+  -webkit-overflow-scrolling:touch!important;
+  padding-bottom:96px!important;
+}
+/* Ensure active panes contribute their entire content height to
+   the scroller and never become a nested/clipped scroll region. */
+body.ffh-v2 .ffh-config-stage > .panel-left > .pane.show,
+body.ffh-v2 .ffh-config-stage > .panel-left > #pane-moletom.show,
+body.ffh-v2 .ffh-config-stage > .panel-left > #pane-dupla.show{
+  height:auto!important;
+  min-height:max-content!important;
+  overflow:visible!important;
+}
+/* Moletom contains nested gender panes: they must expand normally. */
+body.ffh-v2 #pane-moletom > #hd-pane-masc.show,
+body.ffh-v2 #pane-moletom > #hd-pane-fem.show{
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+}
+/* Give the last visible module comfortable breathing room so its
+   full card can be reached without sitting flush against viewport. */
+body.ffh-v2 .ffh-config-stage > .panel-left > .pane.show > .section:last-child,
+body.ffh-v2 #pane-moletom > #hd-pane-masc.show > .section:last-child,
+body.ffh-v2 #pane-moletom > #hd-pane-fem.show > .section:last-child{
+  margin-bottom:12px!important;
+}
+
+/* At responsive breakpoints where the document itself scrolls,
+   don't create a second unnecessary internal scroll container. */
+@media(max-width:1180px){
+  body.ffh-v2 .ffh-config-stage > .panel-left{
+    flex:none!important;
+    height:auto!important;
+    overflow:visible!important;
+    overscroll-behavior:auto!important;
+    padding-bottom:48px!important;
+  }
+}
+</style>
 </body>
 </html>
