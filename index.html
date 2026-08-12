@@ -6290,3 +6290,145 @@ body.ffh-v2 #reviews-panel .rv-controls>.section .chip:hover{z-index:1!important
   body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind] .chips{grid-template-columns:1fr!important;}
 }
 </style>
+
+<!-- FFH V7.5 — INDIVIDUAL NATURAL HEIGHT / OVERLAP FIX -->
+<style id="ffh-v7-5-individual-overlap-fix">
+/*
+   Hard fix for the Individual builder only.
+   Every module owns its real content height, so Pose / Scene / Light
+   are always pushed down by the module above instead of visually
+   leaking into each other.
+*/
+body.ffh-v2 .panel-left > #pane-fem.show,
+body.ffh-v2 .panel-left > #pane-masc.show{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:12px!important;
+  height:auto!important;
+  min-height:max-content!important;
+  overflow:visible!important;
+}
+
+body.ffh-v2 .panel-left > #pane-fem.show > .section,
+body.ffh-v2 .panel-left > #pane-masc.show > .section{
+  position:relative!important;
+  flex:0 0 auto!important;
+  align-self:stretch!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  display:grid!important;
+  grid-template-columns:188px minmax(0,1fr)!important;
+  grid-template-rows:max-content!important;
+  align-items:stretch!important;
+  align-content:start!important;
+  overflow:hidden!important;
+  margin:0!important;
+}
+
+body.ffh-v2 .panel-left > #pane-fem.show > .section > .section-header,
+body.ffh-v2 .panel-left > #pane-masc.show > .section > .section-header{
+  position:relative!important;
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:stretch!important;
+  height:auto!important;
+  min-height:94px!important;
+  max-height:none!important;
+}
+
+body.ffh-v2 .panel-left > #pane-fem.show > .section > .section-body,
+body.ffh-v2 .panel-left > #pane-masc.show > .section > .section-body{
+  position:relative!important;
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:start!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:94px!important;
+  max-height:none!important;
+  display:flex!important;
+  flex:none!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  overflow:visible!important;
+}
+
+/* Choice matrices must size the module, never float outside it. */
+body.ffh-v2 .panel-left > #pane-fem.show .section-body > .chips,
+body.ffh-v2 .panel-left > #pane-masc.show .section-body > .chips,
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder-body > .chips,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder-body > .chips{
+  position:relative!important;
+  float:none!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  grid-auto-rows:minmax(40px,auto)!important;
+  align-content:start!important;
+  overflow:visible!important;
+}
+
+/* Outfit accordion expansion participates in normal document flow. */
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder-list,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder-list{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  align-content:start!important;
+  overflow:visible!important;
+}
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder{
+  position:relative!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder-body,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder-body{
+  position:static!important;
+  float:none!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder:not(.open) > .outfit-folder-body,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder:not(.open) > .outfit-folder-body{
+  display:none!important;
+}
+body.ffh-v2 .panel-left > #pane-fem.show .outfit-folder.open > .outfit-folder-body,
+body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder.open > .outfit-folder-body{
+  display:block!important;
+}
+
+/* Keep the same responsive behavior without reintroducing overlap. */
+@media(max-width:1260px){
+  body.ffh-v2 .panel-left > #pane-fem.show > .section,
+  body.ffh-v2 .panel-left > #pane-masc.show > .section{
+    grid-template-columns:150px minmax(0,1fr)!important;
+  }
+}
+@media(max-width:860px){
+  body.ffh-v2 .panel-left > #pane-fem.show > .section,
+  body.ffh-v2 .panel-left > #pane-masc.show > .section{
+    display:block!important;
+  }
+  body.ffh-v2 .panel-left > #pane-fem.show > .section > .section-header,
+  body.ffh-v2 .panel-left > #pane-masc.show > .section > .section-header,
+  body.ffh-v2 .panel-left > #pane-fem.show > .section > .section-body,
+  body.ffh-v2 .panel-left > #pane-masc.show > .section > .section-body{
+    width:100%!important;
+    min-height:0!important;
+    height:auto!important;
+  }
+}
+</style>
