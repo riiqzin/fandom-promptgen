@@ -4542,8 +4542,116 @@ function buildHoletomPrompt() {
 }
 </style>
 
+<style id="ffh-shirt-selector-v73-fixes">
+/* V7.3 — modal always above the app header + stable, visible shirt cards */
+#shirt-modal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:20000!important;
+  width:100vw!important;
+  height:100dvh!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:20px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+#shirt-modal .shirt-shell{
+  width:min(1320px,calc(100vw - 40px))!important;
+  height:min(920px,calc(100dvh - 40px))!important;
+  max-height:calc(100dvh - 40px)!important;
+  min-height:0!important;
+  margin:0!important;
+  position:relative!important;
+  z-index:1!important;
+}
+#shirt-modal .shirt-shell-body{
+  min-height:0!important;
+  overflow:hidden!important;
+}
+#shirt-modal .shirt-main{
+  min-height:0!important;
+  overflow:hidden!important;
+}
+#shirt-modal #shirt-grid{
+  flex:1 1 auto!important;
+  min-height:220px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+  grid-auto-rows:max-content!important;
+  align-items:start!important;
+  align-content:start!important;
+  grid-auto-flow:row!important;
+  scrollbar-gutter:stable!important;
+}
+#shirt-modal #shirt-grid > .shirt-card{
+  width:100%!important;
+  height:auto!important;
+  min-height:326px!important;
+  align-self:start!important;
+  overflow:hidden!important;
+  transform:none;
+}
+#shirt-modal #shirt-grid > .shirt-card:hover{
+  transform:translateY(-3px)!important;
+}
+#shirt-modal .shirt-card-media{
+  display:flex!important;
+  width:100%!important;
+  height:220px!important;
+  min-height:220px!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  flex:0 0 220px!important;
+  overflow:hidden!important;
+}
+#shirt-modal .shirt-card-media img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+#shirt-modal .shirt-card-body{
+  flex:1 0 auto!important;
+  min-height:106px!important;
+}
+#shirt-modal .shirt-summary{
+  flex:0 0 auto!important;
+}
+#shirt-modal #shirt-last-used,
+#shirt-modal .shirt-toolbar,
+#shirt-modal .shirt-footer{
+  flex:0 0 auto!important;
+}
+@media(max-width:1080px){
+  #shirt-modal{padding:12px!important;}
+  #shirt-modal .shirt-shell{width:calc(100vw - 24px)!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;}
+  #shirt-modal .shirt-shell-body{overflow:auto!important;display:flex!important;flex-direction:column!important;}
+  #shirt-modal .shirt-sidebar{flex:0 0 auto!important;max-height:220px!important;}
+  #shirt-modal .shirt-main{flex:1 1 auto!important;min-height:520px!important;}
+  #shirt-modal #shirt-grid{min-height:300px!important;}
+}
+@media(max-width:720px){
+  #shirt-modal{padding:6px!important;}
+  #shirt-modal .shirt-shell{width:calc(100vw - 12px)!important;height:calc(100dvh - 12px)!important;max-height:calc(100dvh - 12px)!important;border-radius:18px!important;}
+  #shirt-modal #shirt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+  #shirt-modal #shirt-grid > .shirt-card{min-height:272px!important;}
+  #shirt-modal .shirt-card-media{height:170px!important;min-height:170px!important;flex-basis:170px!important;}
+}
+</style>
+
 <!-- SHIRT SELECTOR MODAL -->
-<div id="shirt-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;align-items:center;justify-content:center;">
+<div id="shirt-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:20000;align-items:center;justify-content:center;">
   <div class="shirt-shell">
     <div class="shirt-shell-head">
       <div class="shirt-shell-titles">
