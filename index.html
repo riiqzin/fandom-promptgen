@@ -1746,6 +1746,33 @@ body.ffh-v2 #reviews-panel .rv-builder-head{
 }
 </style>
 
+
+<style id="ffh-v8-review-diversity">
+/* FFH V8 — Review diversity controls */
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="age"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="traits"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="body"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="grooming"]{grid-column:span 6!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="outfit"],
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="home"]{grid-column:1/-1!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="traits"]{--rv-accent:182,130,255;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="age"]{--rv-accent:122,158,255;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="body"]{--rv-accent:105,200,155;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="grooming"]{--rv-accent:235,161,99;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="outfit"]{--rv-accent:224,126,166;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="home"]{--rv-accent:186,160,91;}
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="outfit"] .chips,
+body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="home"] .chips{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;}
+@media(max-width:1250px){
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="age"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="traits"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="body"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="grooming"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="outfit"],
+  body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="home"]{grid-column:1/-1!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -3530,30 +3557,154 @@ function toast(msg) {
 renderPrompt();
 
 // ── REVIEWS ──────────────────────────────────────────
-var RV={ratio:'3:4',tshirt:'regular',type:'segurando',person:'ningum',scene:'quarto',cam:'basico',light:'janela'};
+var RV={ratio:'3:4',tshirt:'regular',type:'segurando',person:'ningum',age:'22-27',traits:'br-misto',body:'medio',grooming:'normal',outfit:'casual',home:'media',scene:'quarto',cam:'basico',light:'janela'};
 var RV_RATIO={'3:4':'Image ratio: 3:4 vertical format, the default aspect ratio of a smartphone camera held vertically.','1:1':'Image ratio: 1:1 square format, as used in shopping app reviews.','4:5':'Image ratio: 4:5 vertical format.','9:16':'Image ratio: 9:16 vertical format for Stories and TikTok.','4:3':'Image ratio: 4:3 horizontal format, typical of a casual smartphone photo taken with the phone turned sideways.','16:9':'Image ratio: 16:9 horizontal format, resembling a quick frame captured from a casual smartphone video.'};
 var RV_TSHIRT={regular:'The t-shirt is a regular-fit cotton piece with standard shoulder seams and natural silhouette.',oversized:'The t-shirt is an oversized boxy cotton piece with dropped shoulder seams and slightly shortened hem.','regular-solta':'The t-shirt is a regular-fit cotton piece worn one size looser, with standard shoulder seams, relaxed sleeves, and a naturally comfortable silhouette.','oversized-larga':'The t-shirt is an oversized boxy cotton piece with visibly dropped shoulder seams, wide sleeves, a loose body, and a slightly shortened hem. The fit looks intentionally roomy without appearing artificially inflated.'};
 var RV_CAM={basico:'Shot on a basic low-end Android smartphone. Noticeable digital grain, soft auto-focus, no filters, no editing.',antigo:'Shot on an older entry-level Android smartphone. Low resolution, unstable auto-focus, visible compression, washed-out colors, and no editing.',medio:'Shot on a mid-range Android smartphone. Moderate detail, slight digital noise. No filters or editing.','frontal-android':'Shot with the front-facing camera of a basic Android smartphone. Softer details, mild lens distortion, uneven exposure, and visible compression. No beauty filter or editing.','iphone-antigo':'Shot on an older iPhone using the standard camera app. Slightly warm white balance, modest dynamic range, mild sharpening, and natural compression. No filters or editing.','whatsapp':'Shot on an ordinary smartphone and then compressed after being sent through WhatsApp. Reduced detail, visible JPEG artifacts, softened edges, and slightly inaccurate colors. No filters or retouching.','flash-basico':'Shot on a basic Android smartphone using the built-in flash. Harsh direct light, uneven exposure, hard shadows and ordinary low-end camera rendering. No filters or editing.','screen-grab':'Captured as a still frame from a casual smartphone video. Slight motion blur, lower per-frame detail, compression and imperfect timing make the image feel accidental and real.'};
 var RV_CAM_DETAIL={basico:FIXED_CAMERA_QUALITY,antigo:'Camera quality: very low-resolution older Android smartphone camera, visibly soft focus, heavy grain in indoor shadows, muted and inaccurate colors, strong JPEG compression artifacts, weak dynamic range, occasional blown highlights, slight hand shake, and minimal fine detail. The image looks untouched and straight from an outdated budget phone.',medio:'Camera quality: ordinary mid-range Android smartphone camera, moderate resolution, natural but imperfect auto-focus, mild noise in darker areas, slightly inconsistent white balance, restrained sharpening, limited dynamic range, subtle compression, and no computational photography polish. The image looks casual and unedited, not professional.', 'frontal-android':'Camera quality: basic Android front-facing camera with lower detail than the rear camera, soft facial and fabric texture, slight wide-angle distortion, visible noise, uneven exposure, mild motion blur, compressed shadows, and no beauty enhancement. Looks like an ordinary quick selfie with no editing.', 'iphone-antigo':'Camera quality: older iPhone camera with moderate detail, slightly warm color rendering, limited shadow recovery, mild digital sharpening, subtle sensor noise, occasional highlight clipping, and natural handheld softness. No Portrait Mode, no filters, and no editing.',whatsapp:'Camera quality: ordinary smartphone photo degraded by WhatsApp compression, with reduced resolution, softened fabric detail, visible blocky JPEG artifacts, slight color shifts, edge ringing around the graphic print, and mild pixelation. It must still look like an authentic customer photo, not an intentionally applied effect.','flash-basico':'Camera quality: low-end Android rear camera with built-in flash, soft autofocus, visible noise in the dark background, center-weighted overexposure, hard-edged shadows, washed skin highlights and mild JPEG artifacts. It should look technically imperfect rather than stylized.','screen-grab':'Camera quality: frame grabbed from a compressed handheld smartphone video, with slight motion blur, reduced sharpness, temporal compression artifacts, imperfect exposure and a casual off-moment expression or body position.'};
 var RV_SCENE={quarto:'Background: typical Brazilian bedroom. Unmade bed, plain pillow, rumpled sheets. Nothing staged. Packaging partially visible at frame edge.',sala:'Background: Brazilian living room. Couch partially visible, tiled floor. Everyday objects casually present.',banheiro:'Background: Brazilian home bathroom. Tiled walls, mirror partially visible. Overhead bathroom lamp.',cozinha:'Background: Brazilian kitchen. Tiled walls, refrigerator or utensils in background.',varanda:'Background: Brazilian apartment balcony. Railing visible, outdoor daylight, distant buildings softly blurred.',sofa:'Background: Brazilian living room sofa. Couch fabric visible, throw pillow partially in frame.',cama:'Background: close view of an ordinary Brazilian bed. Rumpled sheet, mismatched pillow or blanket, and small everyday objects near the edge. Nothing arranged for the photo.',mesa:'Background: simple dining or study table inside a Brazilian home. Wood, plastic, or glass surface with small everyday objects nearby, such as keys, a charger, cup, or folded receipt.','cadeira':'Background: ordinary bedroom or living-room chair inside a Brazilian home. The chair is partially visible with clothing or a bag casually resting nearby.','corredor':'Background: narrow corridor inside a Brazilian house or apartment. Plain painted walls, tiled floor, open doorway, and uneven household lighting.','lavanderia':'Background: small Brazilian laundry area. Washing machine, utility sink, hanging cloths, cleaning products, and tiled walls casually visible.','quintal':'Background: simple Brazilian backyard or service patio. Concrete or tiled floor, wall, clothesline, plastic chair, and natural outdoor daylight.','garagem':'Background: residential Brazilian garage. Concrete floor, plain wall, part of a car or motorcycle, storage items, and mixed daylight from the entrance.','elevador':'Background: ordinary apartment or shopping-center elevator. Brushed metal walls or mirror, ceiling lights, minor smudges, and tight framing.','shopping':'Background: casual Brazilian shopping mall corridor. Storefront lights, tiled floor, a few distant people softly blurred, and no staged fashion atmosphere.','calcada':'Background: ordinary Brazilian neighborhood sidewalk. Concrete pavement, residential walls, parked cars, utility poles, and imperfect urban details.','carro':'Background: inside an ordinary compact car. Fabric seat, seat belt, door panel, dashboard edge, and daylight entering unevenly through the windows.','praia':'Background: Brazilian beach or seaside promenade. Sand or pavement, distant umbrellas or buildings, bright natural daylight, and casual vacation clutter.','academia':'Background: ordinary neighborhood gym. Mirror, rubber flooring, weight machines, benches, and other people softly blurred in the distance.','faculdade':'Background: Brazilian college or school corridor. Painted walls, simple benches, classroom doors, backpacks, and cool overhead lighting.','provador':'Background: ordinary clothing-store fitting room. Full-length mirror, curtain or plain door, bench or hooks, neutral walls, harsh ceiling light, and small signs of real use.','escada-condominio':'Background: apartment-building stairwell with painted concrete walls, metal handrail, tiled or concrete steps and practical ceiling lighting.','portaria':'Background: simple Brazilian apartment lobby or building entrance. Glass door, intercom, mailboxes, tiled floor and ordinary ceiling lights.','onibus':'Background: inside a Brazilian bus or public transport vehicle. Fabric or plastic seat, window reflections, handrails and moving city blur outside.','lanchonete':'Background: casual neighborhood snack bar or fast-food table. Plastic tray, simple table surface, bright menu lighting and ordinary customers softly blurred.'};
 var RV_TYPE={segurando:'Customer holding the t-shirt up with one hand, displaying the front print. Grip is casual. Face completely out of frame.',esticada:'Customer holding the t-shirt stretched between both hands. Grip uneven and natural. Only hands and forearms visible.',embalagem:'T-shirt still partially inside shipping packaging. Folded or loosely arranged with packaging creases. No person.',dobrada:'T-shirt loosely folded on a flat surface. Front print faces upward. Imperfect natural folding. No person.','detalhe':'Extreme close-up of the graphic print. Natural fabric texture and cotton grain visible. No person.','vestindo-sem':'Customer wearing the t-shirt framed from chest down. Face completely out of frame. Natural posture.','vestindo-mao':'Customer wearing the t-shirt, covering face with one hand. Natural gesture. Face completely obscured.','vestindo-costas':'Customer wearing the t-shirt with back to camera. Face not visible.','selfie':'Customer taking mirror selfie with phone covering face entirely. T-shirt visible. Slight mirror smudges.','cama-aberta':'T-shirt spread loosely across an unmade bed. The graphic print faces upward but the fabric is not perfectly flat. Sleeves and hem fall unevenly over the sheets. No person.','cabide':'T-shirt hanging from a basic plastic or wooden hanger, held by one hand or placed on a wardrobe door. Fabric hangs naturally with vertical folds. Face completely out of frame.','tirando-pacote':'Customer caught while pulling the t-shirt out of the shipping package. One hand holds the package while the other lifts the fabric. The print is partially revealed through natural folds. Face out of frame.','pacote-aberto':'Opened shipping package resting beside the t-shirt. The garment is loosely unfolded with tissue, plastic, or shipping material casually visible. No person.','gola':'Close-up review photo focused on the collar, shoulder seam, and upper portion of the print. Cotton texture, stitching, and natural folds clearly visible. No person.','tecido':'Customer pinching or lightly pulling a small section of the t-shirt fabric between two fingers to show thickness and texture. The gesture is casual and imperfect.','etiqueta':'Close-up of the inside neck label or printed label while one hand pulls the collar open. Stitching, cotton texture, and slight fabric tension visible. Face completely out of frame.','barra':'Close-up of the lower hem and side seam while the customer holds the fabric lightly. Natural wrinkles, stitching, and print edge may be partially visible.','espelho-corpo':'Customer taking a full-body mirror photo while wearing the t-shirt. Phone covers the face entirely. Posture is relaxed, slightly asymmetrical, and unposed. Mirror has minor smudges.','sentado':'Customer wearing the t-shirt while sitting casually on the edge of a bed, couch, chair, or low wall. Torso remains clearly visible. Posture is relaxed and slightly slouched.','andando':'Customer wearing the t-shirt captured mid-step by another person. Arms and fabric move naturally. The frame is slightly imperfect and the face may be cropped or turned away.','celular':'Customer wearing the t-shirt while looking down at their phone. Body slightly curved forward, one arm relaxed, and no awareness of the camera.','apontando':'Customer wearing the t-shirt and casually pointing toward the graphic print with one hand. The gesture is informal and slightly uneven, not promotional.','bracos-cruzados':'Customer wearing the t-shirt with arms loosely crossed below the main print area. Shoulders relaxed, posture natural, and face cropped or turned away.','mao-bolso':'Customer wearing the t-shirt with one hand casually inside a pants pocket and the other arm hanging naturally. Body weight shifted to one side.','sentado-sofa':'Customer wearing the t-shirt while sitting casually on a living-room sofa. Torso angled slightly, one arm resting naturally, and the print remains visible through realistic fabric folds.','selfie-carro':'Customer taking a quick selfie while seated inside a car. Phone partially or fully covers the face. Tight framing, uneven window light, and casual posture.','foto-amigo':'Photo taken by a friend from a natural standing distance. Customer is wearing the t-shirt and appears unaware or only slightly aware of the camera. Framing is imperfect and not centered like a fashion shoot.','amassada-mao':'Close review photo of the customer bunching a section of the t-shirt fabric loosely in one hand to demonstrate softness and thickness. Fingers press irregular folds into the cotton; no polished product styling.','comparando-tamanho':'Customer holds the t-shirt by both side seams or shoulder points to show its real width and fit. The garment hangs unevenly, with natural sag and no attempt to make it perfectly symmetrical.','close-costura':'Very close review photo of a real seam, sleeve join, collar stitching or side seam. Cotton fibers, thread, small wrinkles and ordinary manufacturing details are visible. No person beyond fingertips if needed.','sobre-cadeira':'The t-shirt is casually draped over the back or seat of an ordinary chair, not folded. Sleeves and hem hang unevenly and the graphic bends naturally with the chair shape.','provador':'Customer wearing the t-shirt in an ordinary fitting-room mirror photo. Phone covers most or all of the face, posture is practical rather than stylish, and the image feels like a quick fit check.','flash-espelho':'Customer wearing the t-shirt in a mirror selfie using direct phone flash. The phone and bright flash reflection partially obscure the face, while the shirt remains visible below. Mirror smudges and harsh exposure are welcome.'};
-var RV_PERSON={ningum:'',homem:'The customer is a young Brazilian man, approximately 20-30 years old. Ordinary-looking. Average build. Realistic skin texture.',mulher:'The customer is a young Brazilian woman, approximately 20-30 years old. Ordinary-looking. Average build. No professional makeup.','homem-jovem':'The customer is a young Brazilian man, approximately 18-24 years old. Ordinary-looking, naturally slim or average build, casual grooming, realistic skin texture, and no model-like posing.','mulher-jovem':'The customer is a young Brazilian woman, approximately 18-24 years old. Ordinary-looking, natural body proportions, realistic skin texture, casual hair, and no professional makeup or beauty filter.','homem-adulto':'The customer is a Brazilian man, approximately 30-45 years old. Ordinary-looking, average build, natural facial lines, realistic skin texture, and casual everyday appearance.','mulher-adulta':'The customer is a Brazilian woman, approximately 30-45 years old. Ordinary-looking, natural body proportions, realistic skin texture, casual hair, and minimal or no makeup.','maos':'Only the customer’s hands and forearms appear in the image. Natural skin texture, ordinary nails, small imperfections, and no jewelry styling intended for a commercial shoot.','casal':'Two ordinary Brazilian customers appear together, approximately 20-35 years old. Their body language is relaxed and familiar, with natural differences in height, build, and appearance. Neither looks like a professional model.'};
+var RV_PERSON={
+  ningum:'',
+  homem:'The customer is a Brazilian man. He must look like a real everyday customer rather than a professional model, influencer, actor or advertising cast member. Realistic skin texture, natural asymmetry and ordinary human imperfections are visible.',
+  mulher:'The customer is a Brazilian woman. She must look like a real everyday customer rather than a professional model, influencer, actor or advertising cast member. Realistic skin texture, natural asymmetry and ordinary human imperfections are visible. No professional beauty retouching.',
+  maos:'Only the customer’s hands and forearms appear in the image. Natural skin texture, ordinary nails, small imperfections, and no jewelry styling intended for a commercial shoot.',
+  casal:'Two Brazilian customers appear together. Their body language is relaxed and familiar, with natural differences in height, build, facial appearance and grooming. Neither looks deliberately cast for an advertising campaign.'
+};
+var RV_AGE={
+  '18-21':'Age: approximately 18-21 years old, with believable youthful proportions and natural skin texture.',
+  '22-27':'Age: approximately 22-27 years old.',
+  '28-35':'Age: approximately 28-35 years old, with subtle adult facial maturity and natural skin texture.',
+  '36-45':'Age: approximately 36-45 years old, with realistic facial lines and age-appropriate appearance.',
+  'aleatoria':'Age should feel naturally random within roughly 18-45 years old, without making age itself a visual theme.'
+};
+var RV_TRAITS={
+  'br-misto':'Appearance: naturally mixed Brazilian features, believable and regionally ambiguous, with no exaggerated ethnic cues or stereotyped facial markers.',
+  'mediterraneo':'Appearance: Brazilian customer with subtle Mediterranean / Southern European facial influence — naturally dark or brown hair, expressive brows, olive-to-light skin possibilities and believable facial proportions. Avoid caricature or stereotypical Italian styling.',
+  'italiana':'Appearance: Brazilian customer with clearly noticeable Italian ancestry in the facial features, especially a believable Southern/Central Italian family background. Use naturally expressive facial structure, defined nose and brow area, dark brown to medium-brown hair, realistic light-to-olive skin variation, and individual non-model facial proportions. The person must still look like a real Brazilian customer with Italian family heritage, not a tourist, costume, fashion casting, or caricature. Do not use flags, stereotypical clothing, gestures, or exaggerated ethnic markers.',
+  'afro-br':'Appearance: Afro-Brazilian features with naturally varied brown-to-deep skin tones, realistic hair texture and individual facial characteristics. Avoid beauty-campaign perfection or exaggerated ethnic markers.',
+  'leste-asiatico':'Appearance: Brazilian customer with natural East Asian ancestry, realistic individual facial features, natural hair texture and believable Brazilian styling. Avoid caricature, costume cues or stereotypical presentation.'
+};
+var RV_BODY={
+  magro:'Body type: naturally slim, with realistic everyday proportions and no fashion-model exaggeration.',
+  'magro-definido':'Body type: slim and lightly defined, with subtle natural muscle tone rather than a fitness-model physique.',
+  medio:'Body type: average everyday build with realistic proportions, neither especially thin nor muscular.',
+  'em-forma':'Body type: naturally fit, with some visible muscle tone and healthy everyday proportions, but not fitness-model lean or exaggerated.',
+  atletico:'Body type: athletic and visibly trained, with realistic muscle development and body fat, still believable as an ordinary customer rather than a sports campaign model.',
+  musculoso:'Body type: naturally muscular from regular training, with developed arms, shoulders or legs but no bodybuilder proportions, extreme vascularity or staged fitness appearance.',
+  encorpado:'Body type: broader and more solid everyday build, with natural body volume and realistic proportions.',
+  'plus-size':'Body type: naturally plus-size, with realistic weight distribution, fabric tension, folds and proportions. The body must be treated casually and naturally, not posed as a body-positivity campaign.'
+};
+var RV_GROOMING={
+  casual:'Personal appearance: very casual everyday grooming, slightly imperfect hair, minimal accessories and no deliberate styling for the photo.',
+  normal:'Personal appearance: ordinary grooming and hairstyle, clean but unremarkable, with the kind of effort a person normally makes on a regular day.',
+  arrumado:'Personal appearance: noticeably well-groomed hair and a few subtle accessories, as if the customer was already dressed to leave home, but still not styled for a photoshoot.',
+  vaidoso:'Personal appearance: more carefully groomed hair, subtle jewelry or accessories and intentional personal style, while remaining believable as an ordinary customer.',
+  alternativo:'Personal appearance: understated alternative styling such as a discreet piercing, small tattoos, rings, unconventional haircut or dyed detail. Keep it natural and individually plausible rather than costume-like.',
+  aleatorio:'Personal appearance should feel naturally random and individually specific, with believable hair, grooming and optional subtle accessories.'
+};
+var RV_OUTFIT={
+  casual:{
+    homem:'Outfit: ordinary casual lower-body styling — straight or relaxed jeans or simple shorts, everyday sneakers and very few accessories.',
+    mulher:'Outfit: ordinary casual styling — relaxed jeans, simple trousers or denim shorts, everyday sneakers or flats and restrained accessories.',
+    casal:'Outfits: both customers wear different but believable casual everyday clothes that feel naturally chosen from their own wardrobes.'
+  },
+  street:{
+    homem:'Outfit: relaxed São Paulo streetwear inspired by the main generator — baggy jeans or jorts, casual sneakers, optional cap, chain or utilitarian sling. Keep accessories sparse enough to feel like a real customer photo.',
+    mulher:'Outfit: relaxed Brazilian streetwear inspired by the main generator — wide-leg jeans or cargo pants, everyday sneakers and one or two subtle accessories. Avoid a fully styled influencer look.',
+    casal:'Outfits: two slightly different everyday streetwear looks with baggy denim, cargo pieces or casual sneakers, coordinated only by chance rather than deliberate styling.'
+  },
+  baggy:{
+    homem:'Outfit: very relaxed baggy denim or wide cargo pants with ordinary street sneakers. The silhouette is loose but believable for everyday youth streetwear.',
+    mulher:'Outfit: loose wide-leg denim, parachute pants or relaxed cargo pants with casual sneakers. The look is youthful and natural, not editorial.',
+    casal:'Outfits: both customers wear relaxed loose silhouettes, with different baggy denim or cargo combinations and ordinary sneakers.'
+  },
+  y2k:{
+    homem:'Outfit: subtle Y2K-influenced streetwear — wide denim, jorts or retro track pants with simple sneakers and one small accessory. Do not turn it into a themed costume.',
+    mulher:'Outfit: subtle Y2K-inspired everyday styling — wide or flare denim, relaxed cargo pants or a simple denim skirt with casual sneakers and restrained accessories. No influencer-level styling.',
+    casal:'Outfits: casual early-2000s-inspired pieces mixed naturally into everyday clothing, with no coordinated costume effect.'
+  },
+  skater:{
+    homem:'Outfit: casual skater-inspired look — very loose jeans or jorts, worn-in sneakers and perhaps a cap. Clothing looks personally owned and repeatedly worn.',
+    mulher:'Outfit: casual skater-inspired look — loose denim or cargo bottoms, worn-in sneakers and minimal accessories. Nothing polished or editorial.',
+    casal:'Outfits: naturally different skater-influenced combinations with loose denim and worn casual sneakers.'
+  },
+  esportivo:{
+    homem:'Outfit: relaxed sporty everyday clothing — athletic shorts, track pants or sweatpants with ordinary sneakers. Not gym-campaign styling.',
+    mulher:'Outfit: relaxed sporty everyday clothing — leggings, track pants, biker shorts or simple athletic bottoms with everyday sneakers. Not fitness-influencer styling.',
+    casal:'Outfits: casual sporty combinations with track pants, shorts or leggings, as if they were simply dressed for a normal active day.'
+  },
+  minimal:{
+    homem:'Outfit: clean minimal everyday styling — neutral straight or wide trousers, simple sneakers and almost no accessories.',
+    mulher:'Outfit: clean minimal everyday styling — neutral wide trousers or straight jeans, simple shoes and very restrained jewelry.',
+    casal:'Outfits: simple neutral everyday clothing with different cuts and almost no visible accessories.'
+  },
+  arrumado:{
+    homem:'Outfit: slightly more polished casual look — clean dark trousers or straight jeans, good everyday shoes, watch or one subtle accessory. Still clearly personal clothing, not wardrobe styling.',
+    mulher:'Outfit: slightly more polished casual look — clean trousers, straight jeans or a simple skirt, everyday bag or jewelry and neat shoes. Still believable as what she chose herself.',
+    casal:'Outfits: both customers look slightly more put-together for going out, but with naturally different personal styling.'
+  },
+  noite:{
+    homem:'Outfit: casual going-out look for a bar, cinema or dinner — darker jeans or trousers, clean sneakers or casual shoes and a subtle accessory.',
+    mulher:'Outfit: casual going-out look for a bar, cinema or dinner — dark trousers, denim or simple skirt with modest accessories. Avoid party-influencer styling.',
+    casal:'Outfits: believable casual evening looks for going out together, stylish enough for the occasion but not coordinated like a campaign.'
+  }
+};
+var RV_HOME={
+  simples:'Residential context: simple Brazilian home with practical inexpensive furniture and finishes, ordinary household objects and visible day-to-day use. Keep it dignified, clean enough to be believable and never poverty-coded or exaggerated.',
+  media:'Residential context: ordinary Brazilian middle-class home or apartment with ceramic or laminate flooring, practical furniture, common electronics and everyday objects. Clean but clearly lived-in.',
+  'media-organizada':'Residential context: tidy middle-class Brazilian home with practical contemporary furniture, organized surfaces and normal household objects. It feels cared for rather than staged.',
+  'media-alta':'Residential context: comfortable upper-middle-class Brazilian apartment or house with better-quality finishes, contemporary furniture, split air conditioning or larger mirrors where plausible, subtle decor and everyday signs of use. Never a showroom.',
+  alta:'Residential context: upscale Brazilian apartment or house with spacious contemporary interiors, higher-quality materials and furniture, but still naturally inhabited. Avoid luxury-hotel, architecture-magazine or influencer-house aesthetics.'
+};
+var RV_CASTING_RULE='Casting realism: never make the customer look deliberately selected for an advertising campaign. Attractiveness, body type, facial features, grooming, clothing, environment and socioeconomic cues must feel incidental, individual and naturally occurring rather than curated for representation or marketing.';
 var RV_PRESERVE='The t-shirt graphic print must be preserved perfectly and exactly as shown in the reference image. Identical artwork, colors, typography, placement, proportions, and scale. The print must exhibit realistic deformation caused by fabric draping, including perspective distortion, wrinkle-induced compression, fold interruptions, subtle ink cracking, and natural loss of detail inside fabric creases.';
 var RV_REALISM='Realism details: slight motion blur, fabric creases from packaging, natural cotton texture, authentic draping, unpredictable wrinkles, no studio lighting. Must look like a photo taken in 10 seconds to send via WhatsApp.';
 var RV_LIGHT={janela:'Lighting: natural daylight from a nearby window. Uneven and slightly warm, with one side brighter than the other. No ring light, no flash, no studio light.','flash-noite':'Lighting: direct built-in smartphone flash in a dark room or at night. Harsh frontal light, hard shadow behind the subject or shirt, blown highlights on skin/fabric and a much darker background. Raw and unplanned.','lampada-quente':'Lighting: ordinary warm household ceiling bulb or bedside lamp. Yellowish white balance, uneven pools of light, deeper shadows and slightly inaccurate fabric color — exactly like an indoor customer photo at night.','banheiro':'Lighting: harsh bathroom ceiling light, bright from above with flat skin rendering, slight green or warm cast depending on the bulb, and possible mirror glare. No correction or beautification.','nublado':'Lighting: soft gray daylight from an overcast day, low contrast and slightly cool/desaturated color. Flat but natural, with no dramatic shadows.','carro':'Lighting: uneven daylight entering through car windows, one side of the subject brighter while the cabin remains darker. Mixed reflections from glass and dashboard surfaces create imperfect exposure.','fluorescente':'Lighting: crude fluorescent overhead light with a slight greenish cast, flat illumination and ordinary color contamination. Feels like a hallway, shop, laundry or public indoor space.'};
-function buildRevPrompt(){var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_CAM_DETAIL[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type],RV_PERSON[RV.person],RV_SCENE[RV.scene],RV_LIGHT[RV.light],RV_REALISM];return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');}
+function rvHasFullPerson(){return RV.person==='homem'||RV.person==='mulher'||RV.person==='casal';}
+function rvUsesOutfit(){
+  if(!rvHasFullPerson())return false;
+  return ['vestindo-sem','vestindo-mao','vestindo-costas','selfie','espelho-corpo','sentado','andando','celular','apontando','bracos-cruzados','mao-bolso','sentado-sofa','selfie-carro','foto-amigo','provador','flash-espelho'].indexOf(RV.type)!==-1;
+}
+function rvResidentialScene(){return ['quarto','sala','banheiro','cozinha','varanda','sofa','cama','mesa','cadeira','corredor','lavanderia','quintal','garagem','escada-condominio','portaria'].indexOf(RV.scene)!==-1;}
+function rvPersonModifier(map){
+  if(!rvHasFullPerson())return '';
+  var text=map[RV.person]||map.homem||'';
+  if(RV.person==='casal' && map===RV_AGE)return 'Age: both customers are adults within the selected range, with a small natural age difference between them. '+(RV_AGE[RV.age]||'');
+  if(RV.person==='casal' && map===RV_TRAITS)return 'Appearance: the two customers should not look genetically identical; use naturally different but believable Brazilian appearances while treating the selected trait as a loose visual direction rather than a strict match. '+(RV_TRAITS[RV.traits]||'');
+  if(RV.person==='casal' && map===RV_BODY)return 'Body types: give the two customers slightly different realistic proportions while keeping the selected body type as the general direction. '+(RV_BODY[RV.body]||'');
+  if(RV.person==='casal' && map===RV_GROOMING)return 'Personal appearance: the two customers have naturally different hair and grooming details. '+(RV_GROOMING[RV.grooming]||'');
+  return text;
+}
+function rvOutfitText(){if(!rvUsesOutfit())return '';var o=RV_OUTFIT[RV.outfit];if(!o)return '';return o[RV.person]||o.homem||'';}
+function buildRevPrompt(){
+  var personParts=[];
+  if(rvHasFullPerson()){
+    var ageText=RV_AGE[RV.age],traitsText=RV_TRAITS[RV.traits],bodyText=RV_BODY[RV.body],groomText=RV_GROOMING[RV.grooming];
+    if(RV.person==='casal'){
+      ageText='Age: both customers are adults in the selected age direction, with a small natural age difference between them. '+ageText;
+      traitsText='Appearance: the two customers should not look genetically identical. Give them naturally different individual Brazilian features while using the selected ancestry direction only as a loose influence. '+traitsText;
+      bodyText='Body types: give the two customers slightly different realistic proportions while keeping the selected body type only as a general direction. '+bodyText;
+      groomText='Personal appearance: the two customers have naturally different hair, grooming and small personal details. '+groomText;
+    }
+    personParts=[RV_PERSON[RV.person],ageText,traitsText,bodyText,groomText,rvOutfitText(),RV_CASTING_RULE];
+  }
+  else personParts=[RV_PERSON[RV.person]];
+  var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_CAM_DETAIL[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type]].concat(personParts).concat([RV_SCENE[RV.scene],rvResidentialScene()?RV_HOME[RV.home]:'',RV_LIGHT[RV.light],RV_REALISM]);
+  return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');
+}
 function renderRevPrompt(){var el=document.getElementById('rev-output');if(el)el.textContent=buildRevPrompt();}
-function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
+function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-age':'age','rv-traits':'traits','rv-body':'body','rv-grooming':'grooming','rv-outfit':'outfit','rv-home':'home','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
+function rvWeightedPick(group,weights){
+  var chips=Array.from(document.querySelectorAll('[data-group="'+group+'"]'));if(!chips.length)return null;
+  var bag=[];chips.forEach(function(ch){var w=(weights&&weights[ch.dataset.value])||1;for(var i=0;i<w;i++)bag.push(ch);});
+  return bag[Math.floor(Math.random()*bag.length)]||chips[0];
+}
 function randomizeRevPrompt(){
-  var groups=['rv-ratio','rv-tshirt','rv-type','rv-person','rv-scene','rv-cam','rv-light'];
-  groups.forEach(function(group){
-    var chips=Array.from(document.querySelectorAll('[data-group="'+group+'"]'));
-    if(!chips.length)return;
-    var current=chips.findIndex(function(chip){return chip.classList.contains('selected');});
-    var choices=chips.length>1?chips.filter(function(_,index){return index!==current;}):chips;
-    var pick=choices[Math.floor(Math.random()*choices.length)];
-    rvChip(pick);
-  });
+  var standard=['rv-ratio','rv-tshirt','rv-type','rv-person','rv-age','rv-traits','rv-grooming','rv-outfit','rv-scene','rv-cam','rv-light'];
+  standard.forEach(function(group){var pick=rvWeightedPick(group);if(pick)rvChip(pick);});
+  var bodyPick=rvWeightedPick('rv-body',{medio:7,magro:4,'magro-definido':3,'em-forma':5,atletico:2,musculoso:1,encorpado:3,'plus-size':2});if(bodyPick)rvChip(bodyPick);
+  var homePick=rvWeightedPick('rv-home',{media:8,simples:3,'media-organizada':5,'media-alta':3,alta:1});if(homePick)rvChip(homePick);
   var btn=document.getElementById('rv-random-btn');
   if(btn){
     var original=btn.innerHTML;
@@ -4342,17 +4493,63 @@ function buildHoletomPrompt() {
         <div class="chip" data-group="rv-type" data-value="provador" onclick="rvChip(this)">Foto no provador</div>
         <div class="chip" data-group="rv-type" data-value="flash-espelho" onclick="rvChip(this)">Espelho com flash</div>
       </div></div></div>
-      <div class="section"><div class="section-header"><span class="dot"></span> Quem aparece</div><div class="section-body"><div class="chips">
+      <div class="section"><div class="section-header"><span class="dot"></span> Cliente</div><div class="section-body"><div class="chips">
         <div class="chip selected" data-group="rv-person" data-value="ningum" onclick="rvChip(this)">Só a camiseta</div>
         <div class="chip" data-group="rv-person" data-value="homem" onclick="rvChip(this)">Homem</div>
         <div class="chip" data-group="rv-person" data-value="mulher" onclick="rvChip(this)">Mulher</div>
-        <div class="chip" data-group="rv-person" data-value="homem-jovem" onclick="rvChip(this)">Homem 18–24</div>
-        <div class="chip" data-group="rv-person" data-value="mulher-jovem" onclick="rvChip(this)">Mulher 18–24</div>
-        <div class="chip" data-group="rv-person" data-value="homem-adulto" onclick="rvChip(this)">Homem 30–45</div>
-        <div class="chip" data-group="rv-person" data-value="mulher-adulta" onclick="rvChip(this)">Mulher 30–45</div>
         <div class="chip" data-group="rv-person" data-value="maos" onclick="rvChip(this)">Só mãos e braços</div>
         <div class="chip" data-group="rv-person" data-value="casal" onclick="rvChip(this)">Duas pessoas</div>
       </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Faixa etária</div><div class="section-body"><div class="chips">
+        <div class="chip" data-group="rv-age" data-value="18-21" onclick="rvChip(this)">18–21</div>
+        <div class="chip selected" data-group="rv-age" data-value="22-27" onclick="rvChip(this)">22–27</div>
+        <div class="chip" data-group="rv-age" data-value="28-35" onclick="rvChip(this)">28–35</div>
+        <div class="chip" data-group="rv-age" data-value="36-45" onclick="rvChip(this)">36–45</div>
+        <div class="chip" data-group="rv-age" data-value="aleatoria" onclick="rvChip(this)">Aleatória natural</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Aparência / traços</div><div class="section-body"><div class="chips">
+        <div class="chip selected" data-group="rv-traits" data-value="br-misto" onclick="rvChip(this)">Brasileiro misto</div>
+        <div class="chip" data-group="rv-traits" data-value="mediterraneo" onclick="rvChip(this)">Mediterrâneo</div>
+        <div class="chip" data-group="rv-traits" data-value="italiana" onclick="rvChip(this)">Genética italiana</div>
+        <div class="chip" data-group="rv-traits" data-value="afro-br" onclick="rvChip(this)">Afro-brasileiro</div>
+        <div class="chip" data-group="rv-traits" data-value="leste-asiatico" onclick="rvChip(this)">Leste-asiático</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Tipo físico</div><div class="section-body"><div class="chips">
+        <div class="chip" data-group="rv-body" data-value="magro" onclick="rvChip(this)">Magro</div>
+        <div class="chip" data-group="rv-body" data-value="magro-definido" onclick="rvChip(this)">Magro definido</div>
+        <div class="chip selected" data-group="rv-body" data-value="medio" onclick="rvChip(this)">Corpo médio</div>
+        <div class="chip" data-group="rv-body" data-value="em-forma" onclick="rvChip(this)">Em forma</div>
+        <div class="chip" data-group="rv-body" data-value="atletico" onclick="rvChip(this)">Atlético</div>
+        <div class="chip" data-group="rv-body" data-value="musculoso" onclick="rvChip(this)">Musculoso natural</div>
+        <div class="chip" data-group="rv-body" data-value="encorpado" onclick="rvChip(this)">Encorpado</div>
+        <div class="chip" data-group="rv-body" data-value="plus-size" onclick="rvChip(this)">Plus size</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Aparência pessoal</div><div class="section-body"><div class="chips">
+        <div class="chip" data-group="rv-grooming" data-value="casual" onclick="rvChip(this)">Bem casual</div>
+        <div class="chip selected" data-group="rv-grooming" data-value="normal" onclick="rvChip(this)">Normal</div>
+        <div class="chip" data-group="rv-grooming" data-value="arrumado" onclick="rvChip(this)">Arrumado</div>
+        <div class="chip" data-group="rv-grooming" data-value="vaidoso" onclick="rvChip(this)">Vaidoso</div>
+        <div class="chip" data-group="rv-grooming" data-value="alternativo" onclick="rvChip(this)">Alternativo</div>
+        <div class="chip" data-group="rv-grooming" data-value="aleatorio" onclick="rvChip(this)">Aleatório natural</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Outfit</div><div class="section-body"><div class="chips">
+        <div class="chip selected" data-group="rv-outfit" data-value="casual" onclick="rvChip(this)">Casual cotidiano</div>
+        <div class="chip" data-group="rv-outfit" data-value="street" onclick="rvChip(this)">Streetwear</div>
+        <div class="chip" data-group="rv-outfit" data-value="baggy" onclick="rvChip(this)">Baggy</div>
+        <div class="chip" data-group="rv-outfit" data-value="y2k" onclick="rvChip(this)">Y2K leve</div>
+        <div class="chip" data-group="rv-outfit" data-value="skater" onclick="rvChip(this)">Skater</div>
+        <div class="chip" data-group="rv-outfit" data-value="esportivo" onclick="rvChip(this)">Esportivo</div>
+        <div class="chip" data-group="rv-outfit" data-value="minimal" onclick="rvChip(this)">Minimalista</div>
+        <div class="chip" data-group="rv-outfit" data-value="arrumado" onclick="rvChip(this)">Mais arrumado</div>
+        <div class="chip" data-group="rv-outfit" data-value="noite" onclick="rvChip(this)">Rolê / noite</div>
+      </div></div></div>
+      <div class="section"><div class="section-header"><span class="dot"></span> Contexto da casa</div><div class="section-body"><div class="chips">
+        <div class="chip" data-group="rv-home" data-value="simples" onclick="rvChip(this)">Simples</div>
+        <div class="chip selected" data-group="rv-home" data-value="media" onclick="rvChip(this)">Classe média</div>
+        <div class="chip" data-group="rv-home" data-value="media-organizada" onclick="rvChip(this)">Classe média organizada</div>
+        <div class="chip" data-group="rv-home" data-value="media-alta" onclick="rvChip(this)">Classe média alta</div>
+        <div class="chip" data-group="rv-home" data-value="alta" onclick="rvChip(this)">Alta renda</div>
+      </div><div style="font-size:10px;color:var(--text-muted);line-height:1.45;margin-top:9px;">Aplicado apenas quando o ambiente é residencial. Em shopping, rua, ônibus, academia etc. essa escolha é ignorada.</div></div></div>
       <div class="section"><div class="section-header"><span class="dot"></span> Ambiente</div><div class="section-body"><div class="chips">
         <div class="chip selected" data-group="rv-scene" data-value="quarto" onclick="rvChip(this)">Quarto</div>
         <div class="chip" data-group="rv-scene" data-value="sala" onclick="rvChip(this)">Sala de Estar</div>
@@ -5299,7 +5496,13 @@ document.getElementById('shirt-modal').addEventListener('click', function(e) {
       if(t.includes('formato')){kind='ratio';glyph='AR';}
       else if(t.includes('camiseta')){kind='shirt';glyph='TEE';}
       else if(t.includes('tipo de foto')){kind='photo';glyph='SHOT';}
-      else if(t.includes('quem aparece')){kind='person';glyph='USR';}
+      else if(t.includes('quem aparece')||t.includes('cliente')){kind='person';glyph='USR';}
+      else if(t.includes('faixa etaria')){kind='age';glyph='AGE';}
+      else if(t.includes('aparencia / tracos')||t.includes('tracos')){kind='traits';glyph='DNA';}
+      else if(t.includes('tipo fisico')){kind='body';glyph='FIT';}
+      else if(t.includes('aparencia pessoal')){kind='grooming';glyph='STY';}
+      else if(t.includes('outfit')){kind='outfit';glyph='FIT';}
+      else if(t.includes('contexto da casa')){kind='home';glyph='HOM';}
       else if(t.includes('ambiente')){kind='scene';glyph='SCN';}
       else if(t.includes('camera')){kind='camera';glyph='CAM';}
       else if(t.includes('ilumin')){kind='light';glyph='LUX';}
