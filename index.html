@@ -3662,39 +3662,122 @@ var RV_PRESERVE='The t-shirt graphic print must be preserved perfectly and exact
 var RV_REALISM='Realism details: slight motion blur, fabric creases from packaging, natural cotton texture, authentic draping, unpredictable wrinkles, no studio lighting. Must look like a photo taken in 10 seconds to send via WhatsApp.';
 var RV_LIGHT={janela:'Lighting: natural daylight from a nearby window. Uneven and slightly warm, with one side brighter than the other. No ring light, no flash, no studio light.','flash-noite':'Lighting: direct built-in smartphone flash in a dark room or at night. Harsh frontal light, hard shadow behind the subject or shirt, blown highlights on skin/fabric and a much darker background. Raw and unplanned.','lampada-quente':'Lighting: ordinary warm household ceiling bulb or bedside lamp. Yellowish white balance, uneven pools of light, deeper shadows and slightly inaccurate fabric color — exactly like an indoor customer photo at night.','banheiro':'Lighting: harsh bathroom ceiling light, bright from above with flat skin rendering, slight green or warm cast depending on the bulb, and possible mirror glare. No correction or beautification.','nublado':'Lighting: soft gray daylight from an overcast day, low contrast and slightly cool/desaturated color. Flat but natural, with no dramatic shadows.','carro':'Lighting: uneven daylight entering through car windows, one side of the subject brighter while the cabin remains darker. Mixed reflections from glass and dashboard surfaces create imperfect exposure.','fluorescente':'Lighting: crude fluorescent overhead light with a slight greenish cast, flat illumination and ordinary color contamination. Feels like a hallway, shop, laundry or public indoor space.'};
 function rvHasFullPerson(){return RV.person==='homem'||RV.person==='mulher'||RV.person==='casal';}
-function rvUsesOutfit(){
-  if(!rvHasFullPerson())return false;
-  return ['vestindo-sem','vestindo-mao','vestindo-costas','selfie','espelho-corpo','sentado','andando','celular','apontando','bracos-cruzados','mao-bolso','sentado-sofa','selfie-carro','foto-amigo','provador','flash-espelho'].indexOf(RV.type)!==-1;
-}
+
+// Which review shots actually contain a full customer, only hands, or no visible person.
+var RV_TYPE_MODE={
+  segurando:'hands',esticada:'hands',embalagem:'none',dobrada:'none',detalhe:'none',
+  'vestindo-sem':'wearer','vestindo-mao':'wearer','vestindo-costas':'wearer',selfie:'wearer',
+  'cama-aberta':'none',cabide:'hands','tirando-pacote':'hands','pacote-aberto':'none',gola:'none',
+  tecido:'hands',etiqueta:'hands',barra:'hands','espelho-corpo':'wearer',sentado:'wearer',andando:'wearer',
+  celular:'wearer',apontando:'wearer','bracos-cruzados':'wearer','mao-bolso':'wearer','sentado-sofa':'wearer',
+  'selfie-carro':'wearer','foto-amigo':'wearer','amassada-mao':'hands','comparando-tamanho':'hands',
+  'close-costura':'none','sobre-cadeira':'none',provador:'wearer','flash-espelho':'wearer'
+};
+function rvTypeMode(){return RV_TYPE_MODE[RV.type]||'wearer';}
+function rvUsesFullPerson(){return rvTypeMode()==='wearer'&&rvHasFullPerson();}
+function rvUsesHands(){return rvTypeMode()==='hands';}
+function rvUsesOutfit(){return rvUsesFullPerson();}
 function rvResidentialScene(){return ['quarto','sala','banheiro','cozinha','varanda','sofa','cama','mesa','cadeira','corredor','lavanderia','quintal','garagem','escada-condominio','portaria'].indexOf(RV.scene)!==-1;}
-function rvPersonModifier(map){
-  if(!rvHasFullPerson())return '';
-  var text=map[RV.person]||map.homem||'';
-  if(RV.person==='casal' && map===RV_AGE)return 'Age: both customers are adults within the selected range, with a small natural age difference between them. '+(RV_AGE[RV.age]||'');
-  if(RV.person==='casal' && map===RV_TRAITS)return 'Appearance: the two customers should not look genetically identical; use naturally different but believable Brazilian appearances while treating the selected trait as a loose visual direction rather than a strict match. '+(RV_TRAITS[RV.traits]||'');
-  if(RV.person==='casal' && map===RV_BODY)return 'Body types: give the two customers slightly different realistic proportions while keeping the selected body type as the general direction. '+(RV_BODY[RV.body]||'');
-  if(RV.person==='casal' && map===RV_GROOMING)return 'Personal appearance: the two customers have naturally different hair and grooming details. '+(RV_GROOMING[RV.grooming]||'');
-  return text;
+
+function rvPersonText(){
+  if(rvTypeMode()==='none')return '';
+  if(rvUsesHands())return RV_PERSON.maos;
+  if(rvUsesFullPerson())return RV_PERSON[RV.person]||'';
+  // A wearing shot with "Só camiseta" or "Só mãos" selected still needs a body to wear the shirt,
+  // but we intentionally keep identity/appearance unspecified instead of inventing a gender.
+  if(rvTypeMode()==='wearer')return 'A real Brazilian customer is wearing the t-shirt. Keep the person visually ordinary and incidental; do not invent a polished model-like identity when no full customer profile is selected.';
+  return '';
 }
-function rvOutfitText(){if(!rvUsesOutfit())return '';var o=RV_OUTFIT[RV.outfit];if(!o)return '';return o[RV.person]||o.homem||'';}
+
+function rvAgeText(){
+  if(!rvUsesFullPerson())return '';
+  var t=RV_AGE[RV.age]||'';
+  if(RV.person==='casal')return 'Age: both customers follow the selected age direction, with a small natural age difference between them. '+t;
+  return t;
+}
+function rvTraitsText(){
+  if(!rvUsesFullPerson())return '';
+  var t=RV_TRAITS[RV.traits]||'';
+  if(RV.person==='casal')return 'Appearance: the two customers should not look genetically identical. Give them naturally different individual Brazilian features while using the selected ancestry direction only as a loose influence. '+t;
+  return t;
+}
+function rvBodyText(){
+  if(!rvUsesFullPerson())return '';
+  var t=RV_BODY[RV.body]||'';
+  if(RV.person==='casal')return 'Body types: give the two customers slightly different realistic proportions while keeping the selected body type only as a general direction. '+t;
+  return t;
+}
+function rvGroomingText(){
+  if(!rvUsesFullPerson())return '';
+  var t=RV_GROOMING[RV.grooming]||'';
+  if(RV.person==='casal')return 'Personal appearance: the two customers have naturally different hair, grooming and small personal details. '+t;
+  return t;
+}
+function rvOutfitText(){
+  if(!rvUsesOutfit())return '';
+  var o=RV_OUTFIT[RV.outfit];if(!o)return '';
+  return o[RV.person]||o.homem||'';
+}
+function rvHomeText(){return rvResidentialScene()?(RV_HOME[RV.home]||''):'';}
+
 function buildRevPrompt(){
-  var personParts=[];
-  if(rvHasFullPerson()){
-    var ageText=RV_AGE[RV.age],traitsText=RV_TRAITS[RV.traits],bodyText=RV_BODY[RV.body],groomText=RV_GROOMING[RV.grooming];
-    if(RV.person==='casal'){
-      ageText='Age: both customers are adults in the selected age direction, with a small natural age difference between them. '+ageText;
-      traitsText='Appearance: the two customers should not look genetically identical. Give them naturally different individual Brazilian features while using the selected ancestry direction only as a loose influence. '+traitsText;
-      bodyText='Body types: give the two customers slightly different realistic proportions while keeping the selected body type only as a general direction. '+bodyText;
-      groomText='Personal appearance: the two customers have naturally different hair, grooming and small personal details. '+groomText;
-    }
-    personParts=[RV_PERSON[RV.person],ageText,traitsText,bodyText,groomText,rvOutfitText(),RV_CASTING_RULE];
-  }
-  else personParts=[RV_PERSON[RV.person]];
-  var parts=['Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',RV_CAM[RV.cam],RV_CAM_DETAIL[RV.cam],RV_RATIO[RV.ratio],RV_TSHIRT[RV.tshirt],RV_PRESERVE,FIXED_TSHIRT_GRAPHIC,RV_TYPE[RV.type]].concat(personParts).concat([RV_SCENE[RV.scene],rvResidentialScene()?RV_HOME[RV.home]:'',RV_LIGHT[RV.light],RV_REALISM]);
-  return parts.filter(function(p){return p&&p.length>0;}).join('\n\n');
+  var parts=[
+    'Ultra-realistic customer review photo, zero production value, taken by a real Brazilian customer.',
+    RV_CAM[RV.cam],
+    RV_CAM_DETAIL[RV.cam],
+    RV_RATIO[RV.ratio],
+    RV_TSHIRT[RV.tshirt],
+    RV_PRESERVE,
+    FIXED_TSHIRT_GRAPHIC,
+    RV_TYPE[RV.type],
+    rvPersonText(),
+    rvAgeText(),
+    rvTraitsText(),
+    rvBodyText(),
+    rvGroomingText(),
+    rvOutfitText(),
+    rvUsesFullPerson()?RV_CASTING_RULE:'',
+    RV_SCENE[RV.scene],
+    rvHomeText(),
+    RV_LIGHT[RV.light],
+    RV_REALISM
+  ];
+  return parts.filter(function(p){return p&&String(p).trim().length>0;}).join('\n\n');
 }
-function renderRevPrompt(){var el=document.getElementById('rev-output');if(el)el.textContent=buildRevPrompt();}
-function rvChip(el){var g=el.dataset.group;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-age':'age','rv-traits':'traits','rv-body':'body','rv-grooming':'grooming','rv-outfit':'outfit','rv-home':'home','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};if(m[g])RV[m[g]]=el.dataset.value;renderRevPrompt();}
+
+function renderRevPrompt(){
+  var el=document.getElementById('rev-output');
+  if(el)el.textContent=buildRevPrompt();
+  rvRefreshApplicability();
+}
+
+function rvRefreshApplicability(){
+  var full=rvUsesFullPerson();
+  var personSpecific=['rv-age','rv-traits','rv-body','rv-grooming','rv-outfit'];
+  personSpecific.forEach(function(group){
+    document.querySelectorAll('[data-group="'+group+'"]').forEach(function(ch){
+      ch.style.opacity=full?'':'0.42';
+      ch.style.filter=full?'':'saturate(.45)';
+      ch.title=full?'':'Esta opção entra no prompt quando o tipo de foto mostra uma pessoa e “Quem aparece” está em Homem, Mulher ou Duas pessoas.';
+    });
+  });
+  document.querySelectorAll('[data-group="rv-home"]').forEach(function(ch){
+    var on=rvResidentialScene();
+    ch.style.opacity=on?'':'0.42';
+    ch.style.filter=on?'':'saturate(.45)';
+    ch.title=on?'':'O contexto da casa só entra no prompt em ambientes residenciais.';
+  });
+}
+
+function rvChip(el){
+  var g=el.dataset.group;
+  document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});
+  el.classList.add('selected');
+  var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-age':'age','rv-traits':'traits','rv-body':'body','rv-grooming':'grooming','rv-outfit':'outfit','rv-home':'home','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};
+  if(m[g])RV[m[g]]=el.dataset.value;
+  renderRevPrompt();
+}
+
 function rvWeightedPick(group,weights){
   var chips=Array.from(document.querySelectorAll('[data-group="'+group+'"]'));if(!chips.length)return null;
   var bag=[];chips.forEach(function(ch){var w=(weights&&weights[ch.dataset.value])||1;for(var i=0;i<w;i++)bag.push(ch);});
