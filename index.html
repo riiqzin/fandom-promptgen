@@ -3812,9 +3812,49 @@ function rvSetGroupApplicability(group,enabled,message){
   });
 }
 
+var RV_LAST_FULL_PERSON='homem';
+
+function rvSelectChipValue(group,value){
+  var chip=document.querySelector('[data-group="'+group+'"][data-value="'+value+'"]');
+  if(!chip)return;
+  document.querySelectorAll('[data-group="'+group+'"]').forEach(function(c){c.classList.remove('selected');});
+  chip.classList.add('selected');
+}
+
+function rvSyncPersonToType(){
+  var mode=rvTypeMode();
+  if(mode==='wearer'){
+    if(!rvHasFullPerson()){
+      RV.person=RV_LAST_FULL_PERSON||'homem';
+      rvSelectChipValue('rv-person',RV.person);
+    }
+  }else if(mode==='hands'){
+    RV.person='maos';
+    rvSelectChipValue('rv-person','maos');
+  }else if(mode==='none'){
+    RV.person='ningum';
+    rvSelectChipValue('rv-person','ningum');
+  }
+}
+
+function rvRefreshPersonChoices(){
+  var mode=rvTypeMode();
+  document.querySelectorAll('[data-group="rv-person"]').forEach(function(ch){
+    var v=ch.dataset.value;
+    var enabled=true;
+    if(mode==='wearer')enabled=(v==='homem'||v==='mulher'||v==='casal');
+    else if(mode==='hands')enabled=(v==='maos');
+    else if(mode==='none')enabled=(v==='ningum');
+    ch.classList.toggle('rv-chip-disabled',!enabled);
+    ch.setAttribute('aria-disabled',enabled?'false':'true');
+    ch.title=enabled?'':(mode==='wearer'?'Este tipo de foto precisa de Homem, Mulher ou Duas pessoas.':mode==='hands'?'Este tipo de foto mostra apenas mãos e braços.':'Este tipo de foto não mostra uma pessoa.');
+  });
+}
+
 function rvRefreshApplicability(){
+  rvRefreshPersonChoices();
   var full=rvUsesFullPerson();
-  var profileMsg='Disponível quando o tipo de foto mostra uma pessoa e “Cliente” está em Homem, Mulher ou Duas pessoas.';
+  var profileMsg='Disponível em tipos de foto com uma pessoa vestindo a camiseta.';
   ['rv-age','rv-traits','rv-body','rv-grooming','rv-outfit'].forEach(function(group){
     rvSetGroupApplicability(group,full,profileMsg);
   });
@@ -3825,6 +3865,10 @@ function rvRefreshApplicability(){
 
 function rvChip(el){
   var g=el.dataset.group;
+  if(el.classList.contains('rv-chip-disabled')||el.getAttribute('aria-disabled')==='true'){
+    toast(el.title||'Esta opção não está disponível para a combinação atual.');
+    return;
+  }
   var sec=el.closest('.section');
   if(sec&&sec.classList.contains('rv-option-locked')){
     var note=sec.querySelector('.rv-lock-note');
@@ -3835,6 +3879,8 @@ function rvChip(el){
   el.classList.add('selected');
   var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-age':'age','rv-traits':'traits','rv-body':'body','rv-grooming':'grooming','rv-outfit':'outfit','rv-home':'home','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};
   if(m[g])RV[m[g]]=el.dataset.value;
+  if(g==='rv-person'&&rvHasFullPerson())RV_LAST_FULL_PERSON=RV.person;
+  if(g==='rv-type')rvSyncPersonToType();
   renderRevPrompt();
 }
 
@@ -6635,6 +6681,12 @@ body.ffh-v2 #reviews-panel .rv-controls>.section .chip:hover{z-index:1!important
 @media(max-width:560px){
   body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind] .chips{grid-template-columns:1fr!important;}
 }
+
+body.ffh-v2 #reviews-panel .chip.rv-chip-disabled{
+  opacity:.28!important;filter:grayscale(.7)!important;cursor:not-allowed!important;pointer-events:auto!important;
+  transform:none!important;box-shadow:none!important;border-color:rgba(255,255,255,.05)!important;
+}
+body.ffh-v2 #reviews-panel .chip.rv-chip-disabled:hover{transform:none!important;box-shadow:none!important;color:#777!important;background:#111214!important;}
 </style>
 
 <!-- FFH V7.5 — INDIVIDUAL NATURAL HEIGHT / OVERLAP FIX -->
