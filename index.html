@@ -1773,6 +1773,42 @@ body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="home"] .chips{gri
 }
 </style>
 
+
+<style id="ffh-v8-review-disabled-states">
+/* REVIEW STUDIO — explicit applicability / locked states */
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked{
+  opacity:.58!important;
+  border-color:rgba(255,255,255,.045)!important;
+  background:linear-gradient(155deg,rgba(15,16,18,.86),rgba(10,11,12,.9))!important;
+  box-shadow:none!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked:hover{
+  transform:none!important;box-shadow:none!important;border-color:rgba(255,255,255,.055)!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked .section-header{color:#555!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked .section-header:before{filter:grayscale(1);opacity:.42!important;}
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked .chip{
+  opacity:.38!important;filter:grayscale(.75) saturate(.35)!important;cursor:not-allowed!important;
+  pointer-events:none!important;transform:none!important;box-shadow:none!important;
+}
+body.ffh-v2 #reviews-panel .rv-controls>.section.rv-option-locked .chip.selected{
+  border-color:rgba(255,255,255,.08)!important;background:#121315!important;color:#686868!important;
+  box-shadow:none!important;animation:none!important;
+}
+.rv-lock-note{
+  display:none;margin-top:10px;padding:8px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.055);
+  background:rgba(255,255,255,.018);color:#666;font-size:9.5px;line-height:1.45;letter-spacing:.01em;
+}
+.rv-option-locked .rv-lock-note{display:flex;align-items:flex-start;gap:7px;}
+.rv-lock-note:before{content:'\1F512';font-size:10px;line-height:1.35;filter:grayscale(1);opacity:.7;}
+.rv-lock-badge{
+  display:none;margin-left:auto;padding:3px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.065);
+  background:rgba(255,255,255,.025);color:#5f6164;font-size:8px!important;font-weight:800!important;
+  letter-spacing:.1em!important;text-transform:uppercase;white-space:nowrap;
+}
+.rv-option-locked .rv-lock-badge{display:inline-flex;}
+</style>
+
 </head>
 <body>
 
@@ -3751,26 +3787,50 @@ function renderRevPrompt(){
   rvRefreshApplicability();
 }
 
+function rvSetGroupApplicability(group,enabled,message){
+  var chips=Array.from(document.querySelectorAll('[data-group="'+group+'"]'));
+  if(!chips.length)return;
+  var sec=chips[0].closest('.section');
+  if(!sec)return;
+  sec.classList.toggle('rv-option-locked',!enabled);
+  sec.setAttribute('aria-disabled',enabled?'false':'true');
+
+  var head=sec.querySelector('.section-header');
+  if(head){
+    var badge=head.querySelector('.rv-lock-badge');
+    if(!badge){badge=document.createElement('span');badge.className='rv-lock-badge';badge.textContent='Bloqueado';head.appendChild(badge);}
+  }
+  var body=sec.querySelector('.section-body');
+  if(body){
+    var note=body.querySelector('.rv-lock-note');
+    if(!note){note=document.createElement('div');note.className='rv-lock-note';body.appendChild(note);}
+    note.textContent=message||'Esta opção não se aplica à combinação atual.';
+  }
+  chips.forEach(function(ch){
+    ch.setAttribute('aria-disabled',enabled?'false':'true');
+    ch.title=enabled?'':(message||'Esta opção não se aplica à combinação atual.');
+  });
+}
+
 function rvRefreshApplicability(){
   var full=rvUsesFullPerson();
-  var personSpecific=['rv-age','rv-traits','rv-body','rv-grooming','rv-outfit'];
-  personSpecific.forEach(function(group){
-    document.querySelectorAll('[data-group="'+group+'"]').forEach(function(ch){
-      ch.style.opacity=full?'':'0.42';
-      ch.style.filter=full?'':'saturate(.45)';
-      ch.title=full?'':'Esta opção entra no prompt quando o tipo de foto mostra uma pessoa e “Quem aparece” está em Homem, Mulher ou Duas pessoas.';
-    });
+  var profileMsg='Disponível quando o tipo de foto mostra uma pessoa e “Cliente” está em Homem, Mulher ou Duas pessoas.';
+  ['rv-age','rv-traits','rv-body','rv-grooming','rv-outfit'].forEach(function(group){
+    rvSetGroupApplicability(group,full,profileMsg);
   });
-  document.querySelectorAll('[data-group="rv-home"]').forEach(function(ch){
-    var on=rvResidentialScene();
-    ch.style.opacity=on?'':'0.42';
-    ch.style.filter=on?'':'saturate(.45)';
-    ch.title=on?'':'O contexto da casa só entra no prompt em ambientes residenciais.';
-  });
+
+  var residential=rvResidentialScene();
+  rvSetGroupApplicability('rv-home',residential,'Disponível apenas em ambientes residenciais, como quarto, sala, banheiro, cozinha, varanda, garagem ou áreas do prédio.');
 }
 
 function rvChip(el){
   var g=el.dataset.group;
+  var sec=el.closest('.section');
+  if(sec&&sec.classList.contains('rv-option-locked')){
+    var note=sec.querySelector('.rv-lock-note');
+    toast(note?note.textContent:'Esta opção não está disponível para a combinação atual.');
+    return;
+  }
   document.querySelectorAll('[data-group="'+g+'"]').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected');
   var m={'rv-ratio':'ratio','rv-tshirt':'tshirt','rv-type':'type','rv-person':'person','rv-age':'age','rv-traits':'traits','rv-body':'body','rv-grooming':'grooming','rv-outfit':'outfit','rv-home':'home','rv-scene':'scene','rv-cam':'cam','rv-light':'light'};
