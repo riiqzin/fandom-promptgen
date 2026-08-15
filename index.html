@@ -1821,6 +1821,19 @@ body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="frame"]{--rv-acce
 }
 </style>
 
+
+<style id="ffh-image-video-v1">
+#video-panel .chip{white-space:normal;}
+#video-panel .section{animation:none!important;}
+#video-panel .prompt-box{min-height:0!important;}
+@media(max-width:900px){
+  #video-panel{overflow-y:auto!important;}
+  #video-panel .video-shell{display:flex!important;flex-direction:column!important;height:auto!important;min-height:100%!important;}
+  #video-panel .video-shell>div:first-child{border-right:0!important;border-bottom:1px solid var(--border)!important;overflow:visible!important;}
+  #video-panel .video-shell>div:last-child{height:680px!important;min-height:680px!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -1843,6 +1856,7 @@ body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="frame"]{--rv-acce
   <div class="header-tabs" style="align-items:center;">
     <button class="tab-btn active" onclick="switchTab('gen',this)">Gerar</button>
     <button class="tab-btn" onclick="switchTab('reviews',this)">Avaliações</button>
+    <button class="tab-btn" onclick="switchTab('video',this)">🎬 Vídeo</button>
     <button class="tab-btn" onclick="switchTab('library',this)">Biblioteca</button>
     <div style="width:1px;height:20px;background:var(--border);margin:0 6px;"></div>
     <div id="quick-last-shirt" title="Última camiseta selecionada — clique para copiar" style="display:none;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;border:1.5px solid var(--gold);cursor:pointer;overflow:hidden;flex-shrink:0;background:var(--surface2);transition:transform .15s,box-shadow .15s;"></div>
@@ -2669,6 +2683,7 @@ body.ffh-v2 #reviews-panel .rv-controls>.section[data-rv-kind="frame"]{--rv-acce
         <span id="prompt-box-label">Prompt Gerado</span>
         <div class="prompt-actions">
 
+          <button class="btn btn-ghost" onclick="openVideoFrom('gen')">🎬 Vídeo</button>
           <button class="btn btn-gold" onclick="copyPrompt()">Copiar</button>
         </div>
       </div>
@@ -3534,6 +3549,154 @@ function copyPrompt() {
   });
 }
 
+// ── IMAGE → VIDEO ────────────────────────────────────
+var VIDEO = { source:'gen', duration:'10', motion:'natural', camera:'handheld', edit:'continuous' };
+
+function videoSelectedLabel(group,value){
+  var el=document.querySelector('[data-group="'+group+'"][data-value="'+value+'"]');
+  return el?el.textContent.trim():value;
+}
+
+function videoGenContext(){
+  if(state.mode==='dupla'){
+    var walking=['caminhando','atravessando'].indexOf(stateD.composicao)!==-1;
+    return {kind:'two_people', gender:'dupla', side:'front', action:walking?'walking':'static', product:'tshirt', label:'Dupla · '+videoSelectedLabel('dupla-genero',stateD.genero)+' · '+videoSelectedLabel('dupla-composicao',stateD.composicao)};
+  }
+  if(state.mode==='moletom'){
+    var hp=String(stateH.pose||'');
+    return {kind:'wearer',gender:stateH.gender==='fem'?'woman':'man',side:'back',action:hp.indexOf('andando')!==-1||hp.indexOf('escada')!==-1?'walking':'static',product:'hoodie',label:'Moletom · '+(stateH.gender==='fem'?'Feminino':'Masculino')+' · Estampa nas costas · '+videoSelectedLabel('hd-pose',stateH.pose)};
+  }
+  if(state.gender==='fem'){
+    var fp=String(state.pose||'');
+    return {kind:'wearer',gender:'woman',side:state.print==='costas'?'back':'front',action:fp.indexOf('andando')!==-1?'walking':'static',product:'tshirt',label:'Individual · Feminino · Estampa '+(state.print==='costas'?'nas costas':'na frente')+' · '+videoSelectedLabel('pose',state.pose)};
+  }
+  var mp=String(state.poseM||'');
+  return {kind:'wearer',gender:'man',side:state.printM==='costas'?'back':'front',action:mp.indexOf('andando')!==-1||mp.indexOf('escada')!==-1?'walking':'static',product:'tshirt',label:'Individual · Masculino · Estampa '+(state.printM==='costas'?'nas costas':'na frente')+' · '+videoSelectedLabel('pose-m',state.poseM)};
+}
+
+function videoReviewContext(){
+  var mode=typeof rvTypeMode==='function'?rvTypeMode():'wearer';
+  var kind=mode==='wearer'?(RV.person==='casal'?'two_people':'wearer'):mode;
+  var gender=RV.person==='mulher'?'woman':RV.person==='homem'?'man':RV.person==='casal'?'dupla':mode==='hands'?'hands':'none';
+  var walking=RV.type==='andando';
+  var productState=['cabide'].indexOf(RV.type)!==-1?'hanger':
+    ['segurando'].indexOf(RV.type)!==-1?'held':
+    ['esticada','comparando-tamanho'].indexOf(RV.type)!==-1?'stretched':
+    ['tirando-pacote'].indexOf(RV.type)!==-1?'unpacking':
+    ['tecido','etiqueta','barra','amassada-mao'].indexOf(RV.type)!==-1?'fabric_demo':
+    ['gola','detalhe','close-costura'].indexOf(RV.type)!==-1?'detail':
+    mode==='none'?'static_product':'worn';
+  return {kind:kind,gender:gender,side:(typeof rvPrintSideApplicable==='function'&&rvPrintSideApplicable())?(RV.printSide==='back'?'back':'front'):'not_relevant',action:walking?'walking':'static',product:'tshirt',productState:productState,type:RV.type,label:'Avaliação · '+videoSelectedLabel('rv-type',RV.type)+' · '+videoSelectedLabel('rv-person',RV.person)+(RV.printSide==='back'?' · Costas':' · Frente')};
+}
+
+function currentVideoContext(){ return VIDEO.source==='reviews'?videoReviewContext():videoGenContext(); }
+
+var VIDEO_MOTION={
+  minimal:'Movement intensity: extremely subtle. Keep the subject almost still, using only micro-movements necessary to make the source image feel alive.',
+  natural:'Movement intensity: subtle and natural. Use believable small movements with no exaggerated posing or dramatic action.',
+  dynamic:'Movement intensity: moderately dynamic while remaining realistic. Allow a little more body, hand, fabric or camera movement, but never change the core composition or turn the clip into a new scene.'
+};
+var VIDEO_CAMERA={
+  locked:'Camera behavior: keep the original camera position almost locked. Only imperceptible natural micro-jitter is allowed. Do not reframe the shot.',
+  handheld:'Camera behavior: subtle realistic handheld smartphone movement, with tiny natural drift only. Preserve the original angle, distance, perspective and framing.',
+  zoom:'Camera behavior: preserve the original camera angle and distance for most of the clip, then add a very subtle slow push-in during the final seconds. Do not crop out the garment or graphic.'
+};
+var VIDEO_EDIT={
+  continuous:'Editing: one continuous shot from beginning to end. No cuts, transitions, angle changes or time jumps.',
+  cuts:'Editing: use a small number of quick, clean cuts while preserving the same subject, place, clothing and visual continuity. Cuts may slightly vary the crop or moment, but must not invent a new angle or new scene.'
+};
+
+function videoBase(c){
+  return [
+    'Create a '+VIDEO.duration+'-second ultra-realistic image-to-video animation using the provided image as the only visual reference.',
+    'Treat the source image as absolute visual truth. The goal is to make this exact photograph naturally come alive for a few seconds, not to redesign or reinterpret it.',
+    'Preserve every visible identity, body proportion, garment, accessory, object, color, texture, graphic print, composition, perspective and framing. Everything not explicitly instructed to move must remain visually consistent with the source image.',
+    'The t-shirt or hoodie graphic print is identity-critical: preserve the artwork exactly as visible in the source image — identical design, typography, colors, placement, scale and proportions. It may deform only naturally with real fabric movement and folds.',
+    VIDEO_MOTION[VIDEO.motion], VIDEO_CAMERA[VIDEO.camera], VIDEO_EDIT[VIDEO.edit]
+  ];
+}
+
+function wearerVideoModule(c){
+  var person=c.gender==='woman'?'woman':c.gender==='man'?'man':'person';
+  var arr=[];
+  if(c.action==='walking'){
+    arr.push('The '+person+' is already captured in a walking or mid-step pose. Continue only the motion implied by the source image for one or two small natural steps. Do not make the subject travel significantly toward or away from the camera, and do not substantially change their size inside the frame.');
+  }else{
+    arr.push('Keep the '+person+' approximately in the same position as in the source image. Use subtle breathing, tiny posture shifts, natural blinking when the face is visible, small head movement and minimal arm or hand movement appropriate to the existing pose. Do not make the subject start walking unless walking is already implied by the source image.');
+  }
+  if(c.side==='back'){
+    arr.push('BACK PRINT PRIORITY: keep the person\'s back oriented toward the camera throughout the animation. The back graphic must remain clearly visible. A tiny shoulder or head movement is allowed, but NEVER turn the torso far enough to hide the back print. Do not make the person turn around to face the camera.');
+  }else if(c.side==='front'){
+    arr.push('FRONT PRINT PRIORITY: keep the front of the garment naturally visible throughout the animation. Do not rotate the torso far enough to hide or significantly foreshorten the front graphic.');
+  }
+  return arr;
+}
+
+function twoPeopleVideoModule(c){
+  return [
+    'Both people must remain visually distinct and perfectly consistent with the source image. Give each person independent, unsynchronized micro-movements such as breathing, small posture changes, slight head movement and minimal arm movement.',
+    c.action==='walking'?'Continue the walking motion already implied by the source image for only a small number of natural steps. Their walking rhythms should differ slightly. Keep both garments visible and preserve the original relative positions.':'Do not make either person suddenly walk away or change places.',
+    'Neither person may cross in front of, cover or obscure the other person\'s garment graphic. Preserve both visible prints independently and exactly.'
+  ];
+}
+
+function handsVideoModule(c){
+  var st=c.productState;
+  if(st==='hanger') return ['Animate only the hands, arms, hanger and garment interaction already visible. Allow tiny grip adjustments and an extremely subtle natural swing of the hanger caused by gravity. The fabric may gently sway and form small changing folds. Do not flip or strongly rotate the shirt, and do not reveal a face or body that is not visible in the source image.'];
+  if(st==='stretched') return ['The hands make tiny natural adjustments while keeping the garment stretched toward the camera. Maintain realistic fabric tension with only subtle changing folds. Do not twist, fold or rotate the shirt enough to hide the graphic.'];
+  if(st==='unpacking') return ['Continue the unpacking action naturally from the exact moment shown. The hands may slowly pull or lift the shirt slightly from the package. Keep the action restrained: do not suddenly fully unfold the garment or create a completely different arrangement.'];
+  if(st==='fabric_demo') return ['Use small realistic finger and hand movements to manipulate the fabric exactly where it is already being touched. Show subtle compression, release and changing folds without changing the garment identity or composition.'];
+  return ['Animate only the hand interaction already present: tiny grip adjustments, subtle wrist or finger movement and physically believable fabric response. Do not introduce a face or full body that is not visible in the source image.'];
+}
+
+function staticProductVideoModule(c){
+  if(c.productState==='detail') return ['Keep the close-up composition intact. The garment itself remains essentially stationary. Create life through tiny handheld camera movement and a subtle focus/exposure adjustment. Do not open the composition or reveal new parts of the garment outside the original photograph.'];
+  return ['The garment and surrounding objects remain naturally stationary. Do not make the t-shirt move on its own. Create realism through extremely subtle handheld camera movement, tiny focus/exposure breathing and, when appropriate, a barely perceptible slow push-in. Preserve the exact placement, folds and orientation of the product.'];
+}
+
+function buildVideoPrompt(){
+  var c=currentVideoContext(), parts=videoBase(c);
+  if(c.kind==='wearer') parts=parts.concat(wearerVideoModule(c));
+  else if(c.kind==='two_people') parts=parts.concat(twoPeopleVideoModule(c));
+  else if(c.kind==='hands') parts=parts.concat(handsVideoModule(c));
+  else parts=parts.concat(staticProductVideoModule(c));
+  if(c.product==='hoodie') parts.push('Hoodie physics: preserve the hood, cuffs, thicker fabric structure and silhouette. The heavier fabric should move less than a t-shirt and react naturally to shoulder movement.');
+  parts.push('Maintain physically believable body, hand, fabric, hair and object motion. No morphing, no facial drift, no extra fingers, no warped clothing, no unstable background, no disappearing objects, no changing graphic, no sudden relighting and no AI-style transformation between frames.');
+  parts.push('Final style: casual real-life smartphone footage. Natural and unpolished, like someone pressed record immediately after the source photograph was taken.');
+  return parts.filter(Boolean).join('\n\n');
+}
+
+function renderVideoPrompt(){
+  var out=document.getElementById('video-output'); if(out) out.textContent=buildVideoPrompt();
+  var ctx=document.getElementById('video-context'); if(ctx) ctx.textContent='Detectado: '+currentVideoContext().label;
+}
+function videoChip(el){
+  var g=el.dataset.group,v=el.dataset.value;
+  document.querySelectorAll('[data-group="'+g+'"]').forEach(function(x){x.classList.remove('selected');}); el.classList.add('selected');
+  if(g==='video-source')VIDEO.source=v;
+  if(g==='video-duration')VIDEO.duration=v;
+  if(g==='video-motion')VIDEO.motion=v;
+  if(g==='video-camera')VIDEO.camera=v;
+  if(g==='video-edit')VIDEO.edit=v;
+  renderVideoPrompt();
+}
+function setVideoSource(source){
+  VIDEO.source=source==='reviews'?'reviews':'gen';
+  document.querySelectorAll('[data-group="video-source"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===VIDEO.source);});
+}
+function openVideoFrom(source){
+  setVideoSource(source);
+  var btn=Array.from(document.querySelectorAll('.tab-btn')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("switchTab('video'")!==-1;});
+  if(btn)switchTab('video',btn); else {var vp=document.getElementById('video-panel');if(vp)vp.style.display='block';renderVideoPrompt();}
+}
+function copyVideoPrompt(){navigator.clipboard.writeText(buildVideoPrompt()).then(function(){toast('Prompt de vídeo copiado!');});}
+function randomizeVideoSettings(){
+  var pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+  VIDEO.motion=pick(['minimal','natural','natural','dynamic']); VIDEO.camera=pick(['locked','handheld','handheld','zoom']); VIDEO.edit=pick(['continuous','continuous','cuts']);
+  [['video-motion',VIDEO.motion],['video-camera',VIDEO.camera],['video-edit',VIDEO.edit]].forEach(function(pair){document.querySelectorAll('[data-group="'+pair[0]+'"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===pair[1]);});});
+  renderVideoPrompt(); toast('Movimento variado!');
+}
+
 // ── TABS ──────────────────────────────────────────────
 function switchTab(tab, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -3544,14 +3707,17 @@ function switchTab(tab, btn) {
   document.getElementById('saved-panel').classList.toggle('active', tab === 'saved');
   var rp = document.getElementById('reviews-panel');
   if (rp) rp.style.display = tab === 'reviews' ? 'flex' : 'none';
+  var vp = document.getElementById('video-panel');
+  if (vp) vp.style.display = tab === 'video' ? 'block' : 'none';
   var lp = document.getElementById('library-panel');
   if (lp) lp.style.display = tab === 'library' ? 'block' : 'none';
   var pl = document.querySelector('.panel-left');
-  if (pl) pl.style.display = (tab === 'reviews' || tab === 'library') ? 'none' : 'flex';
+  if (pl) pl.style.display = (tab === 'reviews' || tab === 'video' || tab === 'library') ? 'none' : 'flex';
   var randWrap = document.getElementById('random-btn-wrap');
   if (randWrap) randWrap.style.display = tab === 'gen' ? 'block' : 'none';
   if (tab === 'saved') renderSaved();
   if (tab === 'reviews') renderRevPrompt();
+  if (tab === 'video') renderVideoPrompt();
   if (tab === 'library') refreshLibraryCache(renderLibrary);
 }
 
@@ -4866,9 +5032,82 @@ function buildHoletomPrompt() {
     </div>
     <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:20px;gap:16px;">
       <div class="prompt-box" style="flex:1;">
-        <div class="prompt-box-header"><span>Prompt de Avaliação</span><div class="prompt-actions"><button class="btn btn-gold" onclick="copyRevPrompt()">Copiar</button></div></div>
+        <div class="prompt-box-header"><span>Prompt de Avaliação</span><div class="prompt-actions"><button class="btn btn-ghost" onclick="openVideoFrom('reviews')">🎬 Vídeo</button><button class="btn btn-gold" onclick="copyRevPrompt()">Copiar</button></div></div>
         <div id="rev-output" style="flex:1;padding:18px;font-size:13px;line-height:1.75;color:#ccc;overflow-y:auto;white-space:pre-wrap;min-height:200px;font-family:Georgia,serif;"></div>
       <div style="padding:12px 18px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;"><button class="btn btn-gold" onclick="copyRevPrompt()" style="font-size:13px;padding:8px 24px;">📋 Copiar Prompt</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="video-panel" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:6;overflow:hidden;">
+  <div class="video-shell" style="height:100%;display:grid;grid-template-columns:minmax(330px,430px) minmax(0,1fr);">
+    <div style="overflow-y:auto;padding:24px;border-right:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006));">
+      <div style="margin-bottom:20px;">
+        <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);font-weight:800;margin-bottom:7px;">Imagem → Vídeo</div>
+        <div style="font-size:26px;font-weight:760;letter-spacing:-.035em;color:var(--text);line-height:1.05;">Anime a imagem sem reinventá-la.</div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.6;margin-top:9px;">O PromptGen herda automaticamente pessoa, tipo de peça, frente/costas e tipo de foto. Aqui você escolhe apenas o comportamento do vídeo.</div>
+      </div>
+
+      <div class="section" style="margin-bottom:12px;">
+        <div class="section-header"><span class="dot"></span> Origem da imagem</div>
+        <div class="section-body">
+          <div class="chips">
+            <div class="chip selected" data-group="video-source" data-value="gen" onclick="videoChip(this)">Gerar</div>
+            <div class="chip" data-group="video-source" data-value="reviews" onclick="videoChip(this)">Avaliações</div>
+          </div>
+          <div id="video-context" style="font-size:10.5px;color:var(--text-dim);line-height:1.55;padding:10px 11px;border:1px solid var(--border);border-radius:9px;background:var(--surface2);"></div>
+        </div>
+      </div>
+
+      <div class="section" style="margin-bottom:12px;">
+        <div class="section-header"><span class="dot"></span> Duração</div>
+        <div class="section-body"><div class="chips">
+          <div class="chip" data-group="video-duration" data-value="5" onclick="videoChip(this)">5 segundos</div>
+          <div class="chip" data-group="video-duration" data-value="8" onclick="videoChip(this)">8 segundos</div>
+          <div class="chip selected" data-group="video-duration" data-value="10" onclick="videoChip(this)">10 segundos</div>
+        </div></div>
+      </div>
+
+      <div class="section" style="margin-bottom:12px;">
+        <div class="section-header"><span class="dot"></span> Movimento</div>
+        <div class="section-body"><div class="chips">
+          <div class="chip" data-group="video-motion" data-value="minimal" onclick="videoChip(this)">Quase parado</div>
+          <div class="chip selected" data-group="video-motion" data-value="natural" onclick="videoChip(this)">Natural</div>
+          <div class="chip" data-group="video-motion" data-value="dynamic" onclick="videoChip(this)">Mais dinâmico</div>
+        </div></div>
+      </div>
+
+      <div class="section" style="margin-bottom:12px;">
+        <div class="section-header"><span class="dot"></span> Câmera</div>
+        <div class="section-body"><div class="chips">
+          <div class="chip" data-group="video-camera" data-value="locked" onclick="videoChip(this)">Quase parada</div>
+          <div class="chip selected" data-group="video-camera" data-value="handheld" onclick="videoChip(this)">Handheld natural</div>
+          <div class="chip" data-group="video-camera" data-value="zoom" onclick="videoChip(this)">Zoom suave final</div>
+        </div></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><span class="dot"></span> Edição</div>
+        <div class="section-body"><div class="chips">
+          <div class="chip selected" data-group="video-edit" data-value="continuous" onclick="videoChip(this)">Sem cortes</div>
+          <div class="chip" data-group="video-edit" data-value="cuts" onclick="videoChip(this)">Cortes rápidos</div>
+        </div></div>
+      </div>
+    </div>
+
+    <div style="min-width:0;height:100%;padding:24px 26px;display:flex;flex-direction:column;overflow:hidden;">
+      <div class="prompt-box" style="height:100%;min-height:0;">
+        <div class="prompt-box-header">
+          <span>Prompt de Vídeo</span>
+          <div class="prompt-actions">
+            <button class="btn btn-ghost" onclick="randomizeVideoSettings()">🎲 Variar movimento</button>
+            <button class="btn btn-gold" onclick="copyVideoPrompt()">Copiar</button>
+          </div>
+        </div>
+        <div id="video-output" style="flex:1;padding:26px 28px 34px;font-size:12.25px;line-height:1.82;color:#c9c9c7;overflow-y:auto;white-space:pre-wrap;font-family:SFMono-Regular,Consolas,'Liberation Mono',ui-monospace,monospace;"></div>
+        <div style="padding:11px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-muted);line-height:1.5;">Use a imagem final gerada como referência visual. O prompt de vídeo não precisa receber o prompt da imagem original.</div>
       </div>
     </div>
   </div>
