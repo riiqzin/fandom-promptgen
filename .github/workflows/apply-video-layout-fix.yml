@@ -1,0 +1,56 @@
+name: Apply video panel layout fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-video-layout-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+      - name: Patch index.html
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          style_anchor = '<style id="ffh-image-video-v1">\n'
+          style_patch = '''<style id="ffh-image-video-v1">\n:root{--ffh-header-h:78px;}\n#video-panel{position:fixed!important;top:var(--ffh-header-h,78px)!important;left:0!important;right:0!important;bottom:0!important;height:auto!important;}\n#video-panel .video-shell{height:100%!important;min-height:0!important;}\n'''
+          if ':root{--ffh-header-h:78px;}' not in s:
+              if style_anchor not in s:
+                  raise SystemExit('Video style anchor not found')
+              s = s.replace(style_anchor, style_patch, 1)
+
+          js_anchor = '// ── IMAGE → VIDEO ────────────────────────────────────\n'
+          js_patch = '''// Keep full-screen overlay panels below the real header height.\nfunction syncFfhHeaderHeight(){\n  var h=document.querySelector('header');\n  var px=h?Math.ceil(h.getBoundingClientRect().height):78;\n  document.documentElement.style.setProperty('--ffh-header-h',px+'px');\n}\nwindow.addEventListener('resize',syncFfhHeaderHeight);\nwindow.addEventListener('orientationchange',syncFfhHeaderHeight);\nif(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',syncFfhHeaderHeight);}else{syncFfhHeaderHeight();}\n\n// ── IMAGE → VIDEO ────────────────────────────────────\n'''
+          if 'function syncFfhHeaderHeight()' not in s:
+              if js_anchor not in s:
+                  raise SystemExit('Video JS anchor not found')
+              s = s.replace(js_anchor, js_patch, 1)
+
+          old_panel = '<div id="video-panel" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:6;overflow:hidden;">'
+          new_panel = '<div id="video-panel" style="display:none;position:fixed;top:var(--ffh-header-h,78px);left:0;right:0;bottom:0;background:var(--bg);z-index:6;overflow:hidden;">'
+          if old_panel in s:
+              s = s.replace(old_panel, new_panel, 1)
+          elif new_panel not in s:
+              raise SystemExit('Video panel anchor not found')
+
+          p.write_text(s, encoding='utf-8')
+      - name: Remove temporary workflow and commit
+        shell: bash
+        run: |
+          rm -f .github/workflows/apply-video-layout-fix.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/apply-video-layout-fix.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: keep video panel below app header"
+          git push origin main
