@@ -3784,7 +3784,7 @@ function toast(msg) {
 renderPrompt();
 
 // ── REVIEWS ──────────────────────────────────────────
-var RV={ratio:'3:4',tshirt:'regular',printSide:'front',type:'segurando',frame:'waist',person:'ningum',age:'22-27',traits:'br-misto',body:'medio',grooming:'normal',outfit:'c:casual',home:'media',scene:'quarto',cam:'basico',light:'janela'};
+var RV={ratio:'3:4',tshirt:'regular',printSide:'front',type:'segurando',frame:'waist',person:'ningum',age:'22-27',traits:'br-misto',body:'medio',grooming:'normal',outfit:'auto',home:'media',scene:'quarto',cam:'basico',light:'janela'};
 var RV_RATIO={'3:4':'Image ratio: 3:4 vertical format, the default aspect ratio of a smartphone camera held vertically.','1:1':'Image ratio: 1:1 square format, as used in shopping app reviews.','4:5':'Image ratio: 4:5 vertical format.','9:16':'Image ratio: 9:16 vertical format for Stories and TikTok.','4:3':'Image ratio: 4:3 horizontal format, typical of a casual smartphone photo taken with the phone turned sideways.','16:9':'Image ratio: 16:9 horizontal format, resembling a quick frame captured from a casual smartphone video.'};
 var RV_TSHIRT={regular:'The t-shirt is a regular-fit cotton piece with standard shoulder seams and natural silhouette.',oversized:'The t-shirt is an oversized boxy cotton piece with dropped shoulder seams and slightly shortened hem.','regular-solta':'The t-shirt is a regular-fit cotton piece worn one size looser, with standard shoulder seams, relaxed sleeves, and a naturally comfortable silhouette.','oversized-larga':'The t-shirt is an oversized boxy cotton piece with visibly dropped shoulder seams, wide sleeves, a loose body, and a slightly shortened hem. The fit looks intentionally roomy without appearing artificially inflated.'};
 var RV_PRINT_SIDE={
@@ -3972,28 +3972,40 @@ function rvRenderOutfitOptions(){
   var root=document.getElementById('rv-outfit-options');if(!root)return;
   rvBuildOutfitLabels();
   var cat=rvCurrentOutfitCatalog();
+  var current=String(RV.outfit||'auto');
+  var generalKey=current.indexOf('style:')===0?current.slice(6):'';
+  var top='';
+
+  top+='<div class="rv-outfit-mode-block">';
+  top+='<div class="sub-label" style="margin-bottom:7px;">Liberdade do look</div>';
+  top+='<div class="chips"><div class="chip'+(current==='auto'?' selected':'')+'" data-group="rv-outfit" data-value="auto" onclick="rvChip(this)">✨ Automático / Natural</div></div>';
+  top+='<div class="rv-outfit-help">Deixa a IA montar um look cotidiano coerente com a pessoa e a camiseta, sem prender peças específicas.</div>';
+  top+='</div>';
+
+  top+='<div class="rv-outfit-mode-block">';
+  top+='<div class="sub-label" style="margin-bottom:7px;">Estilo geral</div>';
+  top+='<div class="chips">'+Object.keys(RV_COUPLE_OUTFITS).map(function(v){return '<div class="chip'+(generalKey===v?' selected':'')+'" data-group="rv-outfit" data-value="style:'+v+'" onclick="rvChip(this)">'+RV_COUPLE_OUTFITS[v]+'</div>';}).join('')+'</div>';
+  top+='<div class="rv-outfit-help">Escolhe só a vibe. As peças exatas continuam livres para variar naturalmente.</div>';
+  top+='</div>';
+
   if(!cat){
-    var current=String(RV.outfit||'');
-    var key=current.indexOf('c:')===0?current.slice(2):'casual';
-    if(!RV_COUPLE_OUTFITS[key])key='casual';
-    RV.outfit='c:'+key;
-    root.innerHTML='<div class="chips">'+Object.keys(RV_COUPLE_OUTFITS).map(function(v){return '<div class="chip'+(key===v?' selected':'')+'" data-group="rv-outfit" data-value="c:'+v+'" onclick="rvChip(this)">'+RV_COUPLE_OUTFITS[v]+'</div>';}).join('')+'</div>';
+    if(current!=='auto'&&current.indexOf('style:')!==0)RV.outfit='auto';
+    root.innerHTML=top+'<div class="rv-outfit-specific-note">Outfit específico fica disponível para fotos com uma pessoa. Em duas pessoas, use Automático ou um Estilo geral para manter os dois looks naturais e diferentes.</div>';
     return;
   }
-  var current=String(RV.outfit||'');
-  var selected=current.indexOf(cat.prefix)===0?current.slice(2):Object.keys(cat.source)[0];
-  if(!cat.source[selected])selected=Object.keys(cat.source)[0];
-  RV.outfit=cat.prefix+selected;
+
+  var selected=current.indexOf(cat.prefix)===0?current.slice(2):'';
   var buckets={};
   Object.keys(cat.source).forEach(function(v){
     var label=cat.labels[v]||v.replace(/-/g,' ');
     var folder=rvOutfitCategory(v,label);(buckets[folder]||(buckets[folder]=[])).push({v:v,label:label});
   });
   var order=['Streetwear','Y2K & Retrô','Baddie','Grunge & Dark','Clean & Minimal','Sport & Athleisure','Casual & Denim','Outros estilos'];
-  root.innerHTML='<div class="outfit-folder-list">'+order.filter(function(folder){return buckets[folder]&&buckets[folder].length;}).map(function(folder){
+  var folders='<div class="rv-outfit-mode-block rv-outfit-specific"><div class="sub-label" style="margin-bottom:7px;">Outfit específico</div><div class="rv-outfit-help" style="margin-bottom:9px;">Use apenas quando quiser controlar exatamente as peças do look.</div><div class="outfit-folder-list">'+order.filter(function(folder){return buckets[folder]&&buckets[folder].length;}).map(function(folder){
     var open=buckets[folder].some(function(x){return x.v===selected;});
     return '<div class="outfit-folder'+(open?' open':'')+'"><button type="button" class="outfit-folder-head" onclick="this.parentElement.classList.toggle(\'open\')"><span class="outfit-folder-title">📁 '+folder+' <span class="outfit-folder-count">'+buckets[folder].length+' looks</span></span><span class="outfit-folder-arrow">⌄</span></button><div class="outfit-folder-body"><div class="chips">'+buckets[folder].map(function(x){return '<div class="chip'+(x.v===selected?' selected':'')+'" data-group="rv-outfit" data-value="'+cat.prefix+x.v+'" onclick="rvChip(this)">'+x.label+'</div>';}).join('')+'</div></div></div>';
-  }).join('')+'</div>';
+  }).join('')+'</div></div>';
+  root.innerHTML=top+folders;
 }
 function rvReviewifyOutfit(text){
   if(!text)return '';
@@ -4001,12 +4013,21 @@ function rvReviewifyOutfit(text){
 }
 function rvOutfitText(){
   if(!rvUsesOutfit())return '';
-  var v=String(RV.outfit||'');
+  var v=String(RV.outfit||'auto');
+  if(v==='auto'){
+    if(RV.person==='casal')return 'Outfits: let both customers wear naturally different everyday clothes chosen freely and plausibly from their own wardrobes. Do not lock them to a named fashion aesthetic or specific garments. Keep the styling incidental, varied and uncurated, as in a real customer review photo.';
+    return 'Outfit: choose natural everyday clothing freely around the t-shirt, appropriate to this person and context. Do not lock the look to a named fashion aesthetic or specific garments. The lower-body clothing, shoes and accessories should feel incidental, personally owned and naturally varied rather than deliberately styled for the photo.';
+  }
+  if(v.indexOf('style:')===0){
+    var styleKey=v.slice(6);
+    var style=RV_OUTFIT_STYLE[styleKey]||RV_OUTFIT_STYLE.casual;
+    return style[RV.person]||style.casal||style.homem||'';
+  }
   if(v.indexOf('f:')===0){var kf=v.slice(2);return rvReviewifyOutfit(OUTFIT_F[kf]||'');}
   if(v.indexOf('m:')===0){var km=v.slice(2);return rvReviewifyOutfit(OUTFIT_M[km]||'');}
-  var key=v.indexOf('c:')===0?v.slice(2):v;
-  var o=RV_OUTFIT_STYLE[key]||RV_OUTFIT_STYLE.casual;
-  return o.casall||o.casal||'';
+  var legacy=v.indexOf('c:')===0?v.slice(2):v;
+  var o=RV_OUTFIT_STYLE[legacy]||RV_OUTFIT_STYLE.casual;
+  return o[RV.person]||o.casal||o.homem||'';
 }
 function rvHomeText(){return rvResidentialScene()?(RV_HOME[RV.home]||''):'';}
 
@@ -4192,8 +4213,18 @@ function rvWeightedPick(group,weights){
   return bag[Math.floor(Math.random()*bag.length)]||chips[0];
 }
 function randomizeRevPrompt(){
-  var standard=['rv-ratio','rv-tshirt','rv-type','rv-print-side','rv-frame','rv-person','rv-age','rv-traits','rv-grooming','rv-outfit','rv-scene','rv-cam','rv-light'];
+  var standard=['rv-ratio','rv-tshirt','rv-type','rv-print-side','rv-frame','rv-person','rv-age','rv-traits','rv-grooming','rv-scene','rv-cam','rv-light'];
   standard.forEach(function(group){var pick=rvWeightedPick(group);if(pick)rvChip(pick);});
+  var outfitChoices=Array.from(document.querySelectorAll('[data-group="rv-outfit"]'));
+  var autoChoice=outfitChoices.find(function(ch){return ch.dataset.value==='auto';});
+  var styleChoices=outfitChoices.filter(function(ch){return String(ch.dataset.value||'').indexOf('style:')===0;});
+  var specificChoices=outfitChoices.filter(function(ch){return /^[fm]:/.test(String(ch.dataset.value||''));});
+  var roll=Math.random(), outfitPick=null;
+  if(roll<0.55&&autoChoice)outfitPick=autoChoice;
+  else if(roll<0.9&&styleChoices.length)outfitPick=styleChoices[Math.floor(Math.random()*styleChoices.length)];
+  else if(specificChoices.length)outfitPick=specificChoices[Math.floor(Math.random()*specificChoices.length)];
+  else outfitPick=autoChoice||styleChoices[0];
+  if(outfitPick)rvChip(outfitPick);
   var bodyPick=rvWeightedPick('rv-body',{medio:7,magro:4,'magro-definido':3,'em-forma':5,atletico:2,musculoso:1,encorpado:3,'plus-size':2});if(bodyPick)rvChip(bodyPick);
   var homePick=rvWeightedPick('rv-home',{media:8,simples:3,'media-organizada':5,'media-alta':3,alta:1});if(homePick)rvChip(homePick);
   var btn=document.getElementById('rv-random-btn');
@@ -5035,7 +5066,7 @@ function buildHoletomPrompt() {
       </div></div></div>
       <div class="section"><div class="section-header"><span class="dot"></span> Outfit</div><div class="section-body">
         <div id="rv-outfit-options"></div>
-        <div style="font-size:10px;color:var(--text-muted);line-height:1.45;margin-top:9px;">Os looks usam a mesma biblioteca detalhada da aba Gerar, mas o prompt os adapta para parecerem roupas reais do próprio cliente — sem styling de campanha.</div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.45;margin-top:9px;">Comece em Automático / Natural para manter a liberdade original das avaliações. Se quiser mais controle, escolha só um estilo geral ou abra um outfit específico da biblioteca da aba Gerar.</div>
       </div></div>
       <div class="section"><div class="section-header"><span class="dot"></span> Contexto da casa</div><div class="section-body"><div class="chips">
         <div class="chip" data-group="rv-home" data-value="simples" onclick="rvChip(this)">Simples</div>
@@ -7344,4 +7375,34 @@ body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder.open > .outfit-folder-b
     max-height:none!important;
   }
 }
+</style>
+
+
+<style id="ffh-review-outfit-freedom-v1">
+#reviews-panel .rv-outfit-mode-block{
+  padding:11px 12px;
+  border:1px solid rgba(255,255,255,.065);
+  background:rgba(255,255,255,.018);
+  border-radius:12px;
+  margin-bottom:10px;
+}
+#reviews-panel .rv-outfit-mode-block:first-child{
+  border-color:rgba(201,168,76,.25);
+  background:linear-gradient(145deg,rgba(201,168,76,.07),rgba(255,255,255,.012));
+}
+#reviews-panel .rv-outfit-help{
+  font-size:10px;
+  line-height:1.5;
+  color:var(--text-muted);
+  margin-top:7px;
+}
+#reviews-panel .rv-outfit-specific-note{
+  padding:10px 12px;
+  border:1px dashed rgba(255,255,255,.08);
+  border-radius:10px;
+  color:var(--text-muted);
+  font-size:10px;
+  line-height:1.5;
+}
+#reviews-panel .rv-outfit-specific{margin-bottom:0;}
 </style>
