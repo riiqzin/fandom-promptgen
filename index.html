@@ -7216,3 +7216,132 @@ body.ffh-v2 .panel-left > #pane-masc.show .outfit-folder.open > .outfit-folder-b
   }
 }
 </style>
+
+
+<style id="ffh-shirt-modal-gallery-v3">
+/* Shirt selector V3 — gallery is the primary workspace */
+#shirt-modal .shirt-shell-head{
+  padding:12px 18px 10px!important;
+}
+#shirt-modal .shirt-main-title{
+  font-size:25px!important;
+}
+#shirt-modal .shirt-main-sub{
+  margin-top:3px!important;
+  font-size:11px!important;
+}
+
+/* These repeat information already present in the sidebar/toolbar and
+   were consuming almost half of the vertical space available to browse. */
+#shirt-modal #shirt-last-used,
+#shirt-modal .shirt-summary{
+  display:none!important;
+}
+
+#shirt-modal .shirt-main{
+  min-height:0!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
+
+#shirt-modal .shirt-toolbar{
+  position:sticky!important;
+  top:0!important;
+  z-index:20!important;
+  grid-template-columns:minmax(0,1fr) minmax(300px,420px)!important;
+  gap:10px!important;
+  padding:10px 14px!important;
+  background:rgba(12,14,16,.96)!important;
+  backdrop-filter:blur(14px)!important;
+  -webkit-backdrop-filter:blur(14px)!important;
+  border-bottom:1px solid rgba(255,255,255,.055)!important;
+}
+#shirt-modal .shirt-breadcrumb-wrap{
+  gap:3px!important;
+}
+#shirt-modal #shirt-title{
+  font-size:17px!important;
+}
+#shirt-modal #shirt-count{
+  padding:3px 8px!important;
+  font-size:10px!important;
+}
+#shirt-modal .shirt-search-input,
+#shirt-modal .shirt-toolbar-btn{
+  height:36px!important;
+}
+
+#shirt-modal #shirt-grid{
+  flex:none!important;
+  min-height:auto!important;
+  overflow:visible!important;
+  padding:12px 14px 18px!important;
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(185px,1fr))!important;
+  gap:10px!important;
+  align-content:start!important;
+}
+#shirt-modal #shirt-grid > .shirt-card{
+  min-height:0!important;
+  height:auto!important;
+  border-radius:14px!important;
+}
+#shirt-modal .shirt-card-media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+  max-height:180px!important;
+  padding:9px!important;
+}
+#shirt-modal .shirt-card-media img{
+  object-fit:contain!important;
+}
+#shirt-modal .shirt-card-body{
+  padding:8px 9px 9px!important;
+  gap:6px!important;
+}
+#shirt-modal .shirt-card-name{
+  min-height:30px!important;
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+#shirt-modal .shirt-card-meta{
+  font-size:10px!important;
+}
+#shirt-modal .shirt-card-actions{
+  gap:5px!important;
+}
+#shirt-modal .shirt-copy-btn,
+#shirt-modal .shirt-icon-btn{
+  min-height:31px!important;
+  height:31px!important;
+}
+#shirt-modal .shirt-icon-btn{
+  width:31px!important;
+}
+#shirt-modal .shirt-footer{
+  display:none!important;
+}
+
+@media(min-width:1180px){
+  #shirt-modal .shirt-shell-body{
+    grid-template-columns:235px minmax(0,1fr)!important;
+  }
+  #shirt-modal #shirt-grid{
+    grid-template-columns:repeat(auto-fill,minmax(175px,1fr))!important;
+  }
+}
+
+@media(max-width:900px){
+  #shirt-modal .shirt-toolbar{
+    position:relative!important;
+    grid-template-columns:1fr!important;
+  }
+  #shirt-modal #shirt-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  #shirt-modal .shirt-card-media{
+    aspect-ratio:1/1!important;
+    max-height:none!important;
+  }
+}
+</style>
