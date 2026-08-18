@@ -5134,74 +5134,123 @@ function buildHoletomPrompt() {
 
 
 <div id="video-panel" style="display:none;position:fixed;top:var(--ffh-header-h,78px);left:0;right:0;bottom:0;background:var(--bg);z-index:6;overflow:hidden;">
-  <div class="video-shell" style="height:100%;display:grid;grid-template-columns:minmax(330px,430px) minmax(0,1fr);">
-    <div style="overflow-y:auto;padding:24px;border-right:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006));">
-      <div style="margin-bottom:20px;">
-        <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);font-weight:800;margin-bottom:7px;">Imagem → Vídeo</div>
-        <div style="font-size:26px;font-weight:760;letter-spacing:-.035em;color:var(--text);line-height:1.05;">Anime a imagem sem reinventá-la.</div>
-        <div style="font-size:11px;color:var(--text-muted);line-height:1.6;margin-top:9px;">O PromptGen herda automaticamente pessoa, tipo de peça, frente/costas e tipo de foto. Aqui você escolhe apenas o comportamento do vídeo.</div>
+  <div class="vl-shell">
+    <aside class="vl-sidebar">
+      <div class="vl-hero">
+        <div class="vl-kicker">FFH VIDEO LAB</div>
+        <div class="vl-title">Da camiseta ao anúncio.</div>
+        <div class="vl-sub">Crie primeiro o frame perfeito para o vídeo e depois anime no Google Flow. Misture conceitos, ambientes e movimentos para gerar campanhas praticamente infinitas.</div>
       </div>
 
-      <div class="section" style="margin-bottom:12px;">
-        <div class="section-header"><span class="dot"></span> Origem da imagem</div>
-        <div class="section-body">
-          <div class="chips">
-            <div class="chip selected" data-group="video-source" data-value="gen" onclick="videoChip(this)">Gerar</div>
-            <div class="chip" data-group="video-source" data-value="reviews" onclick="videoChip(this)">Avaliações</div>
-          </div>
-          <div id="video-context" style="font-size:10.5px;color:var(--text-dim);line-height:1.55;padding:10px 11px;border:1px solid var(--border);border-radius:9px;background:var(--surface2);"></div>
+      <div class="vl-section">
+        <div class="vl-section-title">1 · Família criativa</div>
+        <div id="vl-family-grid" class="vl-family-grid"></div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">2 · Conceito</div>
+        <select id="vl-concept-select" class="vl-select" onchange="videoLabSetConcept(this.value)"></select>
+        <div id="vl-concept-note" class="vl-note"></div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">3 · Estrutura no Flow</div>
+        <div class="chips">
+          <div class="chip selected" data-group="vl-frames" data-value="1" onclick="videoLabChip(this)">1 imagem</div>
+          <div class="chip" data-group="vl-frames" data-value="2" onclick="videoLabChip(this)">2 imagens · início/fim</div>
+        </div>
+        <div id="vl-frame-tip" class="vl-note">Mais simples e confiável: gere a imagem inicial e anime.</div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">4 · Ambiente</div>
+        <div id="vl-env-chips" class="chips"></div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">5 · Linguagem de câmera</div>
+        <div id="vl-camera-chips" class="chips"></div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">6 · Realismo</div>
+        <div id="vl-realism-chips" class="chips"></div>
+      </div>
+
+      <div class="vl-section">
+        <div class="vl-section-title">7 · Formato + duração</div>
+        <div class="vl-mini-label">Formato</div>
+        <div class="chips">
+          <div class="chip selected" data-group="vl-ratio" data-value="9:16" onclick="videoLabChip(this)">9:16</div>
+          <div class="chip" data-group="vl-ratio" data-value="4:5" onclick="videoLabChip(this)">4:5</div>
+          <div class="chip" data-group="vl-ratio" data-value="1:1" onclick="videoLabChip(this)">1:1</div>
+          <div class="chip" data-group="vl-ratio" data-value="16:9" onclick="videoLabChip(this)">16:9</div>
+        </div>
+        <div class="vl-mini-label">Duração</div>
+        <div class="chips">
+          <div class="chip" data-group="vl-duration" data-value="5" onclick="videoLabChip(this)">5s</div>
+          <div class="chip selected" data-group="vl-duration" data-value="8" onclick="videoLabChip(this)">8s</div>
+          <div class="chip" data-group="vl-duration" data-value="10" onclick="videoLabChip(this)">10s</div>
         </div>
       </div>
 
-      <div class="section" style="margin-bottom:12px;">
-        <div class="section-header"><span class="dot"></span> Duração</div>
-        <div class="section-body"><div class="chips">
-          <div class="chip" data-group="video-duration" data-value="5" onclick="videoChip(this)">5 segundos</div>
-          <div class="chip" data-group="video-duration" data-value="8" onclick="videoChip(this)">8 segundos</div>
-          <div class="chip selected" data-group="video-duration" data-value="10" onclick="videoChip(this)">10 segundos</div>
-        </div></div>
+      <div class="vl-section">
+        <div class="vl-section-title">8 · Movimento do vídeo</div>
+        <div id="vl-motion-chips" class="chips"></div>
       </div>
 
-      <div class="section" style="margin-bottom:12px;">
-        <div class="section-header"><span class="dot"></span> Movimento</div>
-        <div class="section-body"><div class="chips">
-          <div class="chip" data-group="video-motion" data-value="minimal" onclick="videoChip(this)">Quase parado</div>
-          <div class="chip selected" data-group="video-motion" data-value="natural" onclick="videoChip(this)">Natural</div>
-          <div class="chip" data-group="video-motion" data-value="dynamic" onclick="videoChip(this)">Mais dinâmico</div>
-        </div></div>
+      <div class="vl-actions">
+        <button class="btn btn-gold" onclick="videoLabSurprise()">✦ Me surpreenda</button>
+        <button class="btn btn-ghost" onclick="videoLabRandomizeWithinFamily()">🎲 Variar nesta família</button>
       </div>
+    </aside>
 
-      <div class="section" style="margin-bottom:12px;">
-        <div class="section-header"><span class="dot"></span> Câmera</div>
-        <div class="section-body"><div class="chips">
-          <div class="chip" data-group="video-camera" data-value="locked" onclick="videoChip(this)">Quase parada</div>
-          <div class="chip selected" data-group="video-camera" data-value="handheld" onclick="videoChip(this)">Handheld natural</div>
-          <div class="chip" data-group="video-camera" data-value="zoom" onclick="videoChip(this)">Zoom suave final</div>
-        </div></div>
-      </div>
-
-      <div class="section">
-        <div class="section-header"><span class="dot"></span> Edição</div>
-        <div class="section-body"><div class="chips">
-          <div class="chip selected" data-group="video-edit" data-value="continuous" onclick="videoChip(this)">Sem cortes</div>
-          <div class="chip" data-group="video-edit" data-value="cuts" onclick="videoChip(this)">Cortes rápidos</div>
-        </div></div>
-      </div>
-    </div>
-
-    <div style="min-width:0;height:100%;padding:24px 26px;display:flex;flex-direction:column;overflow:hidden;">
-      <div class="prompt-box" style="height:100%;min-height:0;">
-        <div class="prompt-box-header">
-          <span>Prompt de Vídeo</span>
-          <div class="prompt-actions">
-            <button class="btn btn-ghost" onclick="randomizeVideoSettings()">🎲 Variar movimento</button>
-            <button class="btn btn-gold" onclick="copyVideoPrompt()">Copiar</button>
-          </div>
+    <main class="vl-main">
+      <div class="vl-topbar">
+        <div>
+          <div class="vl-kicker">CONCEITO ATUAL</div>
+          <div id="vl-current-title" class="vl-current-title"></div>
+          <div id="vl-current-meta" class="vl-current-meta"></div>
         </div>
-        <div id="video-output" style="flex:1;padding:26px 28px 34px;font-size:12.25px;line-height:1.82;color:#c9c9c7;overflow-y:auto;white-space:pre-wrap;font-family:SFMono-Regular,Consolas,'Liberation Mono',ui-monospace,monospace;"></div>
-        <div style="padding:11px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-muted);line-height:1.5;">Use a imagem final gerada como referência visual. O prompt de vídeo não precisa receber o prompt da imagem original.</div>
+        <div class="vl-top-actions">
+          <button class="btn btn-ghost" onclick="openShirtModal()">📌 Selecionar camiseta</button>
+          <button class="btn btn-ghost" onclick="videoLabCopyAll()">Copiar pacote</button>
+        </div>
       </div>
-    </div>
+
+      <div class="vl-output-grid">
+        <section class="vl-output-card vl-image-card">
+          <div class="vl-output-head">
+            <div><span class="vl-number">01</span><strong>Imagem inicial</strong><small>Gere esta imagem primeiro usando sua camiseta como referência.</small></div>
+            <button class="btn btn-gold" onclick="videoLabCopy('vl-image-output','Prompt da imagem copiado!')">Copiar</button>
+          </div>
+          <pre id="vl-image-output" class="vl-output"></pre>
+        </section>
+
+        <section id="vl-end-card" class="vl-output-card vl-end-card" style="display:none;">
+          <div class="vl-output-head">
+            <div><span class="vl-number">02</span><strong>Imagem final</strong><small>Use como end frame no Flow para controlar a transformação.</small></div>
+            <button class="btn btn-gold" onclick="videoLabCopy('vl-end-output','Prompt do frame final copiado!')">Copiar</button>
+          </div>
+          <pre id="vl-end-output" class="vl-output"></pre>
+        </section>
+
+        <section class="vl-output-card vl-video-card">
+          <div class="vl-output-head">
+            <div><span id="vl-video-number" class="vl-number">02</span><strong>Prompt para Google Flow</strong><small id="vl-video-help">Envie a imagem acima no Flow e use este prompt para animá-la.</small></div>
+            <button class="btn btn-gold" onclick="videoLabCopy('vl-video-output','Prompt de vídeo copiado!')">Copiar</button>
+          </div>
+          <pre id="vl-video-output" class="vl-output"></pre>
+        </section>
+
+        <section class="vl-output-card vl-strategy-card">
+          <div class="vl-output-head">
+            <div><span class="vl-number">AD</span><strong>Uso no anúncio</strong><small>Por que este take existe e como encaixá-lo no criativo.</small></div>
+          </div>
+          <div id="vl-strategy-output" class="vl-strategy-output"></div>
+        </section>
+      </div>
+    </main>
   </div>
 </div>
 
@@ -6200,6 +6249,194 @@ body.ffh-v2 #pane-moletom > #hd-pane-fem.show > .section:last-child{
 document.addEventListener('DOMContentLoaded',function(){
   try{rvRenderOutfitOptions();renderRevPrompt();}catch(e){console.warn('Review outfit init:',e);}
 });
+</script>
+
+<style id="ffh-video-lab-v2">
+#video-panel{background:#08090a!important;}
+#video-panel .vl-shell{height:100%;display:grid;grid-template-columns:390px minmax(0,1fr);overflow:hidden;}
+#video-panel .vl-sidebar{overflow-y:auto;padding:24px 20px 40px;border-right:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,#0e1012,#090a0b);}
+#video-panel .vl-hero{padding:4px 4px 22px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px;}
+#video-panel .vl-kicker{font-size:9px;font-weight:850;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
+#video-panel .vl-title{font-size:29px;line-height:1.02;font-weight:800;letter-spacing:-.045em;color:#f5f2e9;margin-top:8px;}
+#video-panel .vl-sub{font-size:11px;line-height:1.65;color:#737579;margin-top:10px;}
+#video-panel .vl-section{padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.055);}
+#video-panel .vl-section-title{font-size:9px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:#77746b;margin-bottom:10px;}
+#video-panel .vl-mini-label{font-size:9px;color:#55585b;text-transform:uppercase;letter-spacing:.12em;margin:10px 0 7px;font-weight:800;}
+#video-panel .vl-family-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+#video-panel .vl-family{min-height:54px;border:1px solid rgba(255,255,255,.065);background:#121416;color:#8b8d90;border-radius:11px;padding:9px 10px;cursor:pointer;text-align:left;transition:.16s;font:inherit;}
+#video-panel .vl-family:hover{border-color:rgba(215,182,93,.20);color:#d8d2c2;transform:translateY(-1px);}
+#video-panel .vl-family.active{background:linear-gradient(180deg,rgba(215,182,93,.14),rgba(215,182,93,.055));border-color:rgba(215,182,93,.30);color:var(--gold-light);}
+#video-panel .vl-family b{display:block;font-size:11px;line-height:1.2}.vl-family span{display:block;font-size:9px;color:#62656a;margin-top:3px;}
+#video-panel .vl-select{width:100%;height:42px;background:#131517;border:1px solid rgba(255,255,255,.075);border-radius:10px;color:#e9e7e0;padding:0 11px;font-size:11px;outline:none;}
+#video-panel .vl-select:focus{border-color:rgba(215,182,93,.28);}
+#video-panel .vl-note{font-size:10px;color:#6d7074;line-height:1.5;margin-top:8px;}
+#video-panel .vl-actions{display:grid;grid-template-columns:1fr;gap:8px;padding:17px 4px 0;}
+#video-panel .vl-actions .btn{min-height:42px;}
+#video-panel .vl-main{height:100%;min-width:0;overflow:hidden;display:flex;flex-direction:column;background:radial-gradient(circle at 72% 0%,rgba(215,182,93,.05),transparent 28rem),#090a0b;}
+#video-panel .vl-topbar{flex:0 0 auto;min-height:100px;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.065);display:flex;justify-content:space-between;align-items:center;gap:20px;background:rgba(255,255,255,.012);}
+#video-panel .vl-current-title{font-size:25px;font-weight:800;color:#f3f0e7;letter-spacing:-.035em;margin-top:5px;}
+#video-panel .vl-current-meta{font-size:10.5px;color:#686b70;margin-top:6px;}
+#video-panel .vl-top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+#video-panel .vl-output-grid{flex:1;min-height:0;overflow-y:auto;padding:20px 22px 34px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;align-content:start;}
+#video-panel .vl-output-card{grid-column:span 6;min-height:340px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,#111315,#0d0f10);border-radius:17px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 50px rgba(0,0,0,.13);}
+#video-panel .vl-video-card{border-color:rgba(215,182,93,.17);}
+#video-panel .vl-strategy-card{min-height:180px;grid-column:1/-1;}
+#video-panel .vl-output-head{min-height:70px;padding:13px 15px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.015);}
+#video-panel .vl-output-head>div{display:grid;grid-template-columns:auto 1fr;column-gap:9px;align-items:center;}
+#video-panel .vl-number{grid-row:1/3;display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:9px;background:rgba(215,182,93,.09);border:1px solid rgba(215,182,93,.13);color:var(--gold-light);font-size:9px;font-weight:850;}
+#video-panel .vl-output-head strong{font-size:12px;color:#e7e4dc;}.vl-output-head small{font-size:9.5px;color:#666a6d;margin-top:2px;}
+#video-panel .vl-output{margin:0;flex:1;min-height:0;overflow:auto;white-space:pre-wrap;padding:18px 20px 22px;color:#c6c7c5;font:11.4px/1.75 SFMono-Regular,Consolas,'Liberation Mono',monospace;}
+#video-panel .vl-strategy-output{padding:18px 20px 22px;color:#a7a8a5;font-size:11px;line-height:1.65;}
+#video-panel .vl-strategy-output b{color:#e1d8bd}.vl-strategy-output .vl-pill{display:inline-flex;margin:0 6px 6px 0;padding:5px 8px;border-radius:999px;background:rgba(215,182,93,.075);border:1px solid rgba(215,182,93,.12);color:#c7ae69;font-size:9px;font-weight:750;}
+#video-panel .chip{font-size:10.5px!important;min-height:29px!important;}
+@media(max-width:1150px){#video-panel .vl-shell{grid-template-columns:330px minmax(0,1fr)}#video-panel .vl-output-card{grid-column:1/-1}.vl-strategy-card{grid-column:1/-1!important;}}
+@media(max-width:820px){#video-panel{overflow-y:auto!important}.vl-shell{display:flex!important;flex-direction:column!important;height:auto!important}.vl-sidebar{overflow:visible!important}.vl-main{overflow:visible!important;height:auto!important}.vl-output-grid{overflow:visible!important}.vl-topbar{align-items:flex-start!important;flex-direction:column!important}.vl-output-card{min-height:300px!important}}
+</style>
+
+<script id="ffh-video-lab-v2-js">
+// ═══════════════════════════════════════════════════════════════
+// FFH VIDEO LAB V2 — image-first concepts + Flow animation prompts
+// ═══════════════════════════════════════════════════════════════
+var VL={family:'production',concept:'dtg-print',frames:'1',env:'workshop',camera:'android',realism:'raw',ratio:'9:16',duration:'8',motion:'natural'};
+
+var VL_FAMILIES={
+ production:{name:'Produção',icon:'🖨️',sub:'processo real'},
+ unboxing:{name:'Unboxing',icon:'📦',sub:'UGC e pacote'},
+ product:{name:'Produto',icon:'👕',sub:'peça como hero'},
+ lifestyle:{name:'Lifestyle',icon:'🚶',sub:'gente usando'},
+ tactile:{name:'Detalhes',icon:'🔍',sub:'tecido e print'},
+ transition:{name:'Transições',icon:'↔',sub:'start/end frame'},
+ social:{name:'Social / UGC',icon:'📱',sub:'conteúdo nativo'},
+ experimental:{name:'Experimentais',icon:'✦',sub:'diferentes, reais'}
+};
+
+var VL_ENV={
+ workshop:'small Brazilian garment-printing workshop, functional and slightly cluttered, real equipment, concrete or tiled floor, fluorescent ambient light mixed with daylight',
+ bedroom:'modest middle-class Brazilian bedroom, lived-in bed, ordinary furniture, natural window light, genuine home atmosphere',
+ living:'ordinary Brazilian apartment living room, practical furniture, subtle everyday clutter, believable middle-class environment',
+ street:'real São Paulo sidewalk or quiet urban street, ordinary storefronts and parked cars, natural city texture, no luxury-fashion staging',
+ studio:'simple low-budget creator setup with neutral wall or paper backdrop, one practical soft light, visible real-world imperfections, not a glossy commercial studio',
+ stockroom:'small apparel stockroom or packing area with shelves, cardboard boxes, poly mailers and folded garments, practical e-commerce operation',
+ laundromat:'clean neighborhood laundromat with stainless machines and fluorescent lighting, believable everyday location',
+ balcony:'Brazilian apartment balcony with soft daylight, city buildings out of focus, ordinary residential feeling'
+};
+var VL_ENV_LABEL={workshop:'Oficina de estampa',bedroom:'Quarto brasileiro',living:'Sala / apartamento',street:'Rua em SP',studio:'Setup creator',stockroom:'Estoque / embalagem',laundromat:'Lavanderia',balcony:'Varanda'};
+
+var VL_CAMERA={
+ android:'ordinary mid-range Android smartphone camera, natural auto-exposure, modest dynamic range, slight digital noise, restrained sharpening and imperfect autofocus',
+ oldphone:'older low-end Android smartphone, softer details, visible compression, occasional focus hunting, slightly washed colors and limited dynamic range',
+ iphone:'older iPhone standard camera, natural smartphone rendering, subtle sharpening, believable exposure and no cinematic grading',
+ compact:'small consumer compact camera from the 2010s, mild flash/auto-exposure character, ordinary lens rendering and non-professional image quality',
+ mirrorless:'entry-level mirrorless camera with a normal 35mm-equivalent lens, shallow but believable depth of field, restrained commercial polish'
+};
+var VL_CAMERA_LABEL={android:'Android médio',oldphone:'Android antigo',iphone:'iPhone comum',compact:'Compacta antiga',mirrorless:'Mirrorless simples'};
+
+var VL_REALISM={
+ raw:'zero production value; candid, imperfect, casual, unedited, slightly awkward framing, realistic texture and lighting inconsistencies',
+ ugc:'authentic creator-made social content; simple intentional framing but still clearly homemade, natural imperfections, no agency-advertising polish',
+ clean:'clean e-commerce social content; controlled enough to read the garment clearly but still realistic and physically plausible, no glossy CGI look',
+ documentary:'documentary process photography; observational and functional, with believable industrial/home details and no staged advertising aesthetic'
+};
+var VL_REALISM_LABEL={raw:'Cru / casual',ugc:'UGC creator',clean:'Clean realista',documentary:'Documental'};
+
+var VL_MOTION={
+ minimal:'extremely restrained motion: micro-movements only, with no invented action and almost no reframing',
+ natural:'natural believable motion that continues the physical action implied by the frame, moderate hand/fabric movement and subtle camera drift',
+ active:'clear purposeful action while remaining physically realistic; allow a larger hand, garment or body movement without morphing or scene changes',
+ reveal:'a controlled reveal: begin with the important element partially hidden or less emphasized and naturally reveal the shirt/graphic through physical movement or camera movement'
+};
+var VL_MOTION_LABEL={minimal:'Mínimo',natural:'Natural',active:'Ação clara',reveal:'Reveal'};
+
+function vlBaseImage(){return 'Use the attached FFH t-shirt reference as the exact garment identity. Preserve the graphic artwork perfectly: identical illustration, typography, colors, placement, proportions and scale. Preserve the real garment color and cut. The print must behave like ink on fabric, following folds, tension, perspective and occlusion naturally; never float above the cloth, never become a sticker, and never redesign or simplify the artwork.';}
+function vlRatio(){return 'Image ratio: '+VL.ratio+'. Compose for a paid-social video frame with the shirt or its print immediately understandable on a phone screen.';}
+function vlLook(){return 'Capture style: '+VL_CAMERA[VL.camera]+'. Realism direction: '+VL_REALISM[VL.realism]+'. No beauty filter, no fake HDR glow, no cinematic teal-orange grade, no impossible depth of field, no overly perfect surfaces.';}
+function vlEnv(){return 'Location: '+VL_ENV[VL.env]+'.';}
+
+var VL_CONCEPTS={
+ 'dtg-print':{family:'production',name:'DTG imprimindo a camiseta',tag:'PROCESSO',note:'A própria máquina vira o hook. Ótimo para mostrar que a peça está realmente sendo produzida.',strategy:'Hook de processo / bastidores. Funciona bem nos primeiros 1–2 segundos antes de cortar para alguém vestindo a peça.',start:function(){return 'Ultra-realistic close smartphone photograph inside a real garment-printing workshop. A DTG printer is actively printing the attached FFH artwork directly onto the front panel of the exact t-shirt, which is correctly mounted flat on the printer platen. The print head carriage is positioned above the shirt, with a portion of the artwork already deposited and another portion still being printed. Show plausible DTG hardware, platen, carriage rails and ink-printing geometry; no fantasy machinery. The garment remains the hero and the artwork must already match the reference exactly where printed. Camera is close at a slight three-quarter angle so both the moving print head area and the emerging graphic are clearly readable. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same DTG workshop, same printer, same t-shirt and exact camera family. The printing pass has just finished. The full attached FFH graphic is now complete on the t-shirt lying flat on the platen. The carriage has moved slightly aside, revealing the finished print clearly. Keep equipment, garment position, lighting and perspective consistent with the initial frame. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Animate the real DTG printing process. The carriage travels laterally in short controlled passes while the platen and shirt remain physically stable. The printed artwork appears only through the advancing print-head coverage, never by magical dissolving or morphing. Add tiny machine vibration, realistic carriage acceleration/deceleration and subtle smartphone hand jitter. Ink stays bonded to the fabric and the graphic remains exact.'},
+ 'quality-check':{family:'production',name:'Controle de qualidade',tag:'PROCESSO',note:'Mãos reais conferindo estampa, costura e tecido após produção.',strategy:'Constrói confiança e qualidade percebida sem parecer anúncio tradicional.',start:function(){return 'Ultra-realistic smartphone frame of a garment worker performing quality control on the attached FFH t-shirt at a small worktable. Only torso and hands need to be visible. One hand lightly holds the shoulder seam while the other checks the print surface and alignment. The shirt is spread naturally across the table with real wrinkles. Nearby: ordinary measuring tape, folded blank garments and packing supplies, all secondary. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same table, same worker hands and same attached FFH t-shirt, now lifted slightly by the shoulders for a final visual inspection. The graphic remains facing the camera and fully readable, fabric hanging naturally with gravity. Preserve continuity of hands, sleeves, workspace and lighting. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Continue a believable quality-control action: fingers smooth one small wrinkle, hand checks an edge of the print, then the shirt is lifted only slightly for inspection. Natural fabric drag and gravity. No new tools or people appear.'},
+ 'fold-pack':{family:'production',name:'Dobra + embalagem',tag:'PROCESSO',note:'Da bancada para o pacote em um take humano e simples.',strategy:'Boa ponte entre “feito de verdade” e “vai chegar na sua casa”.',start:function(){return 'Real e-commerce packing table. The exact FFH t-shirt is fully visible and freshly folded halfway, with a worker\'s hands finishing a neat but human fold. A transparent apparel bag and small cardboard mailer are nearby. Nothing looks staged or luxury. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same packing table and exact shirt, now fully folded and partially slid into the transparent apparel bag by the same hands. The graphic remains partly visible through the clear plastic; preserve garment orientation and all surrounding objects. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands complete the fold and naturally slide the shirt into the clear bag. Plastic crinkles, catches small highlights and deforms around the fabric. Keep motion practical and efficient, like a real order being packed.'},
+ 'order-pick':{family:'production',name:'Separando pedido no estoque',tag:'BASTIDORES',note:'Uma mão encontra e retira a sua camiseta de uma pilha/estante.',strategy:'Ótimo para anúncio com sensação de pedido real saindo do estoque.',start:function(){return 'POV smartphone frame in a small apparel stockroom. A hand is reaching toward a shelf of folded garments and selects the exact attached FFH t-shirt from a labeled-but-not-legible stack. The shirt graphic or distinctive garment is visible enough to identify it. Real shelves, cardboard bins and packing materials. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same POV and stockroom. The hand has pulled the exact FFH shirt from the shelf and now holds it closer to the camera, still folded but with the artwork area visible. Shelf continuity and lighting remain unchanged. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Continue the picking action from the exact frame: grip the folded shirt, pull it smoothly from the stack and bring it modestly closer to camera. Nearby folded garments respond slightly from friction. No sudden scene cut.'},
+
+ 'box-open':{family:'unboxing',name:'Caixa abrindo · POV',tag:'UNBOXING',note:'POV de cliente abrindo o pedido pela primeira vez.',strategy:'UGC forte para topo de funil; parece conteúdo de cliente, não peça publicitária.',start:function(){return 'First-person smartphone view over a recently delivered cardboard parcel on an ordinary bed. Two hands are just beginning to open the top flaps. Inside, only a small glimpse of the packaged FFH t-shirt is visible. Casual home, natural imperfections, no face. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same bed, parcel, hands and viewpoint seconds later. The box is open and the exact FFH t-shirt is visible inside its clear packaging, graphic readable through the plastic. Keep all objects, sheets and lighting continuous. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands open the cardboard flaps with normal resistance. The camera dips slightly as the person leans in. Reveal the packaged shirt naturally; no object teleportation, no perfectly synchronized motion.'},
+ 'bag-remove':{family:'unboxing',name:'Tirando do plástico',tag:'UNBOXING',note:'A camisa sai do saquinho; plástico e tecido dão movimento realista.',strategy:'Take tátil e satisfatório, muito útil como segundo take de um anúncio.',start:function(){return 'Close casual smartphone frame of hands holding the clear apparel bag containing the exact FFH t-shirt over a bed or table. One hand has opened the bag and is beginning to pull the folded shirt out. Plastic wrinkles and real reflections. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same hands and setting. The exact FFH t-shirt is now mostly out of the plastic, still partly folded, with the graphic becoming clearly visible. Empty plastic remains naturally bunched in one hand. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands pull the folded shirt from the bag in one continuous physically believable motion. Plastic clings briefly, crinkles, then releases. Fabric unfolds only a little under gravity; preserve the exact print.'},
+ 'bed-reveal':{family:'unboxing',name:'Abrindo a camiseta na cama',tag:'UNBOXING',note:'Cliente desdobra a peça e revela a estampa.',strategy:'Reveal orgânico da arte. Excelente para segurar atenção sem transição artificial.',start:function(){return 'Top-down smartphone frame over an ordinary unmade bed. The exact FFH t-shirt is folded with only a small portion of the graphic visible. Two hands grip the upper corners, about to unfold it. Open packaging sits casually near the edge. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same top-down bed composition. The exact FFH t-shirt is now unfolded flat, entire front/back graphic fully visible, with natural shipping wrinkles. The same packaging remains in the same corner. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands unfold the shirt toward the camera in one or two simple steps until the graphic is revealed. Fabric drags across the sheets, settles with natural wrinkles and never stretches unnaturally.'},
+ 'first-touch':{family:'unboxing',name:'Primeiro toque no tecido',tag:'TACTILE',note:'Close de mão sentindo gramatura, gola e textura.',strategy:'Take de prova de material; combina bem com copy sobre tecido/qualidade.',start:function(){return 'Tight smartphone close-up of the exact FFH t-shirt freshly removed from packaging. One hand pinches a small area of the fabric near the lower torso while the other supports the shirt. Show real cotton weave, seams, natural compression and a partially visible graphic. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same close-up and hands. Fingers release the pinched fabric and lightly smooth it flat, revealing a little more of the exact print and fabric texture. Preserve camera position and garment identity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Fingers gently pinch, compress and release the cotton once, then smooth a small wrinkle. Show realistic cloth recovery and micro-folds. No rubbery stretching.'},
+
+ 'hanger-sway':{family:'product',name:'Cabide com balanço natural',tag:'PRODUTO',note:'Peça pendurada ganhando vida apenas com gravidade e câmera.',strategy:'Produto limpo sem modelo; ótimo para remarketing e catálogo em vídeo.',start:function(){return 'The exact FFH t-shirt hangs from a simple hanger in a real room, front/back graphic centered toward camera. The garment is completely still at the beginning, with authentic drape, dropped shoulders if oversized, and natural vertical folds. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same hanger, room and exact t-shirt. The garment has shifted only a few centimeters in a gentle natural swing, creating slightly different folds while keeping the graphic readable and the hanger orientation plausible. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'A very light air movement causes the hanging shirt to sway once gently and settle. Sleeves and hem lag naturally behind the body. Camera remains almost still with subtle smartphone drift.'},
+ 'flatlay-hand':{family:'product',name:'Flatlay + mão entrando',tag:'PRODUTO',note:'Produto parado, uma mão entra e ajusta uma dobra.',strategy:'Simples, barato visualmente e muito confiável para geração de vídeo.',start:function(){return 'Top-down flatlay of the exact FFH t-shirt on a real bed, wooden table or neutral floor. The graphic is fully visible and the shirt has a few natural folds. One human hand is just entering the edge of frame, about to adjust the hem. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same top-down composition. The hand has lightly straightened one edge of the exact shirt, reducing one wrinkle but leaving the scene naturally imperfect. All props remain unchanged. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'A single hand enters, gently straightens the hem or sleeve, then leaves. Fabric shifts locally with friction. No floating shirt, no spontaneous movement elsewhere.'},
+ 'chair-drop':{family:'product',name:'Camiseta caindo na cadeira',tag:'PRODUTO',note:'Frame inicial antes da queda e final já apoiada na cadeira.',strategy:'Movimento físico diferente e visualmente satisfatório; bom para cortes rápidos.',start:function(){return 'Realistic smartphone frame focused on an ordinary chair in a bedroom or studio. The exact FFH t-shirt is held just above the chair by one hand at the collar, ready to be released. The shirt hangs naturally and the graphic faces camera. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same chair and camera angle after the shirt has been released. The exact FFH t-shirt rests naturally over the chair seat/back with gravity-made folds, graphic still identifiable and not distorted. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'The hand releases the shirt. It falls a short realistic distance, fabric collapses onto the chair with secondary sleeve/hem motion, then settles. Preserve artwork as printed cloth throughout; no fluid-like or elastic deformation.'},
+ 'stack-pull':{family:'product',name:'Puxando da pilha',tag:'PRODUTO',note:'Camiseta é puxada de uma pilha de roupas dobradas.',strategy:'Take curto e funcional para montagem rápida de anúncio.',start:function(){return 'Close smartphone frame of a short stack of folded t-shirts on a shelf or table. The exact FFH t-shirt is in the middle/top of the stack, one hand gripping its edge. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same stack and hand. The exact FFH t-shirt has been pulled halfway free and is now more visible, while neighboring shirts compress and shift naturally. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Pull the chosen shirt from the stack with realistic cloth friction. Neighboring garments shift and settle slightly; do not make the whole stack collapse unless physically necessary.'},
+
+ 'mirror-reveal':{family:'lifestyle',name:'Espelho · reveal do look',tag:'LIFESTYLE',note:'Pessoa começa mais perto/cortada e revela o look no espelho.',strategy:'Nativo de Reels/TikTok; vende a peça dentro de um comportamento real de usuário.',start:function(){return 'Casual mirror-video starting frame in a Brazilian bedroom. A young adult wearing the exact FFH t-shirt stands close enough that the shirt dominates the reflection. Smartphone partly obscures the face. Natural outfit, no model posing, realistic mirror smudges and room details. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same person, mirror, phone and room. They have taken one small step back, revealing more of the outfit while keeping the exact FFH shirt graphic prominent. Preserve identity and clothing exactly. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'The wearer makes one small step back and a subtle shoulder adjustment while holding the phone. Natural breathing, tiny phone movement and fabric response. No runway posing.'},
+ 'back-turn':{family:'lifestyle',name:'Virada para estampa nas costas',tag:'LIFESTYLE',note:'Criado especialmente para mostrar costas sem giro impossível.',strategy:'Ideal para estampas traseiras: movimento simples com payoff claro.',start:function(){return 'Casual streetwear smartphone frame of a person wearing the exact FFH t-shirt, shown in three-quarter side orientation. The body is beginning a slow natural turn away from camera so the back panel will become visible. Keep the shirt oversized/regular fit accurate. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same person and location, now naturally facing away from camera with the exact back graphic fully visible and centered. Preserve identity, outfit, lighting and camera distance. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Continue one slow body turn from three-quarter orientation to a relaxed back-facing stance. Feet and shoulders rotate in believable sequence. Shirt twists and then settles naturally. End with the back graphic clearly readable.'},
+ 'walk-pass':{family:'lifestyle',name:'Passando perto da câmera',tag:'LIFESTYLE',note:'Pessoa atravessa o quadro sem “andar de modelo”.',strategy:'Bom take de movimento para ritmo do anúncio e demonstração de caimento.',start:function(){return 'Candid smartphone frame of a person wearing the exact FFH t-shirt caught mid-step on a real sidewalk. They are offset in frame and about to pass near the camera, not walking directly toward it. Natural posture, ordinary city background. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same sidewalk and person one or two steps later, now slightly past the camera axis, with the shirt still visible and scale change modest. Preserve outfit, face and background continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Continue only two natural steps across the frame. Slight handheld follow, realistic gait and fabric bounce. No dramatic tracking shot and no speed ramp.'},
+ 'sit-adjust':{family:'lifestyle',name:'Sentando + ajustando a barra',tag:'LIFESTYLE',note:'Ação cotidiana pequena que movimenta tecido de forma convincente.',strategy:'Ótimo “breathing shot” entre takes mais chamativos.',start:function(){return 'Natural smartphone frame of a person wearing the exact FFH t-shirt about to sit on the edge of a bed, bench or low wall. One hand is near the hem as if instinctively adjusting it. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same person now seated naturally. One hand has lightly adjusted the shirt hem; the garment forms believable folds around waist and hips while the graphic remains readable. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'The person sits in one restrained motion and lightly adjusts the hem once. Preserve body proportions and cloth collision with legs/seat.'},
+
+ 'print-macro':{family:'tactile',name:'Macro atravessando a estampa',tag:'DETALHE',note:'Imagem base já nasce para um push/pan macro pela tinta e tecido.',strategy:'Excelente take de detalhe para intercalar com pessoas e produto inteiro.',start:function(){return 'Extreme but realistic smartphone macro frame of the exact FFH graphic printed on cotton. Show ink integrated into the textile, visible weave, tiny natural surface irregularities and a gentle fabric fold crossing part of the artwork. The artwork remains identifiable despite the close crop. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same exact printed area seconds later from a nearby position along the graphic, with consistent fabric weave, ink and fold continuity. This is a short camera move across the real print, not a different design. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Make a very slow close handheld slide across the printed surface, maintaining consistent focus distance and real textile parallax. Tiny focus breathing is acceptable. Never regenerate letters or illustration details.'},
+ 'collar-detail':{family:'tactile',name:'Gola + costura',tag:'DETALHE',note:'Close de construção da peça com mão apertando a gola.',strategy:'Serve como evidência visual de acabamento e gramatura.',start:function(){return 'Close smartphone frame of the exact FFH t-shirt collar, shoulder seam and upper print area. A hand lightly holds the collar edge to show thickness and stitching. Real cotton texture, no product-render perfection. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same close-up. Fingers gently flex the collar edge and then release it, revealing the seam returning to its natural shape. Preserve every visible print detail and stitch layout. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Fingers lightly compress/flex the collar once and release. Show realistic knit recovery, seam stiffness and tiny fabric folds. No rubbery stretching.'},
+ 'fabric-scrunch':{family:'tactile',name:'Amassando e soltando tecido',tag:'DETALHE',note:'Teste visual de tecido feito por mãos.',strategy:'Take de textura com ação clara, ótimo para copy de qualidade.',start:function(){return 'Tight smartphone close-up of hands gently gathering a section of the exact FFH shirt fabric beside or partly over the graphic. Cotton bunches naturally between fingers. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same hands and garment after releasing the gathered fabric. It has relaxed with a few soft residual wrinkles; graphic remains exact and physically printed. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands compress a small section once, hold briefly, then release. Fabric unfolds under its own stiffness and gravity with residual wrinkles.'},
+
+ 'package-to-shirt':{family:'transition',name:'Pacote fechado → camiseta aberta',tag:'2 FRAMES',note:'Um dos melhores testes para start/end frame: início e fim são claros e relacionados.',strategy:'Transição principal de unboxing. Recomendo usar explicitamente o modo 2 imagens.',force2:true,start:function(){return 'Top-down smartphone frame of a closed delivered apparel package resting on an ordinary bed. Hands are touching the package, about to open it. The attached FFH shirt itself is not yet visible except perhaps a believable tiny glimpse through transparent internal packaging; do not invent the artwork on the outside. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same bed, camera angle and lighting. The opened packaging now sits at the side and the exact attached FFH t-shirt is fully unfolded on the bed, graphic centered and clearly visible. Hands rest naturally near the edges. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Create one continuous real-time unboxing progression from the closed package to the shirt laid out. Hands open, remove and unfold the garment with plausible intermediate states. Do not dissolve, teleport, morph or magically replace the package with the shirt.'},
+ 'hanger-to-wearer':{family:'transition',name:'Cabide → pessoa vestindo',tag:'2 FRAMES',note:'Dois frames ajudam o Flow a entender o destino; é uma transição mais ambiciosa.',strategy:'Use como take criativo de transformação; menos “documental”, mas ainda ancorado em ação física.',force2:true,start:function(){return 'The exact FFH t-shirt hangs on a simple hanger held by a person whose body is mostly out of frame. Garment faces camera in a real bedroom or creator setup. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same room and lighting, now the same person is wearing the exact FFH t-shirt in roughly the same central position previously occupied by the hanging garment. Natural stance, realistic fit, artwork preserved exactly. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Transition from holding the shirt on the hanger to wearing it using a believable physical action: bring garment toward body/camera and use the natural occlusion as the transition point. Avoid liquid morphing, body warping or the shirt magically passing through the person.'},
+ 'folded-to-worn':{family:'transition',name:'Dobrada → vestida no espelho',tag:'2 FRAMES',note:'Frame inicial de produto, final de uso; ótimo para anúncio de transformação.',strategy:'Bom para mostrar produto + fit num único take curto.',force2:true,start:function(){return 'POV smartphone frame of hands holding the exact FFH t-shirt folded in front of a bedroom mirror. The graphic is partially visible and the mirror shows only a vague cropped body behind it. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same mirror, room and person, now wearing the exact FFH t-shirt and holding the phone for a casual mirror shot. Match the garment and graphic exactly; preserve room continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Use the folded shirt moving close to the lens/mirror as a natural full-frame occlusion, then emerge with the same person wearing it. Keep transition brief and physically motivated rather than a digital morph.'},
+
+ 'friend-filming':{family:'social',name:'Amigo filmando o look',tag:'UGC',note:'Parece um frame aleatório gravado por outra pessoa.',strategy:'Menos cara de anúncio e mais cara de vídeo encontrado no feed.',start:function(){return 'Casual smartphone frame filmed by a friend. A person wearing the exact FFH shirt is mid-conversation or casually adjusting their outfit, not posing. Slightly imperfect framing, ordinary environment, spontaneous social-video feel. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same candid moment a few seconds later: small posture shift, brief glance away or tiny shirt adjustment, preserving person, shirt, scene and framing continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Animate like a friend kept recording: subtle breathing, one natural gesture, tiny handheld corrections and an imperfect focus/exposure response. No influencer choreography.'},
+ 'selfie-review':{family:'social',name:'Review selfie sem mostrar rosto',tag:'UGC',note:'Celular frontal/espelho, foco todo na camiseta.',strategy:'Pode parecer depoimento visual mesmo sem áudio ou rosto identificável.',start:function(){return 'Vertical casual selfie-style frame focused from neck/chest to hips. The wearer holds a phone or uses a mirror while the exact FFH t-shirt fills most of frame. Head is naturally cropped or face obscured. One hand lightly pulls the hem to show fit. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same selfie composition. The hand releases the hem and the shirt settles naturally; phone angle changes by only a few degrees. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Tiny handheld selfie drift, one small hem adjustment/release, breathing and natural cloth settling. Keep face cropped/obscured as in the source frame.'},
+ 'closet-pick':{family:'social',name:'Escolhendo no armário',tag:'UGC',note:'POV encontra a camiseta entre outras roupas e puxa para fora.',strategy:'Hook cotidiano e reconhecível; bom para criativo “qual roupa eu uso hoje?”.',start:function(){return 'POV smartphone frame facing an ordinary clothing rack or open wardrobe. The exact FFH t-shirt is visible among a few other neutral garments. One hand is reaching toward its hanger. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same wardrobe POV. The hand has pulled the exact FFH shirt forward on its hanger so the graphic is now dominant in frame. Other clothes shift slightly aside. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hand reaches, separates neighboring hangers and pulls the FFH shirt forward. Hangers click and sway subtly; nearby garments move from contact, then settle.'},
+
+ 'window-breeze':{family:'experimental',name:'Vento de janela',tag:'ATMOSFERA',note:'Movimento bonito sem parecer CGI: luz e tecido respondem a uma janela real.',strategy:'Take visual premium, mas ainda possível de parecer filmado em casa.',start:function(){return 'The exact FFH t-shirt hangs or is worn near an open apartment window. Soft daylight enters from the side. The shirt is almost still; a curtain edge or tiny environmental cue suggests a light breeze is about to move. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same setup after a gentle breeze: hem/sleeve and nearby curtain shifted subtly in the same direction, with changed small folds but exact artwork preserved. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'A single light breeze moves curtain and shirt with coherent direction and delayed cloth response, then both settle. No dramatic wind machine effect.'},
+ 'laundry-lift':{family:'experimental',name:'Saindo da lavanderia',tag:'DIFERENTE',note:'Pessoa retira a camiseta limpa de uma secadora/cesto — cotidiano e incomum em anúncios.',strategy:'Quebra padrão visual do feed e ainda mantém física simples.',start:function(){return 'Candid smartphone frame at a neighborhood laundromat. Hands are lifting the exact FFH t-shirt from a clean laundry basket or open dryer doorway. Shirt is slightly bunched but the graphic is partly visible. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same laundromat and hands. The exact shirt is now held up more openly for a quick look, fabric hanging naturally and graphic clearer. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Lift the shirt from the basket/dryer opening, let it unfold slightly under gravity and hold for a moment. Realistic soft fabric movement only; no spinning or magical straightening.'},
+ 'doorway-reveal':{family:'experimental',name:'Saindo pela porta · reveal',tag:'DIFERENTE',note:'Começa com porta/parede cobrindo parte da pessoa e revela a camiseta caminhando.',strategy:'Occlusão natural cria um reveal sem efeito digital.',start:function(){return 'Candid smartphone frame pointed at an apartment doorway. A person wearing the exact FFH t-shirt is just beginning to step through, with part of the torso naturally hidden behind the doorframe. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same doorway and person one step later, now fully visible in the room/hallway with the exact shirt graphic clear. Preserve identity and all environmental continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Person takes one relaxed step through the doorway. The doorframe provides natural occlusion and reveal. Slight handheld reaction from the person filming; no cinematic dolly.'}
+};
+
+function vlConceptsForFamily(f){return Object.keys(VL_CONCEPTS).filter(function(k){return VL_CONCEPTS[k].family===f;});}
+function videoLabInit(){
+ var fg=document.getElementById('vl-family-grid'); if(!fg)return;
+ fg.innerHTML=Object.keys(VL_FAMILIES).map(function(k){var f=VL_FAMILIES[k];return '<button class="vl-family'+(VL.family===k?' active':'')+'" onclick="videoLabSetFamily(\''+k+'\')"><b>'+f.icon+' '+f.name+'</b><span>'+f.sub+'</span></button>';}).join('');
+ var mk=function(id,obj,group){var el=document.getElementById(id);if(!el)return;el.innerHTML=Object.keys(obj).map(function(k,i){return '<div class="chip'+(VL[group]===k?' selected':'')+'" data-group="vl-'+group+'" data-value="'+k+'" onclick="videoLabChip(this)">'+(group==='env'?VL_ENV_LABEL[k]:group==='camera'?VL_CAMERA_LABEL[k]:group==='realism'?VL_REALISM_LABEL[k]:VL_MOTION_LABEL[k])+'</div>';}).join('');};
+ mk('vl-env-chips',VL_ENV,'env');mk('vl-camera-chips',VL_CAMERA,'camera');mk('vl-realism-chips',VL_REALISM,'realism');mk('vl-motion-chips',VL_MOTION,'motion');
+ videoLabRefreshConcepts();
+}
+function videoLabSetFamily(f){VL.family=f;var ks=vlConceptsForFamily(f);if(ks.indexOf(VL.concept)<0)VL.concept=ks[0];document.querySelectorAll('.vl-family').forEach(function(b){b.classList.remove('active')});var btn=Array.from(document.querySelectorAll('.vl-family')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'"+f+"'")!==-1});if(btn)btn.classList.add('active');videoLabRefreshConcepts();}
+function videoLabRefreshConcepts(){var s=document.getElementById('vl-concept-select');if(!s)return;var ks=vlConceptsForFamily(VL.family);s.innerHTML=ks.map(function(k){return '<option value="'+k+'"'+(k===VL.concept?' selected':'')+'>'+VL_CONCEPTS[k].name+'</option>';}).join('');videoLabSetConcept(VL.concept,true);}
+function videoLabSetConcept(k,skip){if(!VL_CONCEPTS[k])return;VL.concept=k;VL.family=VL_CONCEPTS[k].family;if(VL_CONCEPTS[k].force2)VL.frames='2';if(!skip){document.querySelectorAll('[data-group="vl-frames"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===VL.frames);});}renderVideoPrompt();}
+function videoLabChip(el){var g=el.dataset.group,v=el.dataset.value;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(x){x.classList.remove('selected')});el.classList.add('selected');var key=g.replace('vl-','');VL[key]=v;renderVideoPrompt();}
+function vlImagePrompt(){var c=VL_CONCEPTS[VL.concept];return c.start();}
+function vlEndPrompt(){var c=VL_CONCEPTS[VL.concept];return c.end();}
+function vlFlowPrompt(){var c=VL_CONCEPTS[VL.concept];var two=VL.frames==='2';return [
+ 'Create a '+VL.duration+'-second ultra-realistic image-to-video clip for a fashion paid-social ad.',
+ two?'Use IMAGE 1 as the exact first frame and IMAGE 2 as the exact intended final frame. Build a physically believable continuous action connecting them. Preserve all identities, garment details, environment and camera logic across the interpolation.':'Use the provided image as absolute visual truth and continue only the action implied by it. Do not redesign the scene.',
+ 'IDENTITY CRITICAL: the FFH t-shirt graphic must remain exactly the same artwork, typography, colors, placement, scale and proportions in every frame. The print is physically bonded to the fabric and may only deform because the real cloth bends, folds, stretches slightly or changes perspective.',
+ 'Movement direction: '+VL_MOTION[VL.motion]+'.',
+ c.video,
+ 'Camera behavior: '+(VL.camera==='oldphone'?'slightly unstable casual phone handling with tiny focus/exposure corrections':VL.camera==='mirrorless'?'restrained handheld or tripod-like movement appropriate to a small real camera; no cinematic crane/dolly':'subtle human handheld movement with natural micro-jitter and tiny reframing only')+'.',
+ 'Physics: realistic gravity, cloth inertia, friction, hand contact, object collisions and secondary motion. Hands must keep correct anatomy and grip. No floating objects, no rubber fabric, no body morphing, no object duplication, no disappearing items, no sudden relighting, no background warping and no AI-style melting transitions.',
+ 'Visual finish: preserve the ordinary real-world look of the source frame. No CGI sheen, no glossy commercial relight, no artificial slow motion unless naturally implied, no text overlays, no added logos and no invented branding.'
+ ].join('\n\n');}
+function renderVideoPrompt(){
+ var c=VL_CONCEPTS[VL.concept];if(!c){videoLabInit();return;}
+ var title=document.getElementById('vl-current-title'),meta=document.getElementById('vl-current-meta'),note=document.getElementById('vl-concept-note');
+ if(title)title.textContent=c.name;if(meta)meta.textContent=(VL_FAMILIES[c.family].name)+' · '+VL_RATIO_LABEL()+' · '+VL_REALISM_LABEL[VL.realism]+' · '+VL.duration+'s';if(note)note.textContent=c.note;
+ var a=document.getElementById('vl-image-output'),b=document.getElementById('vl-end-output'),v=document.getElementById('vl-video-output');if(a)a.textContent=vlImagePrompt();if(b)b.textContent=vlEndPrompt();if(v)v.textContent=vlFlowPrompt();
+ var end=document.getElementById('vl-end-card');if(end)end.style.display=VL.frames==='2'?'flex':'none';var num=document.getElementById('vl-video-number');if(num)num.textContent=VL.frames==='2'?'03':'02';var help=document.getElementById('vl-video-help');if(help)help.textContent=VL.frames==='2'?'Envie as duas imagens como frame inicial e frame final no Flow.':'Envie a imagem acima no Flow e use este prompt para animá-la.';
+ var tip=document.getElementById('vl-frame-tip');if(tip)tip.textContent=VL.frames==='2'?'Modo start/end: gere os dois frames mantendo pessoa, cenário, luz e câmera coerentes.':'Mais simples e confiável: gere a imagem inicial e anime.';
+ var st=document.getElementById('vl-strategy-output');if(st)st.innerHTML='<span class="vl-pill">'+c.tag+'</span><span class="vl-pill">'+VL_FAMILIES[c.family].name+'</span><span class="vl-pill">'+(VL.frames==='2'?'2 frames':'1 frame')+'</span><p style="margin-top:8px"><b>Função:</b> '+c.strategy+'</p><p style="margin-top:7px"><b>Dica:</b> gere 3–5 versões da imagem-base mudando apenas enquadramento/câmera antes de animar. O mesmo conceito pode render vários takes sem mudar a identidade da camiseta.</p>';
+}
+function VL_RATIO_LABEL(){return VL.ratio==='9:16'?'Vertical 9:16':VL.ratio==='4:5'?'Feed 4:5':VL.ratio==='1:1'?'Quadrado 1:1':'Horizontal 16:9';}
+function videoLabCopy(id,msg){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.textContent).then(function(){toast(msg||'Copiado!')});}
+function videoLabCopyAll(){var arr=['IMAGE 1\n\n'+vlImagePrompt()];if(VL.frames==='2')arr.push('IMAGE 2 / END FRAME\n\n'+vlEndPrompt());arr.push('GOOGLE FLOW\n\n'+vlFlowPrompt());navigator.clipboard.writeText(arr.join('\n\n━━━━━━━━━━━━━━━━━━━━\n\n')).then(function(){toast('Pacote completo copiado!')});}
+function videoLabRandomizeWithinFamily(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));if(VL_CONCEPTS[VL.concept].force2)VL.frames='2';videoLabSyncUI();toast('Nova combinação criada!');}
+function videoLabSurprise(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.family=pick(Object.keys(VL_FAMILIES));VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));VL.ratio=pick(['9:16','9:16','4:5','1:1']);VL.duration=pick(['5','8','8','10']);VL.frames=VL_CONCEPTS[VL.concept].force2?'2':pick(['1','1','2']);videoLabSyncUI();toast('Conceito surpresa criado!');}
+function videoLabSyncUI(){videoLabInit();['frames','env','camera','realism','ratio','duration','motion'].forEach(function(k){document.querySelectorAll('[data-group="vl-'+k+'"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===VL[k])})});renderVideoPrompt();}
+
+// Compatibility with old entry points/buttons elsewhere in the app.
+function copyVideoPrompt(){videoLabCopy('vl-video-output','Prompt de vídeo copiado!');}
+function randomizeVideoSettings(){videoLabRandomizeWithinFamily();}
+function setVideoSource(){return;}
+function openVideoFrom(source){var btn=Array.from(document.querySelectorAll('.tab-btn')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("switchTab('video'")!==-1;});if(btn)switchTab('video',btn);setTimeout(function(){videoLabInit();renderVideoPrompt();},0);}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){videoLabInit();renderVideoPrompt();});else{videoLabInit();renderVideoPrompt();}
 </script>
 </body>
 </html>
