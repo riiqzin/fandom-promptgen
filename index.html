@@ -5134,6 +5134,23 @@ function buildHoletomPrompt() {
 
 
 <div id="video-panel" style="display:none;position:fixed;top:var(--ffh-header-h,78px);left:0;right:0;bottom:0;background:var(--bg);z-index:6;overflow:hidden;">
+  <div class="video-workflow-bar">
+    <div class="video-workflow-label">
+      <span>VÍDEO</span>
+      <small>Escolha como quer começar</small>
+    </div>
+    <div class="video-workflow-tabs">
+      <button id="video-mode-lab" class="video-workflow-btn active" onclick="setVideoWorkflow('lab')">
+        <b>✦ Criar take</b><span>imagem + Flow</span>
+      </button>
+      <button id="video-mode-existing" class="video-workflow-btn" onclick="setVideoWorkflow('existing')">
+        <b>▶ Animar imagem existente</b><span>detecção automática</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="video-workflow-lab" class="video-workflow-view active">
+
   <div class="vl-shell">
     <aside class="vl-sidebar">
       <div class="vl-hero">
@@ -5252,6 +5269,109 @@ function buildHoletomPrompt() {
       </div>
     </main>
   </div>
+  </div>
+
+  <div id="video-workflow-existing" class="video-workflow-view">
+    <div class="ve-shell">
+      <aside class="ve-sidebar">
+        <div class="vl-hero">
+          <div class="vl-kicker">ANIMAR IMAGEM EXISTENTE</div>
+          <div class="vl-title">A imagem já ficou boa?</div>
+          <div class="vl-sub">Use o contexto atual de Gerar ou Avaliações para criar automaticamente um prompt de animação sem reinventar a foto. É a função original da aba Vídeo, preservada para takes simples e confiáveis.</div>
+        </div>
+
+        <div class="ve-context-card">
+          <span>CONTEXTO HERDADO</span>
+          <strong id="video-context">Detectando contexto...</strong>
+          <small>O sistema usa as opções atuais da imagem criada em Gerar/Avaliações para entender pessoa, peça, frente/costas, mãos, produto e tipo de ação.</small>
+        </div>
+
+        <div class="vl-section">
+          <div class="vl-section-title">1 · Origem da imagem</div>
+          <div class="chips">
+            <div class="chip selected" data-group="video-source" data-value="gen" onclick="videoChip(this)">Gerar</div>
+            <div class="chip" data-group="video-source" data-value="reviews" onclick="videoChip(this)">Avaliações</div>
+          </div>
+          <div class="vl-note">Se você entrar pelo botão 🎬 de uma imagem, a origem correta é selecionada automaticamente.</div>
+        </div>
+
+        <div class="vl-section">
+          <div class="vl-section-title">2 · Duração</div>
+          <div class="chips">
+            <div class="chip" data-group="video-duration" data-value="5" onclick="videoChip(this)">5s</div>
+            <div class="chip" data-group="video-duration" data-value="8" onclick="videoChip(this)">8s</div>
+            <div class="chip selected" data-group="video-duration" data-value="10" onclick="videoChip(this)">10s</div>
+          </div>
+        </div>
+
+        <div class="vl-section">
+          <div class="vl-section-title">3 · Movimento</div>
+          <div class="chips">
+            <div class="chip" data-group="video-motion" data-value="minimal" onclick="videoChip(this)">Quase parado</div>
+            <div class="chip selected" data-group="video-motion" data-value="natural" onclick="videoChip(this)">Natural</div>
+            <div class="chip" data-group="video-motion" data-value="dynamic" onclick="videoChip(this)">Mais dinâmico</div>
+          </div>
+        </div>
+
+        <div class="vl-section">
+          <div class="vl-section-title">4 · Câmera</div>
+          <div class="chips">
+            <div class="chip" data-group="video-camera" data-value="locked" onclick="videoChip(this)">Travada</div>
+            <div class="chip selected" data-group="video-camera" data-value="handheld" onclick="videoChip(this)">Handheld</div>
+            <div class="chip" data-group="video-camera" data-value="zoom" onclick="videoChip(this)">Zoom suave</div>
+          </div>
+        </div>
+
+        <div class="vl-section">
+          <div class="vl-section-title">5 · Edição</div>
+          <div class="chips">
+            <div class="chip selected" data-group="video-edit" data-value="continuous" onclick="videoChip(this)">Take contínuo</div>
+            <div class="chip" data-group="video-edit" data-value="cuts" onclick="videoChip(this)">Cortes rápidos</div>
+          </div>
+        </div>
+
+        <div class="vl-actions">
+          <button class="btn btn-ghost" onclick="randomizeVideoSettings()">🎲 Variar movimento</button>
+        </div>
+      </aside>
+
+      <main class="ve-main">
+        <div class="vl-topbar">
+          <div>
+            <div class="vl-kicker">IMAGEM → VÍDEO</div>
+            <div class="vl-current-title">Anime sem reinventar.</div>
+            <div id="video-existing-meta" class="vl-current-meta">Usando o contexto atual da imagem.</div>
+          </div>
+          <div class="vl-top-actions">
+            <button class="btn btn-gold" onclick="copyVideoPrompt()">Copiar prompt</button>
+          </div>
+        </div>
+
+        <div class="ve-output-wrap">
+          <section class="vl-output-card ve-prompt-card">
+            <div class="vl-output-head">
+              <div>
+                <span class="vl-number">▶</span>
+                <strong>Prompt de animação</strong>
+                <small>Use junto da imagem já existente no seu gerador de vídeo.</small>
+              </div>
+              <button class="btn btn-gold" onclick="copyVideoPrompt()">Copiar</button>
+            </div>
+            <pre id="video-output" class="vl-output"></pre>
+          </section>
+
+          <section class="ve-info-card">
+            <div class="ve-info-icon">◎</div>
+            <div>
+              <strong>Quando usar este modo</strong>
+              <p>Quando a imagem já está exatamente como você quer e só precisa ganhar vida: pessoa vestindo, caminhada já sugerida, dupla, mãos segurando a peça, cabide, unboxing, detalhe de tecido ou produto parado.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
 </div>
 
 <div id="library-panel" style="display:none;position:absolute;top:71px;left:0;right:0;bottom:0;background:var(--bg);z-index:5;overflow-y:auto;padding:32px 20px 20px 20px;">
@@ -6291,12 +6411,89 @@ document.addEventListener('DOMContentLoaded',function(){
 #video-panel .chip{font-size:10.5px!important;min-height:29px!important;}
 @media(max-width:1150px){#video-panel .vl-shell{grid-template-columns:330px minmax(0,1fr)}#video-panel .vl-output-card{grid-column:1/-1}.vl-strategy-card{grid-column:1/-1!important;}}
 @media(max-width:820px){#video-panel{overflow-y:auto!important}.vl-shell{display:flex!important;flex-direction:column!important;height:auto!important}.vl-sidebar{overflow:visible!important}.vl-main{overflow:visible!important;height:auto!important}.vl-output-grid{overflow:visible!important}.vl-topbar{align-items:flex-start!important;flex-direction:column!important}.vl-output-card{min-height:300px!important}}
+
+/* ── VIDEO WORKFLOW SWITCH: Video Lab + legacy image animator ── */
+#video-panel{display:flex;flex-direction:column;}
+#video-panel .video-workflow-bar{
+  flex:0 0 66px;min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:0 20px;border-bottom:1px solid rgba(255,255,255,.065);
+  background:rgba(8,9,10,.96);box-shadow:0 10px 28px rgba(0,0,0,.13);position:relative;z-index:4;
+}
+#video-panel .video-workflow-label{display:flex;flex-direction:column;gap:2px;min-width:120px;}
+#video-panel .video-workflow-label>span{font-size:9px;font-weight:850;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
+#video-panel .video-workflow-label>small{font-size:9.5px;color:#5f6266;}
+#video-panel .video-workflow-tabs{
+  display:flex;align-items:center;gap:5px;padding:4px;border:1px solid rgba(255,255,255,.07);
+  background:#0d0f10;border-radius:13px;
+}
+#video-panel .video-workflow-btn{
+  border:0;background:transparent;color:#6e7175;border-radius:9px;min-height:44px;padding:6px 14px;
+  display:flex;flex-direction:column;justify-content:center;gap:1px;cursor:pointer;text-align:left;font:inherit;transition:.16s;
+}
+#video-panel .video-workflow-btn b{font-size:10.5px;font-weight:750;color:inherit;}
+#video-panel .video-workflow-btn span{font-size:8.5px;color:#4f5255;}
+#video-panel .video-workflow-btn:hover{background:rgba(255,255,255,.035);color:#c9c5ba;}
+#video-panel .video-workflow-btn.active{
+  color:var(--gold-light);background:linear-gradient(180deg,rgba(215,182,93,.15),rgba(215,182,93,.07));
+  box-shadow:inset 0 0 0 1px rgba(215,182,93,.18);
+}
+#video-panel .video-workflow-btn.active span{color:#8e7c4f;}
+#video-panel .video-workflow-view{display:none;flex:1;min-height:0;overflow:hidden;}
+#video-panel .video-workflow-view.active{display:block;}
+#video-panel .video-workflow-view>.vl-shell{height:100%;}
+
+/* Existing-image animator */
+#video-panel .ve-shell{height:100%;display:grid;grid-template-columns:370px minmax(0,1fr);overflow:hidden;}
+#video-panel .ve-sidebar{
+  overflow-y:auto;padding:24px 20px 40px;border-right:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg,#0e1012,#090a0b);
+}
+#video-panel .ve-main{
+  height:100%;min-width:0;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(circle at 72% 0%,rgba(215,182,93,.045),transparent 28rem),#090a0b;
+}
+#video-panel .ve-context-card{
+  padding:13px 14px;margin:0 4px 8px;border:1px solid rgba(215,182,93,.16);border-radius:12px;
+  background:linear-gradient(180deg,rgba(215,182,93,.07),rgba(215,182,93,.025));
+  display:flex;flex-direction:column;gap:5px;
+}
+#video-panel .ve-context-card>span{font-size:8px;font-weight:850;letter-spacing:.15em;color:#8d7946;}
+#video-panel .ve-context-card>strong{font-size:11px;line-height:1.45;color:#e4dcc5;font-weight:680;}
+#video-panel .ve-context-card>small{font-size:9px;line-height:1.5;color:#66686a;}
+#video-panel .ve-output-wrap{
+  flex:1;min-height:0;overflow-y:auto;padding:22px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-content:start;
+}
+#video-panel .ve-prompt-card{grid-column:1/-1;min-height:500px;}
+#video-panel .ve-info-card{
+  border:1px solid rgba(255,255,255,.065);border-radius:14px;background:rgba(255,255,255,.018);
+  padding:15px 17px;display:flex;gap:13px;align-items:flex-start;color:#898b8d;
+}
+#video-panel .ve-info-icon{
+  flex:0 0 30px;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:rgba(215,182,93,.075);border:1px solid rgba(215,182,93,.12);color:#c8ae65;font-size:15px;
+}
+#video-panel .ve-info-card strong{display:block;color:#d1cec5;font-size:10.5px;margin-bottom:5px;}
+#video-panel .ve-info-card p{font-size:10px;line-height:1.6;color:#6f7275;margin:0;}
+
+@media(max-width:820px){
+  #video-panel .video-workflow-bar{height:auto;min-height:0;padding:10px 12px;align-items:stretch;flex-direction:column;gap:8px;}
+  #video-panel .video-workflow-label{display:none;}
+  #video-panel .video-workflow-tabs{width:100%;}
+  #video-panel .video-workflow-btn{flex:1;padding:6px 9px;}
+  #video-panel .video-workflow-view{overflow:visible;}
+  #video-panel .ve-shell{display:flex;flex-direction:column;height:auto;min-height:100%;}
+  #video-panel .ve-sidebar{overflow:visible;border-right:0;border-bottom:1px solid rgba(255,255,255,.07);}
+  #video-panel .ve-main{overflow:visible;height:auto;}
+  #video-panel .ve-output-wrap{overflow:visible;}
+}
+
 </style>
 
 <script id="ffh-video-lab-v2-js">
 // ═══════════════════════════════════════════════════════════════
 // FFH VIDEO LAB V2 — image-first concepts + Flow animation prompts
 // ═══════════════════════════════════════════════════════════════
+var VIDEO_WORKFLOW='lab';
 var VL={family:'production',concept:'dtg-print',frames:'1',env:'workshop',camera:'android',realism:'raw',ratio:'9:16',duration:'8',motion:'natural'};
 
 var VL_FAMILIES={
@@ -6414,7 +6611,7 @@ function vlFlowPrompt(){var c=VL_CONCEPTS[VL.concept];var two=VL.frames==='2';re
  'Physics: realistic gravity, cloth inertia, friction, hand contact, object collisions and secondary motion. Hands must keep correct anatomy and grip. No floating objects, no rubber fabric, no body morphing, no object duplication, no disappearing items, no sudden relighting, no background warping and no AI-style melting transitions.',
  'Visual finish: preserve the ordinary real-world look of the source frame. No CGI sheen, no glossy commercial relight, no artificial slow motion unless naturally implied, no text overlays, no added logos and no invented branding.'
  ].join('\n\n');}
-function renderVideoPrompt(){
+function renderVideoLabPrompt(){
  var c=VL_CONCEPTS[VL.concept];if(!c){videoLabInit();return;}
  var title=document.getElementById('vl-current-title'),meta=document.getElementById('vl-current-meta'),note=document.getElementById('vl-concept-note');
  if(title)title.textContent=c.name;if(meta)meta.textContent=(VL_FAMILIES[c.family].name)+' · '+VL_RATIO_LABEL()+' · '+VL_REALISM_LABEL[VL.realism]+' · '+VL.duration+'s';if(note)note.textContent=c.note;
@@ -6428,15 +6625,114 @@ function videoLabCopy(id,msg){var el=document.getElementById(id);if(!el)return;n
 function videoLabCopyAll(){var arr=['IMAGE 1\n\n'+vlImagePrompt()];if(VL.frames==='2')arr.push('IMAGE 2 / END FRAME\n\n'+vlEndPrompt());arr.push('GOOGLE FLOW\n\n'+vlFlowPrompt());navigator.clipboard.writeText(arr.join('\n\n━━━━━━━━━━━━━━━━━━━━\n\n')).then(function(){toast('Pacote completo copiado!')});}
 function videoLabRandomizeWithinFamily(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));if(VL_CONCEPTS[VL.concept].force2)VL.frames='2';videoLabSyncUI();toast('Nova combinação criada!');}
 function videoLabSurprise(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.family=pick(Object.keys(VL_FAMILIES));VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));VL.ratio=pick(['9:16','9:16','4:5','1:1']);VL.duration=pick(['5','8','8','10']);VL.frames=VL_CONCEPTS[VL.concept].force2?'2':pick(['1','1','2']);videoLabSyncUI();toast('Conceito surpresa criado!');}
-function videoLabSyncUI(){videoLabInit();['frames','env','camera','realism','ratio','duration','motion'].forEach(function(k){document.querySelectorAll('[data-group="vl-'+k+'"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===VL[k])})});renderVideoPrompt();}
 
-// Compatibility with old entry points/buttons elsewhere in the app.
-function copyVideoPrompt(){videoLabCopy('vl-video-output','Prompt de vídeo copiado!');}
-function randomizeVideoSettings(){videoLabRandomizeWithinFamily();}
-function setVideoSource(){return;}
-function openVideoFrom(source){var btn=Array.from(document.querySelectorAll('.tab-btn')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("switchTab('video'")!==-1;});if(btn)switchTab('video',btn);setTimeout(function(){videoLabInit();renderVideoPrompt();},0);}
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){videoLabInit();renderVideoPrompt();});else{videoLabInit();renderVideoPrompt();}
+function syncLegacyVideoUI(){
+  [
+    ['video-source',VIDEO.source],
+    ['video-duration',VIDEO.duration],
+    ['video-motion',VIDEO.motion],
+    ['video-camera',VIDEO.camera],
+    ['video-edit',VIDEO.edit]
+  ].forEach(function(pair){
+    document.querySelectorAll('[data-group="'+pair[0]+'"]').forEach(function(x){
+      x.classList.toggle('selected',x.dataset.value===pair[1]);
+    });
+  });
+}
+
+function renderExistingVideoPrompt(){
+  var out=document.getElementById('video-output');
+  var ctx=document.getElementById('video-context');
+  var meta=document.getElementById('video-existing-meta');
+  var c=currentVideoContext();
+  if(out)out.textContent=buildVideoPrompt();
+  if(ctx)ctx.textContent='Detectado: '+c.label;
+  if(meta)meta.textContent=(VIDEO.source==='reviews'?'Avaliações':'Gerar')+' · '+VIDEO.duration+'s · '+videoSelectedLabel('video-motion',VIDEO.motion)+' · '+videoSelectedLabel('video-camera',VIDEO.camera);
+  syncLegacyVideoUI();
+}
+
+function renderVideoPrompt(){
+  if(VIDEO_WORKFLOW==='existing') renderExistingVideoPrompt();
+  else renderVideoLabPrompt();
+}
+
+function setVideoWorkflow(mode){
+  VIDEO_WORKFLOW=mode==='existing'?'existing':'lab';
+  var lab=document.getElementById('video-workflow-lab');
+  var existing=document.getElementById('video-workflow-existing');
+  var labBtn=document.getElementById('video-mode-lab');
+  var existingBtn=document.getElementById('video-mode-existing');
+  if(lab)lab.classList.toggle('active',VIDEO_WORKFLOW==='lab');
+  if(existing)existing.classList.toggle('active',VIDEO_WORKFLOW==='existing');
+  if(labBtn)labBtn.classList.toggle('active',VIDEO_WORKFLOW==='lab');
+  if(existingBtn)existingBtn.classList.toggle('active',VIDEO_WORKFLOW==='existing');
+  renderVideoPrompt();
+}
+
+function setVideoSource(source){
+  VIDEO.source=source==='reviews'?'reviews':'gen';
+  syncLegacyVideoUI();
+  if(VIDEO_WORKFLOW==='existing')renderExistingVideoPrompt();
+}
+
+// Buttons 🎬 from Gerar/Avaliações should behave like the original feature:
+// open Video directly in "Animar imagem existente", inheriting that source.
+function openVideoFrom(source){
+  setVideoSource(source);
+  setVideoWorkflow('existing');
+  var btn=Array.from(document.querySelectorAll('.tab-btn')).find(function(b){
+    return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("switchTab('video'")!==-1;
+  });
+  if(btn)switchTab('video',btn);
+  else{
+    var vp=document.getElementById('video-panel');
+    if(vp)vp.style.display='flex';
+    renderVideoPrompt();
+  }
+}
+
+function copyVideoPrompt(){
+  var txt=VIDEO_WORKFLOW==='existing'?buildVideoPrompt():vlFlowPrompt();
+  navigator.clipboard.writeText(txt).then(function(){toast('Prompt de vídeo copiado!');});
+}
+
+function randomizeVideoSettings(){
+  if(VIDEO_WORKFLOW!=='existing'){
+    videoLabRandomizeWithinFamily();
+    return;
+  }
+  var pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+  VIDEO.motion=pick(['minimal','natural','natural','dynamic']);
+  VIDEO.camera=pick(['locked','handheld','handheld','zoom']);
+  VIDEO.edit=pick(['continuous','continuous','cuts']);
+  syncLegacyVideoUI();
+  renderExistingVideoPrompt();
+  toast('Movimento variado!');
+}
+
+function videoLabSyncUI(){
+  videoLabInit();
+  ['frames','env','camera','realism','ratio','duration','motion'].forEach(function(k){
+    document.querySelectorAll('[data-group="vl-'+k+'"]').forEach(function(x){
+      x.classList.toggle('selected',x.dataset.value===VL[k]);
+    });
+  });
+  renderVideoPrompt();
+}
+
+function initVideoWorkflows(){
+  videoLabInit();
+  syncLegacyVideoUI();
+  setVideoWorkflow(VIDEO_WORKFLOW);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initVideoWorkflows);
+}else{
+  initVideoWorkflows();
+}
+
 </script>
 </body>
 </html>
