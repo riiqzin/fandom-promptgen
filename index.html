@@ -5184,18 +5184,48 @@ function buildHoletomPrompt() {
         <div id="vl-env-chips" class="chips"></div>
       </div>
 
+      <div id="vl-home-section" class="vl-section vl-smart-section" style="display:none;">
+        <div class="vl-section-title">5 · Contexto da casa <span class="vl-smart-badge">quando aplicável</span></div>
+        <div id="vl-home-chips" class="chips"></div>
+        <div class="vl-note">Refina o nível e a sensação da casa sem transformar o cenário em set publicitário.</div>
+      </div>
+
+      <div id="vl-person-section" class="vl-section vl-smart-section" style="display:none;">
+        <div class="vl-section-title">6 · Pessoa <span class="vl-smart-badge">quando aparece</span></div>
+        <div class="vl-mini-label">Quem veste</div>
+        <div id="vl-person-chips" class="chips"></div>
+        <div class="vl-mini-label">Idade</div>
+        <div id="vl-age-chips" class="chips"></div>
+      </div>
+
+      <div id="vl-appearance-section" class="vl-section vl-smart-section" style="display:none;">
+        <div class="vl-section-title">7 · Aparência da pessoa</div>
+        <div class="vl-mini-label">Traços</div>
+        <div id="vl-traits-chips" class="chips"></div>
+        <div class="vl-mini-label">Corpo</div>
+        <div id="vl-body-chips" class="chips"></div>
+        <div class="vl-mini-label">Estilo pessoal</div>
+        <div id="vl-grooming-chips" class="chips"></div>
+      </div>
+
+      <div id="vl-outfit-section" class="vl-section vl-smart-section" style="display:none;">
+        <div class="vl-section-title">8 · Estilo da roupa</div>
+        <div id="vl-outfit-chips" class="chips"></div>
+        <div class="vl-note">A camiseta continua sendo a peça principal; o restante do look segue a vibe escolhida.</div>
+      </div>
+
       <div class="vl-section">
-        <div class="vl-section-title">5 · Linguagem de câmera</div>
+        <div class="vl-section-title">9 · Linguagem de câmera</div>
         <div id="vl-camera-chips" class="chips"></div>
       </div>
 
       <div class="vl-section">
-        <div class="vl-section-title">6 · Realismo</div>
+        <div class="vl-section-title">10 · Realismo</div>
         <div id="vl-realism-chips" class="chips"></div>
       </div>
 
       <div class="vl-section">
-        <div class="vl-section-title">7 · Formato + duração</div>
+        <div class="vl-section-title">11 · Formato + duração</div>
         <div class="vl-mini-label">Formato</div>
         <div class="chips">
           <div class="chip selected" data-group="vl-ratio" data-value="9:16" onclick="videoLabChip(this)">9:16</div>
@@ -5212,7 +5242,7 @@ function buildHoletomPrompt() {
       </div>
 
       <div class="vl-section">
-        <div class="vl-section-title">8 · Movimento do vídeo</div>
+        <div class="vl-section-title">12 · Movimento do vídeo</div>
         <div id="vl-motion-chips" class="chips"></div>
       </div>
 
@@ -6382,6 +6412,9 @@ document.addEventListener('DOMContentLoaded',function(){
 #video-panel .vl-section{padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.055);}
 #video-panel .vl-section-title{font-size:9px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:#77746b;margin-bottom:10px;}
 #video-panel .vl-mini-label{font-size:9px;color:#55585b;text-transform:uppercase;letter-spacing:.12em;margin:10px 0 7px;font-weight:800;}
+#video-panel .vl-smart-section{background:linear-gradient(180deg,rgba(215,182,93,.025),transparent);}
+#video-panel .vl-smart-badge{display:inline-flex;vertical-align:middle;margin-left:6px;padding:2px 6px;border-radius:999px;border:1px solid rgba(215,182,93,.14);background:rgba(215,182,93,.055);color:#9b874f;font-size:7px;letter-spacing:.08em;}
+#video-panel .vl-smart-section .vl-mini-label:first-of-type{margin-top:2px;}
 #video-panel .vl-family-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
 #video-panel .vl-family{min-height:54px;border:1px solid rgba(255,255,255,.065);background:#121416;color:#8b8d90;border-radius:11px;padding:9px 10px;cursor:pointer;text-align:left;transition:.16s;font:inherit;}
 #video-panel .vl-family:hover{border-color:rgba(215,182,93,.20);color:#d8d2c2;transform:translateY(-1px);}
@@ -6496,7 +6529,7 @@ document.addEventListener('DOMContentLoaded',function(){
 // FFH VIDEO LAB V2 — image-first concepts + Flow animation prompts
 // ═══════════════════════════════════════════════════════════════
 var VIDEO_WORKFLOW='lab';
-var VL={family:'production',concept:'dtg-print',frames:'1',env:'workshop',camera:'android',realism:'raw',ratio:'9:16',duration:'8',motion:'natural'};
+var VL={family:'production',concept:'dtg-print',frames:'1',env:'workshop',home:'media',person:'auto',age:'auto',traits:'auto',body:'auto',grooming:'auto',outfit:'auto',camera:'android',realism:'raw',ratio:'9:16',duration:'8',motion:'natural'};
 
 var VL_FAMILIES={
  production:{name:'Produção',icon:'🖨️',sub:'processo real'},
@@ -6511,15 +6544,103 @@ var VL_FAMILIES={
 
 var VL_ENV={
  workshop:'small Brazilian garment-printing workshop, functional and slightly cluttered, real equipment, concrete or tiled floor, fluorescent ambient light mixed with daylight',
- bedroom:'modest middle-class Brazilian bedroom, lived-in bed, ordinary furniture, natural window light, genuine home atmosphere',
- living:'ordinary Brazilian apartment living room, practical furniture, subtle everyday clutter, believable middle-class environment',
+ bedroom:'real Brazilian bedroom with a lived-in bed, believable room layout, natural window light and genuine home atmosphere; the exact socioeconomic level and furniture quality are defined separately by the Residential context setting',
+ living:'real Brazilian living room or apartment social area with a believable lived-in layout and subtle everyday clutter; the exact socioeconomic level and furniture quality are defined separately by the Residential context setting',
  street:'real São Paulo sidewalk or quiet urban street, ordinary storefronts and parked cars, natural city texture, no luxury-fashion staging',
  studio:'simple low-budget creator setup with neutral wall or paper backdrop, one practical soft light, visible real-world imperfections, not a glossy commercial studio',
  stockroom:'small apparel stockroom or packing area with shelves, cardboard boxes, poly mailers and folded garments, practical e-commerce operation',
  laundromat:'clean neighborhood laundromat with stainless machines and fluorescent lighting, believable everyday location',
- balcony:'Brazilian apartment balcony with soft daylight, city buildings out of focus, ordinary residential feeling'
+ balcony:'Brazilian residential balcony with soft daylight and city buildings out of focus; the exact socioeconomic level and finishes are defined separately by the Residential context setting'
 };
 var VL_ENV_LABEL={workshop:'Oficina de estampa',bedroom:'Quarto brasileiro',living:'Sala / apartamento',street:'Rua em SP',studio:'Setup creator',stockroom:'Estoque / embalagem',laundromat:'Lavanderia',balcony:'Varanda'};
+
+var VL_HOME={
+ simples:'Residential context: simple Brazilian home with practical inexpensive furniture and finishes, ordinary household objects and visible day-to-day use. Keep it dignified and believable, never poverty-coded or exaggerated.',
+ media:'Residential context: ordinary Brazilian middle-class home or apartment with practical furniture, common electronics and everyday objects. Clean enough to feel normal but clearly lived-in.',
+ 'media-organizada':'Residential context: tidy Brazilian middle-class home with practical contemporary furniture, organized surfaces and normal household objects. It feels cared for rather than staged.',
+ 'media-alta':'Residential context: comfortable upper-middle-class Brazilian apartment or house with better-quality finishes, contemporary furniture and subtle decor, while still naturally inhabited.',
+ alta:'Residential context: upscale Brazilian apartment or house with spacious contemporary interiors and higher-quality materials, but still naturally inhabited. Avoid luxury-hotel or architecture-magazine styling.'
+};
+var VL_HOME_LABEL={simples:'Casa simples',media:'Classe média','media-organizada':'Classe média organizada','media-alta':'Classe média alta',alta:'Alto padrão'};
+
+var VL_PERSON={
+ auto:'Use one believable Brazilian young adult whose gender and individual appearance feel naturally suited to the scene. The person must look like a real customer or creator rather than professional advertising talent.',
+ homem:'The wearer is a Brazilian man. He must look like a real everyday customer or creator rather than a professional model, actor or advertising cast member. Preserve realistic skin texture, natural asymmetry and ordinary human imperfections.',
+ mulher:'The wearer is a Brazilian woman. She must look like a real everyday customer or creator rather than a professional model, actress or advertising cast member. Preserve realistic skin texture, natural asymmetry and ordinary human imperfections; no beauty-campaign retouching.'
+};
+var VL_PERSON_LABEL={auto:'Automático',homem:'Homem',mulher:'Mulher'};
+
+var VL_AGE={
+ auto:'Age should feel naturally plausible for a young-adult social creator, roughly within 18-35, without making age a visual theme.',
+ '18-21':'Age: approximately 18-21 years old, with believable youthful proportions and natural skin texture.',
+ '22-27':'Age: approximately 22-27 years old.',
+ '28-35':'Age: approximately 28-35 years old, with subtle adult facial maturity and natural skin texture.',
+ '36-45':'Age: approximately 36-45 years old, with realistic facial lines and age-appropriate appearance.'
+};
+var VL_AGE_LABEL={auto:'Automática','18-21':'18–21','22-27':'22–27','28-35':'28–35','36-45':'36–45'};
+
+var VL_TRAITS={
+ auto:'Facial appearance and ancestry should vary naturally and individually, without looking deliberately cast for a campaign.',
+ 'br-misto':'Appearance: naturally mixed Brazilian features, believable and regionally ambiguous, with no exaggerated ethnic cues or stereotyped facial markers.',
+ mediterraneo:'Appearance: Brazilian person with subtle Mediterranean / Southern European facial influence, naturally dark or brown hair, expressive brows and believable light-to-olive skin variation. Avoid caricature.',
+ italiana:'Appearance: Brazilian person with noticeable Italian ancestry in the facial features, especially a believable Southern/Central Italian family background. Keep it individual and natural, never costume-like or stereotyped.',
+ 'afro-br':'Appearance: Afro-Brazilian features with naturally varied brown-to-deep skin tones, realistic hair texture and individual facial characteristics. Avoid beauty-campaign perfection.',
+ 'leste-asiatico':'Appearance: Brazilian person with natural East Asian ancestry, realistic individual facial features, natural hair texture and believable Brazilian styling. Avoid caricature or costume cues.'
+};
+var VL_TRAITS_LABEL={auto:'Automático','br-misto':'Brasileiro misto',mediterraneo:'Mediterrâneo',italiana:'Ascendência italiana','afro-br':'Afro-brasileiro','leste-asiatico':'Leste asiático'};
+
+var VL_BODY={
+ auto:'Body type should be naturally proportionate and individually plausible for the selected person; do not default to an extremely thin fashion-model body.',
+ magro:'Body type: naturally slim, with realistic everyday proportions and no fashion-model exaggeration.',
+ 'magro-definido':'Body type: slim and lightly defined, with subtle natural muscle tone rather than a fitness-model physique.',
+ medio:'Body type: average everyday build with realistic proportions, neither especially thin nor muscular.',
+ 'em-forma':'Body type: naturally fit, with some visible muscle tone and healthy everyday proportions, but not fitness-model lean or exaggerated.',
+ atletico:'Body type: athletic and visibly trained, with realistic muscle development and body fat, still believable as an ordinary person rather than a sports campaign model.',
+ musculoso:'Body type: naturally muscular from regular training, with developed arms and shoulders but no bodybuilder proportions, extreme vascularity or staged fitness appearance.',
+ encorpado:'Body type: broader and more solid everyday build, with natural body volume and realistic proportions.',
+ 'plus-size':'Body type: naturally plus-size, with realistic weight distribution, fabric tension, folds and proportions. Treat the body casually and naturally, not as a campaign theme.'
+};
+var VL_BODY_LABEL={auto:'Automático',magro:'Magro','magro-definido':'Magro definido',medio:'Médio','em-forma':'Em forma',atletico:'Atlético',musculoso:'Musculoso',encorpado:'Encorpado','plus-size':'Plus size'};
+
+var VL_GROOMING={
+ auto:'Personal appearance should feel naturally individual and appropriate to the person, with believable hair, grooming and optional subtle accessories.',
+ casual:'Personal appearance: very casual everyday grooming, slightly imperfect hair, minimal accessories and no deliberate styling for the video.',
+ normal:'Personal appearance: ordinary grooming and hairstyle, clean but unremarkable, with the kind of effort a person normally makes on a regular day.',
+ arrumado:'Personal appearance: noticeably well-groomed hair and a few subtle accessories, as if already dressed to leave home, but still not styled for a photoshoot.',
+ vaidoso:'Personal appearance: more carefully groomed hair, subtle jewelry or accessories and intentional personal style, while remaining believable as an ordinary person.',
+ alternativo:'Personal appearance: understated alternative styling such as a discreet piercing, small tattoos, rings, unconventional haircut or dyed detail. Keep it natural rather than costume-like.'
+};
+var VL_GROOMING_LABEL={auto:'Automático',casual:'Bem casual',normal:'Normal',arrumado:'Arrumado',vaidoso:'Vaidoso',alternativo:'Alternativo'};
+
+var VL_OUTFIT={
+ auto:'Outfit: choose natural everyday lower-body clothing, shoes and accessories freely around the t-shirt. The styling should feel personally owned and incidental, not deliberately art-directed.',
+ casual:'Outfit: ordinary casual styling with straight or relaxed jeans, simple trousers or shorts and everyday sneakers; very few accessories.',
+ street:'Outfit: relaxed São Paulo streetwear with baggy jeans, jorts or cargo pants, casual sneakers and at most one or two subtle accessories.',
+ baggy:'Outfit: very relaxed baggy denim or wide cargo/parachute pants with ordinary street sneakers. Keep the silhouette loose but believable for everyday youth streetwear.',
+ y2k:'Outfit: subtle Y2K-influenced everyday styling with wide or flare denim, jorts, retro track pants or relaxed cargo pieces and simple sneakers. Do not turn it into a costume.',
+ skater:'Outfit: casual skater-inspired look with loose denim or jorts, worn-in sneakers and perhaps a cap. Clothing looks personally owned and repeatedly worn.',
+ esportivo:'Outfit: relaxed sporty everyday clothing such as track pants, sweatpants, leggings or athletic shorts with ordinary sneakers. Not fitness-influencer styling.',
+ minimal:'Outfit: clean minimal everyday styling with neutral straight or wide trousers, simple sneakers and almost no accessories.',
+ arrumado:'Outfit: slightly more polished casual styling with clean trousers or straight jeans, good everyday shoes and one subtle accessory; still clearly personal clothing.',
+ noite:'Outfit: casual going-out styling for a bar, cinema or dinner, using darker jeans/trousers or a simple skirt and restrained accessories; not party-influencer styling.'
+};
+var VL_OUTFIT_LABEL={auto:'Automático',casual:'Casual',street:'Streetwear',baggy:'Baggy',y2k:'Y2K',skater:'Skater',esportivo:'Esportivo',minimal:'Clean / minimal',arrumado:'Mais arrumado',noite:'Noite / rolê'};
+
+var VL_PERSON_CONCEPTS=['mirror-reveal','back-turn','walk-pass','sit-adjust','hanger-to-wearer','folded-to-worn','friend-filming','selfie-review','doorway-reveal'];
+function vlUsesPerson(){return VL_PERSON_CONCEPTS.indexOf(VL.concept)!==-1;}
+function vlUsesHome(){return ['bedroom','living','balcony'].indexOf(VL.env)!==-1;}
+function vlHomeText(){return vlUsesHome()?(VL_HOME[VL.home]||VL_HOME.media):'';}
+function vlPersonText(){if(!vlUsesPerson())return '';return ['PERSON / CASTING PROFILE — keep this exact profile consistent across every frame where the wearer appears.',VL_PERSON[VL.person],VL_AGE[VL.age],VL_TRAITS[VL.traits],VL_BODY[VL.body],VL_GROOMING[VL.grooming],VL_OUTFIT[VL.outfit],'Casting realism: the person must feel naturally present in the location, not specially selected for an ad. Do not beautify, slim, bulk up, age-shift or change gender between frames.'].filter(Boolean).join(' ');}
+function vlPersonalizationText(includeEnv){var parts=[];if(includeEnv){parts.push('SCENE CONTINUITY: '+VL_ENV[VL.env]+'.');if(vlHomeText())parts.push(vlHomeText());}if(vlPersonText())parts.push(vlPersonText());return parts.filter(Boolean).join(' ');}
+function vlRenderExtraControls(){
+ var render=function(id,obj,labels,key){var el=document.getElementById(id);if(!el)return;el.innerHTML=Object.keys(obj).map(function(k){return '<div class="chip'+(VL[key]===k?' selected':'')+'" data-group="vl-'+key+'" data-value="'+k+'" onclick="videoLabChip(this)">'+labels[k]+'</div>';}).join('');};
+ render('vl-home-chips',VL_HOME,VL_HOME_LABEL,'home');render('vl-person-chips',VL_PERSON,VL_PERSON_LABEL,'person');render('vl-age-chips',VL_AGE,VL_AGE_LABEL,'age');render('vl-traits-chips',VL_TRAITS,VL_TRAITS_LABEL,'traits');render('vl-body-chips',VL_BODY,VL_BODY_LABEL,'body');render('vl-grooming-chips',VL_GROOMING,VL_GROOMING_LABEL,'grooming');render('vl-outfit-chips',VL_OUTFIT,VL_OUTFIT_LABEL,'outfit');
+}
+function videoLabUpdatePersonalizationUI(){
+ var showPerson=vlUsesPerson(),showHome=vlUsesHome();
+ [['vl-home-section',showHome],['vl-person-section',showPerson],['vl-appearance-section',showPerson],['vl-outfit-section',showPerson]].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)el.style.display=pair[1]?'block':'none';});
+}
+
 
 var VL_CAMERA={
  android:'ordinary mid-range Android smartphone camera, natural auto-exposure, modest dynamic range, slight digital noise, restrained sharpening and imperfect autofocus',
@@ -6549,7 +6670,7 @@ var VL_MOTION_LABEL={minimal:'Mínimo',natural:'Natural',active:'Ação clara',r
 function vlBaseImage(){return 'Use the attached t-shirt image as the exact garment reference. Preserve the graphic artwork perfectly: identical illustration, typography, colors, placement, proportions and scale. Preserve the real garment color and cut. The print must behave like ink on fabric, following folds, tension, perspective and occlusion naturally; never float above the cloth, never become a sticker, and never redesign or simplify the artwork.';}
 function vlRatio(){return 'Image ratio: '+VL.ratio+'. Compose for a paid-social video frame with the shirt or its print immediately understandable on a phone screen.';}
 function vlLook(){return 'Capture style: '+VL_CAMERA[VL.camera]+'. Realism direction: '+VL_REALISM[VL.realism]+'. No beauty filter, no fake HDR glow, no cinematic teal-orange grade, no impossible depth of field, no overly perfect surfaces.';}
-function vlEnv(){return 'Location: '+VL_ENV[VL.env]+'.';}
+function vlEnv(){return 'Location: '+VL_ENV[VL.env]+'. '+vlHomeText();}
 
 var VL_CONCEPTS={
  'dtg-print':{family:'production',name:'DTG imprimindo a camiseta',tag:'PROCESSO',note:'A própria máquina vira o hook. Ótimo para mostrar que a peça está realmente sendo produzida.',strategy:'Hook de processo / bastidores. Funciona bem nos primeiros 1–2 segundos antes de cortar para alguém vestindo a peça.',start:function(){return 'Ultra-realistic close smartphone photograph inside a real garment-printing workshop. A DTG printer is actively printing the attached artwork directly onto the front panel of the exact t-shirt, which is correctly mounted flat on the printer platen. The print head carriage is positioned above the shirt, with a portion of the artwork already deposited and another portion still being printed. Show plausible DTG hardware, platen, carriage rails and ink-printing geometry; no fantasy machinery. The garment remains the hero and the artwork must already match the reference exactly where printed. Camera is close at a slight three-quarter angle so both the moving print head area and the emerging graphic are clearly readable. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same DTG workshop, same printer, same t-shirt and exact camera family. The printing pass has just finished. The full attached graphic is now complete on the t-shirt lying flat on the platen. The carriage has moved slightly aside, revealing the finished print clearly. Keep equipment, garment position, lighting and perspective consistent with the initial frame. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Animate the real DTG printing process. The carriage travels laterally in short controlled passes while the platen and shirt remain physically stable. The printed artwork appears only through the advancing print-head coverage, never by magical dissolving or morphing. Add tiny machine vibration, realistic carriage acceleration/deceleration and subtle smartphone hand jitter. Ink stays bonded to the fabric and the graphic remains exact.'},
@@ -6577,7 +6698,7 @@ var VL_CONCEPTS={
  'fabric-scrunch':{family:'tactile',name:'Amassando e soltando tecido',tag:'DETALHE',note:'Teste visual de tecido feito por mãos.',strategy:'Take de textura com ação clara, ótimo para copy de qualidade.',start:function(){return 'Tight smartphone close-up of hands gently gathering a section of the exact reference shirt fabric beside or partly over the graphic. Cotton bunches naturally between fingers. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same hands and garment after releasing the gathered fabric. It has relaxed with a few soft residual wrinkles; graphic remains exact and physically printed. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Hands compress a small section once, hold briefly, then release. Fabric unfolds under its own stiffness and gravity with residual wrinkles.'},
 
  'package-to-shirt':{family:'transition',name:'Pacote fechado → camiseta aberta',tag:'2 FRAMES',note:'Um dos melhores testes para start/end frame: início e fim são claros e relacionados.',strategy:'Transição principal de unboxing. Recomendo usar explicitamente o modo 2 imagens.',force2:true,start:function(){return 'Top-down smartphone frame of a closed delivered apparel package resting on an ordinary bed. Hands are touching the package, about to open it. The attached shirt itself is not yet visible except perhaps a believable tiny glimpse through transparent internal packaging; do not invent the artwork on the outside. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same bed, camera angle and lighting. The opened packaging now sits at the side and the exact attached t-shirt is fully unfolded on the bed, graphic centered and clearly visible. Hands rest naturally near the edges. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Create one continuous real-time unboxing progression from the closed package to the shirt laid out. Hands open, remove and unfold the garment with plausible intermediate states. Do not dissolve, teleport, morph or magically replace the package with the shirt.'},
- 'hanger-to-wearer':{family:'transition',name:'Cabide → pessoa vestindo',tag:'2 FRAMES',note:'Dois frames ajudam o Flow a entender o destino. O frame final prioriza caimento bonito, presença corporal e uma ação UGC natural em vez de uma pose parada.',strategy:'Use como transformação de produto → look. O objetivo final é fazer a camiseta parecer desejável quando vestida, sem perder o realismo de conteúdo caseiro.',force2:true,start:function(){return 'The exact reference t-shirt hangs on a simple hanger held by a person whose body is mostly out of frame. Garment faces camera in a real bedroom or creator setup. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same room, same lighting, same camera family and same person from IMAGE 1, now naturally wearing the exact reference t-shirt in roughly the same central position previously occupied by the hanging garment. The final frame must feel visually desirable and flattering, like an authentic creator casually showing how good the shirt looks once worn, NOT like a neutral clothing fit reference. The person has a healthy, proportionate, naturally fit build with enough shoulder and upper-body structure for the t-shirt to drape attractively; avoid an extremely thin, frail or mannequin-like body type. Style the shirt with simple dark relaxed-fit or straight-leg pants when visible, creating a believable modern streetwear look without distracting from the graphic. The t-shirt must sit attractively on the shoulders, sleeves and torso with natural fabric volume and realistic drape. POSE: do not use a straight passport-photo stance with both arms hanging symmetrically. Use a relaxed creator-style pose with the torso angled about 10–15 degrees, body weight shifted naturally onto one leg, one shoulder subtly lower than the other, one hand casually adjusting or lightly pinching the lower hem of the t-shirt, and the other arm relaxed naturally or resting near a pants pocket. Keep a slight natural bend through the elbows and torso. The pose should feel comfortable, confident and unforced while keeping the full graphic clearly readable. The image should communicate that the shirt looks genuinely good when worn, while still feeling homemade and realistic. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Do not simply morph from IMAGE 1 into IMAGE 2 and then leave the wearer frozen. Build a short believable UGC action sequence. FIRST MOMENT: the person casually holds the shirt on the hanger toward the camera for a brief moment, with tiny natural garment movement from the hand and gravity. TRANSITION: bring the hanging shirt toward the torso and slightly toward the camera so the garment naturally covers a large portion of the lens/body; use this real occlusion as the transition point into the same person already wearing the shirt. Do not show an impossible dressing process. No liquid morphing, body transformation, shirt passing through the body or magical cloth movement. FINAL UGC ACTION: after the shirt is worn, the person keeps moving naturally instead of freezing. They settle into the shirt with a small weight shift, a slight torso angle, one brief hem adjustment or light hem pull-and-release, subtle shoulder movement, natural fabric settling, and a small confident body turn of about 10–15 degrees before easing back. The other hand may naturally move near or into a pants pocket. Keep the movement relaxed and spontaneous, like someone casually showing a new shirt to a friend or phone camera, not modeling on a runway. Keep the graphic facing the camera and clearly readable throughout the final portion. Add realistic secondary movement in sleeves, hem and folds caused by the gesture and body turn.'},
+ 'hanger-to-wearer':{family:'transition',name:'Cabide → pessoa vestindo',tag:'2 FRAMES',note:'Dois frames ajudam o Flow a entender o destino. O frame final prioriza caimento bonito, presença corporal e uma ação UGC natural em vez de uma pose parada.',strategy:'Use como transformação de produto → look. O objetivo final é fazer a camiseta parecer desejável quando vestida, sem perder o realismo de conteúdo caseiro.',force2:true,start:function(){return 'The exact reference t-shirt hangs on a simple hanger held by a person whose body is mostly out of frame. Garment faces camera naturally in the selected real-world location. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same room, same lighting, same camera family and same person from IMAGE 1, now naturally wearing the exact reference t-shirt in roughly the same central position previously occupied by the hanging garment. The final frame must feel visually desirable and flattering, like an authentic creator casually showing how good the shirt looks once worn, NOT like a neutral clothing fit reference. Use the selected wearer profile exactly; do not override the chosen gender, age, body type, grooming or outfit style. The t-shirt must sit attractively and realistically on that specific body, with natural shoulder placement, sleeve behavior, torso volume and fabric drape. The rest of the outfit must follow the selected style without competing visually with the graphic. POSE: do not use a straight passport-photo stance with both arms hanging symmetrically. Use a relaxed creator-style pose with the torso angled about 10–15 degrees, body weight shifted naturally onto one leg, one shoulder subtly lower than the other, one hand casually adjusting or lightly pinching the lower hem of the t-shirt, and the other arm relaxed naturally or resting near a pants pocket. Keep a slight natural bend through the elbows and torso. The pose should feel comfortable, confident and unforced while keeping the full graphic clearly readable. The image should communicate that the shirt looks genuinely good when worn, while still feeling homemade and realistic. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Do not simply morph from IMAGE 1 into IMAGE 2 and then leave the wearer frozen. Build a short believable UGC action sequence. FIRST MOMENT: the person casually holds the shirt on the hanger toward the camera for a brief moment, with tiny natural garment movement from the hand and gravity. TRANSITION: bring the hanging shirt toward the torso and slightly toward the camera so the garment naturally covers a large portion of the lens/body; use this real occlusion as the transition point into the same person already wearing the shirt. Do not show an impossible dressing process. No liquid morphing, body transformation, shirt passing through the body or magical cloth movement. FINAL UGC ACTION: after the shirt is worn, the person keeps moving naturally instead of freezing. They settle into the shirt with a small weight shift, a slight torso angle, one brief hem adjustment or light hem pull-and-release, subtle shoulder movement, natural fabric settling, and a small confident body turn of about 10–15 degrees before easing back. The other hand may naturally move near or into a pants pocket. Keep the movement relaxed and spontaneous, like someone casually showing a new shirt to a friend or phone camera, not modeling on a runway. Keep the graphic facing the camera and clearly readable throughout the final portion. Add realistic secondary movement in sleeves, hem and folds caused by the gesture and body turn.'},
  'folded-to-worn':{family:'transition',name:'Dobrada → vestida no espelho',tag:'2 FRAMES',note:'Frame inicial de produto, final de uso; ótimo para anúncio de transformação.',strategy:'Bom para mostrar produto + fit num único take curto.',force2:true,start:function(){return 'POV smartphone frame of hands holding the exact reference t-shirt folded in front of a bedroom mirror. The graphic is partially visible and the mirror shows only a vague cropped body behind it. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same mirror, room and person, now wearing the exact reference t-shirt and holding the phone for a casual mirror shot. Match the garment and graphic exactly; preserve room continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Use the folded shirt moving close to the lens/mirror as a natural full-frame occlusion, then emerge with the same person wearing it. Keep transition brief and physically motivated rather than a digital morph.'},
 
  'friend-filming':{family:'social',name:'Amigo filmando o look',tag:'UGC',note:'Parece um frame aleatório gravado por outra pessoa.',strategy:'Menos cara de anúncio e mais cara de vídeo encontrado no feed.',start:function(){return 'Casual smartphone frame filmed by a friend. A person wearing the exact reference shirt is mid-conversation or casually adjusting their outfit, not posing. Slightly imperfect framing, ordinary environment, spontaneous social-video feel. '+vlBaseImage()+' '+vlEnv()+' '+vlLook()+' '+vlRatio();},end:function(){return 'Same candid moment a few seconds later: small posture shift, brief glance away or tiny shirt adjustment, preserving person, shirt, scene and framing continuity. '+vlBaseImage()+' '+vlLook()+' '+vlRatio();},video:'Animate like a friend kept recording: subtle breathing, one natural gesture, tiny handheld corrections and an imperfect focus/exposure response. No influencer choreography.'},
@@ -6595,19 +6716,22 @@ function videoLabInit(){
  fg.innerHTML=Object.keys(VL_FAMILIES).map(function(k){var f=VL_FAMILIES[k];return '<button class="vl-family'+(VL.family===k?' active':'')+'" onclick="videoLabSetFamily(\''+k+'\')"><b>'+f.icon+' '+f.name+'</b><span>'+f.sub+'</span></button>';}).join('');
  var mk=function(id,obj,group){var el=document.getElementById(id);if(!el)return;el.innerHTML=Object.keys(obj).map(function(k,i){return '<div class="chip'+(VL[group]===k?' selected':'')+'" data-group="vl-'+group+'" data-value="'+k+'" onclick="videoLabChip(this)">'+(group==='env'?VL_ENV_LABEL[k]:group==='camera'?VL_CAMERA_LABEL[k]:group==='realism'?VL_REALISM_LABEL[k]:VL_MOTION_LABEL[k])+'</div>';}).join('');};
  mk('vl-env-chips',VL_ENV,'env');mk('vl-camera-chips',VL_CAMERA,'camera');mk('vl-realism-chips',VL_REALISM,'realism');mk('vl-motion-chips',VL_MOTION,'motion');
+ vlRenderExtraControls();
  videoLabRefreshConcepts();
+ videoLabUpdatePersonalizationUI();
 }
 function videoLabSetFamily(f){VL.family=f;var ks=vlConceptsForFamily(f);if(ks.indexOf(VL.concept)<0)VL.concept=ks[0];document.querySelectorAll('.vl-family').forEach(function(b){b.classList.remove('active')});var btn=Array.from(document.querySelectorAll('.vl-family')).find(function(b){return b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'"+f+"'")!==-1});if(btn)btn.classList.add('active');videoLabRefreshConcepts();}
 function videoLabRefreshConcepts(){var s=document.getElementById('vl-concept-select');if(!s)return;var ks=vlConceptsForFamily(VL.family);s.innerHTML=ks.map(function(k){return '<option value="'+k+'"'+(k===VL.concept?' selected':'')+'>'+VL_CONCEPTS[k].name+'</option>';}).join('');videoLabSetConcept(VL.concept,true);}
 function videoLabSetConcept(k,skip){if(!VL_CONCEPTS[k])return;VL.concept=k;VL.family=VL_CONCEPTS[k].family;if(VL_CONCEPTS[k].force2)VL.frames='2';if(!skip){document.querySelectorAll('[data-group="vl-frames"]').forEach(function(x){x.classList.toggle('selected',x.dataset.value===VL.frames);});}renderVideoPrompt();}
 function videoLabChip(el){var g=el.dataset.group,v=el.dataset.value;document.querySelectorAll('[data-group="'+g+'"]').forEach(function(x){x.classList.remove('selected')});el.classList.add('selected');var key=g.replace('vl-','');VL[key]=v;renderVideoPrompt();}
-function vlImagePrompt(){var c=VL_CONCEPTS[VL.concept];return c.start();}
-function vlEndPrompt(){var c=VL_CONCEPTS[VL.concept];return c.end();}
+function vlImagePrompt(){var c=VL_CONCEPTS[VL.concept];var extra=vlPersonalizationText(false);return c.start()+(extra?' '+extra:'');}
+function vlEndPrompt(){var c=VL_CONCEPTS[VL.concept];var extra=vlPersonalizationText(true);return c.end()+(extra?' '+extra:'');}
 function vlFlowPrompt(){var c=VL_CONCEPTS[VL.concept];var two=VL.frames==='2';return [
  'Create a '+VL.duration+'-second ultra-realistic image-to-video clip for a fashion paid-social ad.',
  two?'Use IMAGE 1 as the exact first frame and IMAGE 2 as the exact intended final frame. Build a physically believable continuous action connecting them. Preserve all identities, garment details, environment and camera logic across the interpolation.':'Use the provided image as absolute visual truth and continue only the action implied by it. Do not redesign the scene.',
  'IDENTITY CRITICAL: the reference t-shirt graphic must remain exactly the same artwork, typography, colors, placement, scale and proportions in every frame. The print is physically bonded to the fabric and may only deform because the real cloth bends, folds, stretches slightly or changes perspective.',
  'Movement direction: '+VL_MOTION[VL.motion]+'.',
+ vlUsesPerson()?('PERSON CONTINUITY: keep exactly the same wearer throughout the clip. '+vlPersonText()+' Never transform the body, change gender/age, alter grooming or restyle the outfit during the transition.'):'',
  c.video,
  'Camera behavior: '+(VL.camera==='oldphone'?'slightly unstable casual phone handling with tiny focus/exposure corrections':VL.camera==='mirrorless'?'restrained handheld or tripod-like movement appropriate to a small real camera; no cinematic crane/dolly':'subtle human handheld movement with natural micro-jitter and tiny reframing only')+'.',
  'Physics: realistic gravity, cloth inertia, friction, hand contact, object collisions and secondary motion. Hands must keep correct anatomy and grip. No floating objects, no rubber fabric, no body morphing, no object duplication, no disappearing items, no sudden relighting, no background warping and no AI-style melting transitions.',
@@ -6615,8 +6739,9 @@ function vlFlowPrompt(){var c=VL_CONCEPTS[VL.concept];var two=VL.frames==='2';re
  ].join('\n\n');}
 function renderVideoLabPrompt(){
  var c=VL_CONCEPTS[VL.concept];if(!c){videoLabInit();return;}
+ videoLabUpdatePersonalizationUI();
  var title=document.getElementById('vl-current-title'),meta=document.getElementById('vl-current-meta'),note=document.getElementById('vl-concept-note');
- if(title)title.textContent=c.name;if(meta)meta.textContent=(VL_FAMILIES[c.family].name)+' · '+VL_RATIO_LABEL()+' · '+VL_REALISM_LABEL[VL.realism]+' · '+VL.duration+'s';if(note)note.textContent=c.note;
+ if(title)title.textContent=c.name;if(meta)meta.textContent=(VL_FAMILIES[c.family].name)+' · '+VL_RATIO_LABEL()+' · '+VL_REALISM_LABEL[VL.realism]+' · '+VL.duration+'s'+(vlUsesPerson()?' · '+VL_PERSON_LABEL[VL.person]+' · '+VL_BODY_LABEL[VL.body]:'');if(note)note.textContent=c.note;
  var a=document.getElementById('vl-image-output'),b=document.getElementById('vl-end-output'),v=document.getElementById('vl-video-output');if(a)a.textContent=vlImagePrompt();if(b)b.textContent=vlEndPrompt();if(v)v.textContent=vlFlowPrompt();
  var end=document.getElementById('vl-end-card');if(end)end.style.display=VL.frames==='2'?'flex':'none';var num=document.getElementById('vl-video-number');if(num)num.textContent=VL.frames==='2'?'03':'02';var help=document.getElementById('vl-video-help');if(help)help.textContent=VL.frames==='2'?'Envie as duas imagens como frame inicial e frame final no Flow.':'Envie a imagem acima no Flow e use este prompt para animá-la.';
  var tip=document.getElementById('vl-frame-tip');if(tip)tip.textContent=VL.frames==='2'?'Modo start/end: gere os dois frames mantendo pessoa, cenário, luz e câmera coerentes.':'Mais simples e confiável: gere a imagem inicial e anime.';
@@ -6625,8 +6750,8 @@ function renderVideoLabPrompt(){
 function VL_RATIO_LABEL(){return VL.ratio==='9:16'?'Vertical 9:16':VL.ratio==='4:5'?'Feed 4:5':VL.ratio==='1:1'?'Quadrado 1:1':'Horizontal 16:9';}
 function videoLabCopy(id,msg){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.textContent).then(function(){toast(msg||'Copiado!')});}
 function videoLabCopyAll(){var arr=['IMAGE 1\n\n'+vlImagePrompt()];if(VL.frames==='2')arr.push('IMAGE 2 / END FRAME\n\n'+vlEndPrompt());arr.push('GOOGLE FLOW\n\n'+vlFlowPrompt());navigator.clipboard.writeText(arr.join('\n\n━━━━━━━━━━━━━━━━━━━━\n\n')).then(function(){toast('Pacote completo copiado!')});}
-function videoLabRandomizeWithinFamily(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));if(VL_CONCEPTS[VL.concept].force2)VL.frames='2';videoLabSyncUI();toast('Nova combinação criada!');}
-function videoLabSurprise(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.family=pick(Object.keys(VL_FAMILIES));VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));VL.ratio=pick(['9:16','9:16','4:5','1:1']);VL.duration=pick(['5','8','8','10']);VL.frames=VL_CONCEPTS[VL.concept].force2?'2':pick(['1','1','2']);videoLabSyncUI();toast('Conceito surpresa criado!');}
+function videoLabRandomizeWithinFamily(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.home=pick(Object.keys(VL_HOME));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));if(vlUsesPerson()){VL.person=pick(['auto','homem','mulher']);VL.age=pick(Object.keys(VL_AGE));VL.traits=pick(Object.keys(VL_TRAITS));VL.body=pick(Object.keys(VL_BODY));VL.grooming=pick(Object.keys(VL_GROOMING));VL.outfit=pick(Object.keys(VL_OUTFIT));}if(VL_CONCEPTS[VL.concept].force2)VL.frames='2';videoLabSyncUI();toast('Nova combinação criada!');}
+function videoLabSurprise(){var pick=function(a){return a[Math.floor(Math.random()*a.length)]};VL.family=pick(Object.keys(VL_FAMILIES));VL.concept=pick(vlConceptsForFamily(VL.family));VL.env=pick(Object.keys(VL_ENV));VL.home=pick(Object.keys(VL_HOME));VL.camera=pick(Object.keys(VL_CAMERA));VL.realism=pick(Object.keys(VL_REALISM));VL.motion=pick(Object.keys(VL_MOTION));VL.ratio=pick(['9:16','9:16','4:5','1:1']);VL.duration=pick(['5','8','8','10']);if(vlUsesPerson()){VL.person=pick(['auto','homem','mulher']);VL.age=pick(Object.keys(VL_AGE));VL.traits=pick(Object.keys(VL_TRAITS));VL.body=pick(Object.keys(VL_BODY));VL.grooming=pick(Object.keys(VL_GROOMING));VL.outfit=pick(Object.keys(VL_OUTFIT));}VL.frames=VL_CONCEPTS[VL.concept].force2?'2':pick(['1','1','2']);videoLabSyncUI();toast('Conceito surpresa criado!');}
 
 
 function syncLegacyVideoUI(){
@@ -6715,7 +6840,7 @@ function randomizeVideoSettings(){
 
 function videoLabSyncUI(){
   videoLabInit();
-  ['frames','env','camera','realism','ratio','duration','motion'].forEach(function(k){
+  ['frames','env','home','person','age','traits','body','grooming','outfit','camera','realism','ratio','duration','motion'].forEach(function(k){
     document.querySelectorAll('[data-group="vl-'+k+'"]').forEach(function(x){
       x.classList.toggle('selected',x.dataset.value===VL[k]);
     });
